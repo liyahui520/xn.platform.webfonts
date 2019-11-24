@@ -24,7 +24,7 @@
           </FormItem>
           <FormItem prop="password">
             <div class="ivu-input-wrapper ivu-input-wrapper-large ivu-input-type">
-              <i class="ivu-icon ivu-icon-ios-locked-outline ivu-input-icon ivu-input-icon-normal" style="left:0"></i>
+              <i class="ivu-icon ivu-icon-ios-lock-outline ivu-input-icon ivu-input-icon-normal" style="left:0"></i>
               <input v-model="loginModel.password" autocomplete="off" spellcheck="false" type="password" :placeholder="L('PasswordPlaceholder')" class="ivu-input ivu-input-large" style="padding-left:32px;padding-right:0">
             </div>
           </FormItem>

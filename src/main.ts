@@ -9,6 +9,7 @@ import Util from './lib/util';
 import SignalRAspNetCoreHelper from './lib/SignalRAspNetCoreHelper';
 Vue.use(iView);
 import store from './store/index';
+import 'lib-flexible'
 Vue.config.productionTip = false;
 import { appRouters,otherRouters} from './router/router';
 if(!abp.utils.getCookieValue('Abp.Localization.CultureName')){
