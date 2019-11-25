@@ -1,9 +1,17 @@
 import Vue, { VNode } from 'vue'
-
 declare module '*.vue' {
-  export default Vue
+   export default Vue
+  // interface Vue{
+  //   $AjaxApi:AxiosInstance
+  // }
 }
-
+// declare module '*' {
+//   interface Vue {
+//     $axios: AxiosInstance
+//     $utils: object
+//     $AjaxApi:object
+//   }
+// }
 declare global {
   namespace JSX {
     // tslint:disable no-empty-interface
@@ -17,4 +25,6 @@ declare global {
   interface Window {
     abp:any
   }
+
+  
 }

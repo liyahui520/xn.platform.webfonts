@@ -1,3 +1,11 @@
+/*
+ * @Author: yhli
+ * @Email: liyahui360@163.com
+ * @Date: 2019-11-25 10:28:08
+ * @Last Modified by: yhli
+ * @Last Modified time: 2019-11-25 11:42:49
+ * @Description: 修改api统一处理
+ */
 import { appRouters, otherRouters } from '../../router/router'
 import Util from '../../lib/util';
 import Vue from 'vue';
@@ -196,8 +204,9 @@ class AppModule implements Module<AppState, any>{
     actions = {
         async login(content: ActionContext<AppState, any>, payload: any) {
            // let rep = await ajax.post("/api/TokenAuth/Authenticate", payload.data);
-           console.log("登录中。。。");
-           let rep = await api.BaseApi.Login(payload.data);
+          // console.log("登录中。。。");
+        //    let rep = await api.BaseApi.Login(payload.data);
+        let rep = await Vue.prototype.$AjaxApi.BaseApi.Login(payload.data);
             var tokenExpireDate = payload.data.rememberMe ? (new Date(new Date().getTime() + 1000 * rep.data.result.expireInSeconds)) : undefined;
             Util.abp.auth.setToken(rep.data.result.accessToken, tokenExpireDate);
             Util.abp.utils.setCookieValue(appconst.authorization.encrptedAuthTokenName, rep.data.result.encryptedAccessToken, tokenExpireDate, Util.abp.appPath)

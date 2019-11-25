@@ -5,6 +5,7 @@ import Tenant from '../entities/tenant'
 import Ajax from '../../lib/ajax'
 import PageResult from '@/store/entities/page-result';
 import ListMutations from './list-mutations'
+import api from '@/lib/api'
 interface TenantState extends ListState<Tenant>{
     editTenant:Tenant;
 }
@@ -20,23 +21,23 @@ class TenantModule extends ListModule<TenantState,any,Tenant>{
     actions={
         async getAll(context:ActionContext<TenantState,any>,payload:any){
             context.state.loading=true;
-            let reponse=await Ajax.get('/api/services/app/Tenant/GetAll',{params:payload.data});
+            let reponse=await api.TenantApi.GetAll({params:payload.data});
             context.state.loading=false;
             let page=reponse.data.result as PageResult<Tenant>;
             context.state.totalCount=page.totalCount;
             context.state.list=page.items;
         },
         async create(context:ActionContext<TenantState,any>,payload:any){
-            await Ajax.post('/api/services/app/Tenant/Create',payload.data);
+            await api.TenantApi.Create(payload.data);
         },
         async update(context:ActionContext<TenantState,any>,payload:any){
-            await Ajax.put('/api/services/app/Tenant/Update',payload.data);
+            await api.TenantApi.Update(payload.data);
         },
         async delete(context:ActionContext<TenantState,any>,payload:any){
-            await Ajax.delete('/api/services/app/Tenant/Delete?Id='+payload.data.id);
+            await api.TenantApi.Delete(payload.data.id);
         },
         async get(context:ActionContext<TenantState,any>,payload:any){
-            let reponse=await Ajax.get('/api/services/app/Tenant/Get?Id='+payload.id);
+            let reponse=await api.TenantApi.Get(payload.id);
             return reponse.data.result as Tenant;
         }
     };

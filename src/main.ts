@@ -9,7 +9,11 @@ import Util from './lib/util';
 import SignalRAspNetCoreHelper from './lib/SignalRAspNetCoreHelper';
 Vue.use(iView);
 import store from './store/index';
-import 'lib-flexible'
+import 'lib-flexible';
+import api from '@/lib/api';
+
+Vue.prototype.$AjaxApi=api;
+// console.log(this.$AjaxApi)
 Vue.config.productionTip = false;
 import { appRouters,otherRouters} from './router/router';
 if(!abp.utils.getCookieValue('Abp.Localization.CultureName')){
@@ -17,7 +21,7 @@ if(!abp.utils.getCookieValue('Abp.Localization.CultureName')){
   abp.utils.setCookieValue('Abp.Localization.CultureName',language,new Date(new Date().getTime() + 5 * 365 * 86400000),abp.appPath);
 }
 
-Ajax.get('/AbpUserConfiguration/GetAll').then(data=>{
+api.BaseApi.GetAll().then(data=>{
   Util.abp=Util.extend(true,Util.abp,data.data.result);
   new Vue({
     render: h => h(App),

@@ -6,6 +6,7 @@ import Role from '../entities/role'
 import Ajax from '../../lib/ajax'
 import PageResult from '@/store/entities/page-result';
 import ListMutations from './list-mutations'
+import api from '@/lib/api'
 
 interface UserState extends ListState<User>{
     editUser:User,
@@ -27,31 +28,31 @@ class UserModule extends ListModule<UserState,any,User>{
     actions={
         async getAll(context:ActionContext<UserState,any>,payload:any){
             context.state.loading=true;
-            let reponse=await Ajax.get('/api/services/app/User/GetAll',{params:payload.data});
+            let reponse=await api.UserApi.GetAll({params:payload.data});
             context.state.loading=false;
             let page=reponse.data.result as PageResult<User>;
             context.state.totalCount=page.totalCount;
             context.state.list=page.items;
         },
         async create(context:ActionContext<UserState,any>,payload:any){
-            await Ajax.post('/api/services/app/User/Create',payload.data);
+            await api.UserApi.Create(payload.data);
         },
         async update(context:ActionContext<UserState,any>,payload:any){
-            await Ajax.put('/api/services/app/User/Update',payload.data);
+            await api.UserApi.Update(payload.data);
         },
         async delete(context:ActionContext<UserState,any>,payload:any){
-            await Ajax.delete('/api/services/app/User/Delete?Id='+payload.data.id);
+            await api.UserApi.Delete(payload.data.id);
         },
         async get(context:ActionContext<UserState,any>,payload:any){
-            let reponse=await Ajax.get('/api/services/app/User/Get?Id='+payload.id);
+            let reponse=await api.UserApi.Get(payload.id);
             return reponse.data.result as User;
         },
         async getRoles(context:ActionContext<UserState,any>){
-            let reponse=await Ajax.get('/api/services/app/User/GetRoles');
+            let reponse=await api.UserApi.GetRoles();
             context.state.roles=reponse.data.result.items as Role[];
         },
         async changeLanguage(context:ActionContext<UserState,any>,payload:any){
-            await Ajax.post('/api/services/app/User/ChangeLanguage',payload.data);
+            await api.UserApi.ChangeLanguage(payload.data);
         }
     };
     mutations={
