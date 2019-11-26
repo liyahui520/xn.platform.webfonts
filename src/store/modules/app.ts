@@ -3,7 +3,7 @@
  * @Email: liyahui360@163.com
  * @Date: 2019-11-25 10:28:08
  * @Last Modified by: yhli
- * @Last Modified time: 2019-11-25 11:42:49
+ * @Last Modified time: 2019-11-26 10:02:16
  * @Description: 修改api统一处理
  */
 import { appRouters, otherRouters } from '../../router/router'
@@ -11,9 +11,7 @@ import Util from '../../lib/util';
 import Vue from 'vue';
 import { Store, Module, ActionContext } from 'vuex'
 import Vuex from 'vuex';
-import ajax from '../../lib/ajax'
 import appconst from '../../lib/appconst'
-import api from '@/lib/api'
 Vue.use(Vuex);
 interface AppState {
     cachePage: Array<any>;

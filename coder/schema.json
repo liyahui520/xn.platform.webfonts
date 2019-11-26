@@ -1,0 +1,36 @@
+{
+    "doc": {
+        "models": {
+            "sooKey": {
+                "test":[
+                    {"name": "测试"}
+                ],
+                "apiT":[
+                {
+                    "title": "菜单",    
+                    "path": "/menu/getMenu",   
+                    "methods": false,
+                    "name": "getMenu",
+                    "state": "getMenu",
+                    "httpMethod": "post",
+                    "IsParam":true,
+                    "IsPage":true,
+                    "IsGet":false,
+                    "GetParam":""
+                },
+                {
+                    "title": "菜单1",    
+                    "path": "/menu/getMenu1",   
+                    "methods": false,
+                    "name": "getMenu1",
+                    "state": "getMenu1",
+                    "httpMethod": "get",
+                    "IsParam":true,
+                    "IsPage":false,
+                    "IsGet":true,
+                    "GetParam":"id"
+                }
+            ]}
+        }
+    }
+}
