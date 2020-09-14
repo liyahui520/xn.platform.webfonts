@@ -5,7 +5,7 @@ const _ = require('lodash')
 // const rm = require('rimraf')
 
 // 引入接口文档
-const SCHEMA = require('./schema.json')
+const SCHEMA = require('./smssend.json')
 const beautify = require('js-beautify').js_beautify
 // 导入生产types模板
 const typesRender = require('./templates/types')

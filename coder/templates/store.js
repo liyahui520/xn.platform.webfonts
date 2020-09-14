@@ -1,7 +1,10 @@
 // store.js文件
 const _ = require('lodash')
 module.exports = _.template(`
+//--------------------------- 代码自动生成开始 ----------------------------------------------------------
 /*! build time: <%=new Date().toLocaleString()%> */
+/*! Author: yhli                                 */
+/*! Email: liyahui360@163.com                    */
 // <%=importTypeArray.join(', ')%>
 import { <%=importTypeArray.join(', ')%> } from '../types'
 import axios from "axios"
@@ -27,4 +30,5 @@ export default {
     <%})%>
   }
 }
+//--------------------------- 代码自动生成结束 ----------------------------------------------------------
 `)

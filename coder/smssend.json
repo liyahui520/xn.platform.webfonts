@@ -2,35 +2,35 @@
     "doc": {
         "models": {
             "sooKey": {
-                "test":[
+                "smsSend":[
                     {"name": "String",
                     "title": "String"
                     }
                 ],
-                "apiT":[
+                "smssend":[
                 {
-                    "title": "菜单",    
-                    "path": "/menu/getMenu",   
+                    "title": "创建短信记录",    
+                    "path": "/api/services/app/SMSService/CreateTask",   
                     "methods": false,
-                    "name": "getMenu",
-                    "state": "getMenu",
+                    "name": "CreateTask",
+                    "state": "CreateTask",
                     "httpMethod": "post",
                     "IsParam":true,
-                    "IsPage":true,
+                    "IsPage":false,
                     "IsGet":false,
                     "GetParam":""
                 },
                 {
-                    "title": "菜单1",    
-                    "path": "/menu/getMenu1",   
+                    "title": "删除短信记录",    
+                    "path": "/api/services/app/SMSService/DeleteTask",   
                     "methods": false,
-                    "name": "getMenu1",
-                    "state": "getMenu1",
+                    "name": "DeleteTask",
+                    "state": "DeleteTask",
                     "httpMethod": "get",
                     "IsParam":true,
                     "IsPage":false,
-                    "IsGet":true,
-                    "GetParam":"id"
+                    "IsGet":false,
+                    "GetParam":""
                 }
             ]}
         }

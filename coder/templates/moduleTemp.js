@@ -1,6 +1,9 @@
 const _ = require('lodash')
 module.exports = _.template(`
+//--------------------------- 代码自动生成开始 ----------------------------------------------------------
 /*! build time: <%=new Date().toLocaleString()%> */
+/*! Author: yhli                                 */
+/*! Email: liyahui360@163.com                    */
 import {Store,Module,ActionContext} from 'vuex'
 import ListModule from './list-module'
 import ListState from './list-state'
@@ -57,4 +60,5 @@ class <%=modelname%>Module extends ListModule<<%=modelname%>State,any,<%=modelna
 }
 const <%=name%>Module=new <%=modelname%>Module();
 export default <%=name%>Module;
+//--------------------------- 代码自动生成结束 ----------------------------------------------------------
 `)

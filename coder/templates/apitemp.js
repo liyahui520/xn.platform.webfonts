@@ -1,7 +1,10 @@
 // store.js文件
 const _ = require('lodash')
 module.exports = _.template(`
+//--------------------------- 代码自动生成 -----------------------------------------------------
 /*! build time: <%=new Date().toLocaleString()%> */ 
+/*! Author: yhli                                 */
+/*! Email: liyahui360@163.com                    */
 import Ajax from '@/lib/ajax'
 // store module
 
@@ -26,5 +29,5 @@ const <%=name%> = {
     <%})%>
 
 }
- 
+//--------------------------- 代码自动生成结束 ----------------------------------------------------------
 `)
