@@ -51,9 +51,15 @@
     class PageConsumptionRequest extends PageRequest{
         keyword: string = '';
         pPetName: string = '';
-        staDateTime: string = '';
-        endDateTime: string = '';
-        cityList: Array = []
+        staDateTime: Date;
+        endDateTime: Date; 
+        pageSize: number;
+        pageIndex: number;
+        orgId: number;
+        sellerId: number;
+        customerNameOrPhone: string; 
+
+
     }
     
     @Component({
@@ -65,7 +71,8 @@
         }
         creationTime:Date[]=[];
         pagerequest:PageConsumptionRequest=new PageConsumptionRequest();
-
+        customerNameOrPhone: "";
+        pPetName: "";
         createModalShow:boolean=false;
         editModalShow:boolean=false;
         get list(){
@@ -88,7 +95,7 @@
         async getpage(){
             
             this.pagerequest.pageSize = this.pageSize
-            this.pagerequest.pageIndex = (this.currentPage-1)*this.pageSize
+            this.pagerequest.pageIndex = this.currentPage;
             if (this.creationTime.length>0) {
                 this.pagerequest.staDateTime=this.creationTime[0];
             }
