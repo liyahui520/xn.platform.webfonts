@@ -16,14 +16,14 @@ declare global {
     }
     var System: System
 }
-import login from '../views/login.vue'
-import home from '../views/home/home.vue'
-import main from '../views/main.vue'
+import login from '@/views/login.vue'
+import home from '@/views/home/home.vue'
+import main from '@/views/main.vue'
 
 export const locking = {
     path: '/locking',
     name: 'locking',
-    component: () => import('../components/lockscreen/components/locking-page.vue')
+    component: () => import('@/components/lockscreen/components/locking-page.vue')
 };
 export const loginRouter: Router = {
     path: '/',
@@ -31,7 +31,7 @@ export const loginRouter: Router = {
     meta: {
         title: 'LogIn'
     },
-    component: () => import('../views/login.vue')
+    component: () => import('@/views/login.vue')
 };
 export const otherRouters: Router = {
     path: '/main',
@@ -40,7 +40,7 @@ export const otherRouters: Router = {
     meta: { title: 'ManageMenu' },
     component: main,
     children: [
-        { path: 'home', meta: { title: 'HomePage' }, name: 'home', component: () => import('../views/home/home.vue') }
+        { path: 'home', meta: { title: 'HomePage' }, name: 'home', component: () => import('@/views/home/home.vue') }
     ]
 }
 export const appRouters: Array<Router> = [{
@@ -51,9 +51,11 @@ export const appRouters: Array<Router> = [{
     icon: '&#xe68a;',
     component: main,
     children: [
-        { path: 'user', permission: 'Pages.Users', meta: { title: 'Users' }, name: 'user', component: () => import('../views/setting/user/user.vue') },
-        { path: 'role', permission: 'Pages.Roles', meta: { title: 'Roles' }, name: 'role', component: () => import('../views/setting/role/role.vue') },
-        { path: 'tenant', permission: 'Pages.Tenants', meta: { title: 'Tenants' }, name: 'tenant', component: () => import('../views/setting/tenant/tenant.vue') }
+        { path: 'user', permission: 'Pages.Users', meta: { title: 'Users' }, name: 'user', component: () => import('@/views/setting/user/user.vue') },
+        { path: 'role', permission: 'Pages.Roles', meta: { title: 'Roles' }, name: 'role', component: () => import('@/views/setting/role/role.vue') },
+        { path: 'consumption', permission: 'Pages.Tenants', meta: { title: 'consumption' }, name: 'consumption', component: () => import('@/views/setting/consumption/consumption.vue') }
+        // { path: 'tenant', permission: 'Pages.Tenants', meta: { title: 'Tenants' }, name: 'tenant', component: () => import('@/views/setting/tenant/tenant.vue') },
+       
     ]
 }]
 export const routers = [

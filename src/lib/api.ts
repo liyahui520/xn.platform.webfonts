@@ -15,10 +15,13 @@ import RoleApi from '@/api/RoleApi'
 import TenantApi from '@/api/TenantApi'
 //用户
 import UserApi from '@/api/UserApi'
+// 消费记录
+import ConsumptionApi from '@/api/ConsumptionApi'
 
 export default {
     BaseApi,
     RoleApi,
     TenantApi,
-    UserApi
+    UserApi,
+    ConsumptionApi
 }
