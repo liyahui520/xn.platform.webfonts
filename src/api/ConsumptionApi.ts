@@ -19,17 +19,10 @@ const ConsumptionApi = {
         return await Ajax.post('/api/services/app/CpaymentsService/GetSellers');
     },
     //创建
-    async Create(params: any){
-        return await Ajax.post('/api/services/app/Role/Create',params);
+    async GetDetail(params: any){
+        return await Ajax.post('/api/services/app/CpaymentsService/GetCpaymentDetalis',params)
     },
-    //更新
-    async Update(params: any){
-        return await Ajax.put("/api/services/app/Role/Update",params);
-    },
-    //根据id删除
-    async Delete(params: any){
-        return await Ajax.delete("/api/services/app/Role/Delete?Id="+params)
-    },
+    
     //
     async Get(params: any){
         return await Ajax.get("/api/services/app/Role/Get?Id="+params)

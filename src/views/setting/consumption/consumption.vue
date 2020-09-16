@@ -24,7 +24,6 @@
                         </Col>
                     </Row>
                     <Row>
-                        <Button @click="create" icon="android-add" type="primary" size="large">{{L('Add')}}</Button>
                         <Button icon="ios-search" type="primary" size="large" @click="getpage" class="toolbar-btn">{{L('Find')}}</Button>
                     </Row>
                 </Form>
@@ -35,8 +34,7 @@
                 </div>
             </div>
         </Card>
-        <add-consumption v-model="createModalShow"  @save-success="getpage"></add-consumption>
-        <edit-consumption v-model="editModalShow"  @save-success="getpage"></edit-consumption>
+        <detail-consumption v-model="detailModalShow"  @save-success="getpage"></detail-consumption>
     </div>
 </template>
 <script lang="ts">
@@ -44,13 +42,12 @@
     import Util from '@/lib/util'
     import AbpBase from '@/lib/abpbase'
     import PageRequest from '@/store/entities/page-request'
-    import AddConsumption from './add_consumption.vue'
-    import EditConsumption from './edit_consumption.vue'
+    import DetailConsumption from './detail_consumption.vue'
    
     class PageConsumptionRequest extends PageRequest{
         pPetName: string = '';
         staDateTime: Date;
-        endDateTime: Date; 
+        endDateTime: Date;
         pageSize: number;
         pageIndex: number;
         orgId: number;
@@ -61,18 +58,17 @@
     }
     
     @Component({
-        components:{AddConsumption,EditConsumption}
+        components:{DetailConsumption}
     })
     export default class Consumptions extends AbpBase{
-        edit(){
-            this.editModalShow=true;
+        detail(){
+            this.detailModalShow=true;
         }
         creationTime:Date[]=[];
         pagerequest:PageConsumptionRequest=new PageConsumptionRequest();
         customerNameOrPhone: "";
         pPetName: "";
-        createModalShow:boolean=false;
-        editModalShow:boolean=false;
+        detailModalShow:boolean=false;
         get list(){
             return this.$store.state.consumption.list;
         };
@@ -81,9 +77,6 @@
         };
         get loading(){
             return this.$store.state.consumption.loading;
-        }
-        create(){
-            this.createModalShow=true;
         }
         pageChange(page:number){
             this.$store.commit('consumption/setCurrentPage',page);
@@ -158,7 +151,7 @@
         },{
             title:this.L('Actions'),
             key:'Actions',
-            width:150,
+            width:80,
             render:(h:any,params:any)=>{
                 return h('div',[
                     h('Button',{
@@ -171,43 +164,16 @@
                         },
                         on:{
                             click:()=>{
-                                this.$store.commit('consumption/edit',params.row);
-                                this.edit();
+                                this.$store.commit('consumption/detail',params.row);
+                                this.detail();
                             }
                         }
-                    },this.L('Edit')),
-                    h('Button',{
-                        props:{
-                            type:'error',
-                            size:'small'
-                        },
-                        on:{
-                            click:async ()=>{
-                                this.$Modal.confirm({
-                                        title:this.L('Tips'),
-                                        content:this.L('DeleteConsumptionsConfirm'),
-                                        okText:this.L('Yes'),
-                                        cancelText:this.L('No'),
-                                        onOk:async()=>{
-                                            await this.$store.dispatch({
-                                                type:'consumption/delete',
-                                                data:params.row
-                                            })
-                                            await this.getpage();
-                                        }
-                                })
-                            }
-                        }
-                    },this.L('Delete'))
+                    },this.L('detail'))
                 ])
             }
         }]
         async created(){
             this.GetSellersAll()
-            // this.getpage();
-            // await this.$store.dispatch({
-            //     type:'consumption/getAllPermissions'
-            // })
         }
     }
 </script>

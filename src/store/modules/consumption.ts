@@ -6,8 +6,8 @@ import Consumption from '../entities/consumption'
 import PageResult from '@/store/entities/page-result';
 import api from '@/lib/api'
 interface ConsumptionState extends ListState<Consumption>{
-    editConsumption:Consumption;
-    permissions:Array<string>;
+    detailConsumption:Consumption;
+    detailList:Array<string>;
     sellerList: Array<string>
 }
 class ConsumptionModule extends ListModule<ConsumptionState,any,Consumption>{
@@ -18,8 +18,8 @@ class ConsumptionModule extends ListModule<ConsumptionState,any,Consumption>{
         list: new Array<Consumption>(),
         sellerList: new Array<Consumption>(),
         loading:false,
-        editConsumption:new Consumption(),
-        permissions:new Array<string>()
+        detailConsumption:new Consumption(),
+        detailList:new Array<string>()
     }
     actions={
         async getAll(context:ActionContext<ConsumptionState,any>,payload:any){
@@ -36,22 +36,9 @@ class ConsumptionModule extends ListModule<ConsumptionState,any,Consumption>{
             console.log(page)
             context.state.sellerList = page.data;
         },
-        async create(context:ActionContext<ConsumptionState,any>,payload:any){
-            await api.ConsumptionApi.Create(payload.data);
-        },
-        async update(context:ActionContext<ConsumptionState,any>,payload:any){
-            await api.ConsumptionApi.Update(payload.data);
-        },
-        async delete(context:ActionContext<ConsumptionState,any>,payload:any){
-            await api.ConsumptionApi.Delete(payload.data.id);
-        },
-        async get(context:ActionContext<ConsumptionState,any>,payload:any){
-            let reponse=await api.ConsumptionApi.Get(payload.id);
-            return reponse.data.result as Consumption;
-        },
-        async getAllPermissions(context:ActionContext<ConsumptionState,any>){
-            let reponse=await api.ConsumptionApi.GetAllPermissions();
-            context.state.permissions=reponse.data.result.items;
+        async GetDetail(context:ActionContext<ConsumptionState,any>){
+            let reponse=await api.ConsumptionApi.GetDetail(payload.data);
+            context.state.detailList=reponse.data.result.items;
         }
     };
     mutations={
@@ -61,8 +48,8 @@ class ConsumptionModule extends ListModule<ConsumptionState,any,Consumption>{
         setPageSize(state:ConsumptionState,pagesize:number){
             state.pageSize=pagesize;
         },
-        edit(state:ConsumptionState,consumption:Consumption){
-            state.editConsumption=consumption;
+        detail(state:ConsumptionState,consumption:Consumption){
+            state.detailConsumption=consumption;
         }
     }
 }
