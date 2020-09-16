@@ -12,7 +12,8 @@
     "abp-web-resources": "^3.8.2",
     "axios": "^0.18.0",
     "famfamfam-flags": "^1.0.0",
-    "iview": "~3.0.0",
+    "font-awesome": "^4.7.0",
+    "iview": "~3.4.1",
     "js-beautify": "^1.10.2",
     "js-cookie": "^2.2.0",
     "lib-flexible": "^0.3.2",
@@ -21,6 +22,7 @@
     "vue-class-component": "^6.0.0",
     "vue-property-decorator": "^7.0.0",
     "vue-router": "^3.0.1",
+    "vue-simple-tree": "^2.3.2",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
@@ -32,8 +34,9 @@
     "@vue/cli-service": "^3.0.4",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
-    "vue-template-compiler": "^2.5.17",
-    "typescript": "^3.0.0"
+    "postcss-import": "^12.0.1",
+    "typescript": "^3.0.0",
+    "vue-template-compiler": "^2.5.17"
   },
   "babel": {
     "presets": [

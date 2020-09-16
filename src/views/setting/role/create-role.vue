@@ -20,9 +20,11 @@
                         </FormItem>
                       </TabPane>
                     <TabPane :label="L('RolePermission')" name="permission">
-                        <CheckboxGroup v-model="role.grantedPermissions">
+                        <!-- <CheckboxGroup v-model="role.grantedPermissions">
                             <Checkbox :label="permission.name" v-for="permission in permissions" :key="permission.name"><span>{{permission.displayName}}</span></Checkbox>
-                        </CheckboxGroup>
+                        </CheckboxGroup> -->
+                         <Tree :data="permissions" ref="tree" show-checkbox @on-check-change="choice"></Tree>
+                         
                     </TabPane>
                 </Tabs>
             </Form>
@@ -37,15 +39,25 @@
     import { Component, Vue,Inject, Prop,Watch } from 'vue-property-decorator';
     import Util from '../../../lib/util'
     import AbpBase from '../../../lib/abpbase'
-    import Role from '@/store/entities/role';
+    import Role from '@/store/entities/role';  
     @Component
-    export default class CreateRole extends AbpBase{
+    export default class CreateRole extends AbpBase{ 
         @Prop({type:Boolean,default:false}) value:boolean;
-        role:Role=new Role();
+        role:Role=new Role(); 
+        
         get permissions(){
             return this.$store.state.role.permissions
         }
         save(){
+            var dataTree=this.$refs.tree.getCheckedAndIndeterminateNodes();
+            let checkedIds=[];
+            this.role.grantedPermissions=[];
+            for(var i=0;i<dataTree.length;i++){
+                checkedIds.push(dataTree[i].name);
+            }
+            this.role.grantedPermissions = checkedIds;
+            console.log("全部值",this.role.grantedPermissions);
+            return
             (this.$refs.roleForm as any).validate(async (valid:boolean)=>{
                 if(valid){
                     if(!this.role.grantedPermissions){
@@ -60,7 +72,7 @@
                     this.$emit('input',false);
                 }
             })
-        }
+        }  
         cancel(){
             (this.$refs.roleForm as any).resetFields();
             this.$emit('input',false);
