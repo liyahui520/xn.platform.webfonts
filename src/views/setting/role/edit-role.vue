@@ -20,9 +20,10 @@
                         </FormItem>
                       </TabPane>
                     <TabPane :label="L('RolePermission')" name="permission">
-                        <CheckboxGroup v-model="role.grantedPermissions">
+                        <!-- <CheckboxGroup v-model="role.grantedPermissions">
                             <Checkbox :label="permission.name" v-for="permission in permissions" :key="permission.name"><span>{{permission.displayName}}</span></Checkbox>
-                        </CheckboxGroup>
+                        </CheckboxGroup> -->
+                          <Tree :data="permissions.items" ref="tree" show-checkbox></Tree>
                     </TabPane>
                 </Tabs>
             </Form>
@@ -38,14 +39,23 @@
     import Util from '../../../lib/util'
     import AbpBase from '../../../lib/abpbase'
     import Role from '@/store/entities/role';
+import store from '../../../store';
     @Component
     export default class EditRole extends AbpBase{
         @Prop({type:Boolean,default:false}) value:boolean;
         role:Role=new Role();
+        updateData={};
         get permissions(){
-            return this.$store.state.role.permissions
-        }
+            return this.$store.state.role.newPermission
+        } 
         save(){
+             var dataTree=this.$refs.tree.getCheckedAndIndeterminateNodes();
+            let checkedIds=[];
+            this.role.grantedPermissions=[];
+            for(var i=0;i<dataTree.length;i++){
+                checkedIds.push(dataTree[i].name);
+            }
+            this.role.grantedPermissions = checkedIds;
             (this.$refs.roleForm as any).validate(async (valid:boolean)=>{
                 if(valid){
                     await this.$store.dispatch({
@@ -72,6 +82,15 @@
         roleRule={
             name:[{required: true,message:this.L('FieldIsRequired',undefined,this.L('RoleName')),trigger: 'blur'}],
             displayName:[{required:true,message:this.L('FieldIsRequired',undefined,this.L('DisplayName')),trigger: 'blur'}]
+        }
+         async created(){ 
+             if(this.role.id!=undefined){
+                await this.$store.dispatch({
+                type:'role/GetUpdatePermissionsById',
+                data: this.role
+            })
+             }
+            
         }
     }
 </script>

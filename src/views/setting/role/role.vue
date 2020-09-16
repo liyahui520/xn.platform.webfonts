@@ -42,8 +42,10 @@
         components:{CreateRole,EditRole}
     })
     export default class Roles extends AbpBase{
-        edit(){
+        edit(row){
+            console.log(row)
             this.editModalShow=true;
+            
         }
 
         pagerequest:PageRoleRequest=new PageRoleRequest();
@@ -105,6 +107,7 @@
             key:'Actions',
             width:150,
             render:(h:any,params:any)=>{
+                if(params.row.isStatic)return "";
                 return h('div',[
                     h('Button',{
                         props:{
@@ -117,7 +120,11 @@
                         on:{
                             click:()=>{
                                 this.$store.commit('role/edit',params.row);
-                                this.edit();
+                                 this.$store.dispatch({
+                                        type:'role/GetUpdatePermissionsById',
+                                        data: 1
+                                    })
+                                this.edit(params.row);
                             }
                         }
                     },this.L('Edit')),

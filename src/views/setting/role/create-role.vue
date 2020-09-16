@@ -23,7 +23,7 @@
                         <!-- <CheckboxGroup v-model="role.grantedPermissions">
                             <Checkbox :label="permission.name" v-for="permission in permissions" :key="permission.name"><span>{{permission.displayName}}</span></Checkbox>
                         </CheckboxGroup> -->
-                         <Tree :data="permissions" ref="tree" show-checkbox @on-check-change="choice"></Tree>
+                         <Tree :data="permissions" ref="tree" show-checkbox></Tree>
                          
                     </TabPane>
                 </Tabs>
@@ -55,9 +55,7 @@
             for(var i=0;i<dataTree.length;i++){
                 checkedIds.push(dataTree[i].name);
             }
-            this.role.grantedPermissions = checkedIds;
-            console.log("全部值",this.role.grantedPermissions);
-            return
+            this.role.grantedPermissions = checkedIds; 
             (this.$refs.roleForm as any).validate(async (valid:boolean)=>{
                 if(valid){
                     if(!this.role.grantedPermissions){

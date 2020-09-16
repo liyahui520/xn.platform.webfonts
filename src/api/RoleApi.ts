@@ -30,6 +30,10 @@ const RoleApi = {
     async Get(params: any){
         return await Ajax.get("/api/services/app/Role/Get?Id="+params)
     },
+    async GetUpdatePermissionsById(params: any){
+        console.log("参数",params)
+        return await Ajax.get("/api/services/app/Role/GetAllPermissionsById?Id="+params)
+    },
     //
     async GetAllPermissions(){
         return await Ajax.get("/api/services/app/Role/getAllPermissions")
