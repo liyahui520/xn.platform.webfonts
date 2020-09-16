@@ -15,8 +15,8 @@ const ConsumptionApi = {
         return await Ajax.post('/api/services/app/CpaymentsService/GetAllCpayments',params);
     },
     //获取宠物列表
-   async GetPetAll (params: any) {
-        return await Ajax.get('/api/services/app/CpaymentsService/GetSellers',{params:params});
+   async GetSellersAll () {
+        return await Ajax.post('/api/services/app/CpaymentsService/GetSellers');
     },
     //创建
     async Create(params: any){

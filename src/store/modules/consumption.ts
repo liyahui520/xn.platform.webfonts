@@ -7,7 +7,8 @@ import PageResult from '@/store/entities/page-result';
 import api from '@/lib/api'
 interface ConsumptionState extends ListState<Consumption>{
     editConsumption:Consumption;
-    permissions:Array<string>
+    permissions:Array<string>;
+    sellerList: Array<string>
 }
 class ConsumptionModule extends ListModule<ConsumptionState,any,Consumption>{
     state={
@@ -15,6 +16,7 @@ class ConsumptionModule extends ListModule<ConsumptionState,any,Consumption>{
         currentPage:1,
         pageSize:10,
         list: new Array<Consumption>(),
+        sellerList: new Array<Consumption>(),
         loading:false,
         editConsumption:new Consumption(),
         permissions:new Array<string>()
@@ -25,8 +27,14 @@ class ConsumptionModule extends ListModule<ConsumptionState,any,Consumption>{
             let reponse=await api.ConsumptionApi.GetAll(payload.data);
             context.state.loading=false;
             let page=reponse.data.result as PageResult<Consumption>;
-            context.state.totalCount=page.totalCount;
-            context.state.list=page.items;
+            context.state.totalCount=page.data[0].pageCount;
+            context.state.list=page.data;
+        },
+        async GetSellersAll(context:ActionContext<ConsumptionState,any>,payload:any){
+            let reponse=await api.ConsumptionApi.GetSellersAll();
+            let page=reponse.data.result as PageResult<Consumption>;
+            console.log(page)
+            context.state.sellerList = page.data;
         },
         async create(context:ActionContext<ConsumptionState,any>,payload:any){
             await api.ConsumptionApi.Create(payload.data);

@@ -6,15 +6,14 @@
                     <Row :gutter="16">
                         <Col span="6">
                             <FormItem :label="L('Keyword')+':'" style="width:100%">
-                                <Input v-model="pagerequest.keyword" :placeholder="L('UserName')+'/'+L('Name')"></Input>
+                                <Input v-model="pagerequest.pPetName" :placeholder="L('UserName')+'/'+L('Name')"></Input>
                             </FormItem>
                         </Col>
                         <Col span="6">
-                            <FormItem :label="L('IsActive')+':'" style="width:100%">
-                                <Select :placeholder="L('Select')" >
-                                    <Option value="All">{{L('All')}}</Option>
-                                    <Option value="Actived">{{L('Actived')}}</Option>
-                                    <Option value="NoActive">{{L('NoActive')}}</Option>
+                            <FormItem :label="L('sellerId')+':'" style="width:100%">
+                                <Select :placeholder="L('Select')" @on-change="isActiveChange" clearable>
+                                    <Option value="-1">{{L('All')}}</Option>
+                                    <Option v-for="item in sellerList" :value="item.id">{{item.name}}</Option>
                                 </Select>
                             </FormItem>
                         </Col>
@@ -49,7 +48,6 @@
     import EditConsumption from './edit_consumption.vue'
    
     class PageConsumptionRequest extends PageRequest{
-        keyword: string = '';
         pPetName: string = '';
         staDateTime: Date;
         endDateTime: Date; 
@@ -78,6 +76,9 @@
         get list(){
             return this.$store.state.consumption.list;
         };
+        get sellerList(){
+            return this.$store.state.consumption.sellerList;
+        };
         get loading(){
             return this.$store.state.consumption.loading;
         }
@@ -92,6 +93,9 @@
             this.$store.commit('consumption/setPageSize',pagesize);
             this.getpage();
         }
+        isActiveChange(val:number){
+            this.pagerequest.sellerId=val
+        }
         async getpage(){
             
             this.pagerequest.pageSize = this.pageSize
@@ -103,13 +107,16 @@
                 this.pagerequest.endDateTime=this.creationTime[1];
             }
             this.pagerequest.orgId = 0
-            this.pagerequest.sellerId = -1
             this.pagerequest.customerNameOrPhone = this.customerNameOrPhone
-            this.pagerequest.pPetName = this.pPetName
             
             await this.$store.dispatch({
                 type:'consumption/getAll',
                 data:this.pagerequest
+            })
+        }
+        async GetSellersAll(){
+            await this.$store.dispatch({
+                type:'consumption/GetSellersAll'
             })
         }
         get pageSize(){
@@ -122,19 +129,32 @@
             return this.$store.state.consumption.currentPage;
         }
         columns=[{
-            title:this.L('OrgName'),
-            key:'name'
+            title:this.L('CustomerName'),
+            key:'customerName'
         },{
-            title:this.L('DisplayName'),
-            key:'displayName'
+            title:this.L('SerialNumber'),
+            key:'serialNumber'
         },{
-            title:this.L('Description'),
-            key:'description'
+            title:this.L('CellPhone'),
+            key:'cellPhone'
         },{
-            title:this.L('IsStatic'),
-            render:(h:any,params:any)=>{
-                return h('span',params.row.isStatic?this.L('Yes'):this.L('No'))
-            }
+            title:this.L('ActulyPayed'),
+            key:'actulyPayed'
+        },{
+            title:this.L('KeepAccountDiffs'),
+            key:'keepAccountDiffs'
+        },{
+            title:this.L('PayedByCashie'),
+            key:'payedByCashie'
+        },{
+            title:this.L('PayedByAccount'),
+            key:'payedByAccount'
+        },{
+            title:this.L('MemberCard'),
+            key:'memberCard'
+        },{
+            title:this.L('PayedByChainMembercard'),
+            key:'payedByChainMembercard'
         },{
             title:this.L('Actions'),
             key:'Actions',
@@ -183,7 +203,8 @@
             }
         }]
         async created(){
-            this.getpage();
+            this.GetSellersAll()
+            // this.getpage();
             // await this.$store.dispatch({
             //     type:'consumption/getAllPermissions'
             // })
