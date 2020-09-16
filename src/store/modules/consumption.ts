@@ -30,15 +30,16 @@ class ConsumptionModule extends ListModule<ConsumptionState,any,Consumption>{
             context.state.totalCount=page.data[0].pageCount;
             context.state.list=page.data;
         },
-        async GetSellersAll(context:ActionContext<ConsumptionState,any>,payload:any){
+        async GetSellersAll(context:ActionContext<ConsumptionState,any>){
             let reponse=await api.ConsumptionApi.GetSellersAll();
             let page=reponse.data.result as PageResult<Consumption>;
             console.log(page)
             context.state.sellerList = page.data;
         },
-        async GetDetail(context:ActionContext<ConsumptionState,any>){
+        async GetDetail(context:ActionContext<ConsumptionState,any>,payload:any){
             let reponse=await api.ConsumptionApi.GetDetail(payload.data);
-            context.state.detailList=reponse.data.result.items;
+            console.log(reponse.data.result.data)
+            context.state.detailList=reponse.data.result.data;
         }
     };
     mutations={

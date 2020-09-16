@@ -1,30 +1,25 @@
 <template>
     <div>
         <Modal
-         title="消费记录详情"
+         :title="L('EditConsumption')"
          :value="value"
-         @on-ok="save"
+         @on-visible-change="visibleChange"
         >
-            <Form ref="consumptionForm"  label-position="top" :rules="consumptionRule" :model="consumption">
-                <Tabs value="detail">
-                    <TabPane :label="L('ConsumptionDetails')" name="detail">
-                        <FormItem :label="L('ConsumptionName')" prop="name">
-                            <Input v-model="consumption.name" readonly></Input>
-                        </FormItem>
-                        <FormItem :label="L('DisplayName')" prop="displayName">
-                            <Input v-model="consumption.displayName" readonly></Input>
-                        </FormItem>
-                        <FormItem :label="L('Description')" prop="description">
-                            <Input v-model="consumption.description" readonly></Input>
-                        </FormItem>
-                      </TabPane>
-                    <TabPane :label="L('ConsumptionPermission')" name="permission">
-                        <CheckboxGroup v-model="consumption.grantedPermissions">
-                            <Checkbox :label="permission.name" v-for="permission in permissions" :key="permission.name"><span>{{permission.displayName}}</span></Checkbox>
-                        </CheckboxGroup>
-                    </TabPane>
-                </Tabs>
-            </Form>
+            <Collapse v-for="item in detailList"  v-model="item.petId" >
+                <Panel :name="item.petId">
+                    {{item.petName}}
+                    <p slot="content" v-for="val in item.cpaymentDetails" >
+                       <p class="df" >
+                           <span>{{val.FeeItemName}}</span>
+                           <span class="text-right">金额：¥{{val.Amount}}   折扣：{{val.DiscountAmount}}</span>
+                        </p>
+                        <p class="df">
+                            <span>数量</span>
+					        <span class="text-right">X {{val.Count}}</span>
+                        </p>
+                    </p>
+                </Panel>
+            </Collapse>
             <div slot="footer">
                 <Button @click="cancel">{{L('Cancel')}}</Button>
             </div>
@@ -35,22 +30,35 @@
     import { Component, Vue,Inject, Prop,Watch } from 'vue-property-decorator';
     import Util from '../../../lib/util'
     import AbpBase from '../../../lib/abpbase'
-    import Consumption from '@/store/entities/consumption';
+    import Consumption from '../../../store/entities/consumption'
     @Component
-    export default class DetailConsumption extends AbpBase{
+    export default class EditConsumption extends AbpBase{
         @Prop({type:Boolean,default:false}) value:boolean;
         consumption:Consumption=new Consumption();
-        get permissions(){
-            return this.$store.state.consumption.permissions
-        }
         cancel(){
-            (this.$refs.consumptionForm as any).resetFields();
             this.$emit('input',false);
         }
-        consumptionRule={
-            name:[{required: true,message:this.L('FieldIsRequired',undefined,this.L('ConsumptionName')),trigger: 'blur'}],
-            displayName:[{required:true,message:this.L('FieldIsRequired',undefined,this.L('DisplayName')),trigger: 'blur'}]
+        get detailList(){
+            return this.$store.state.consumption.detailList;
+        }
+        visibleChange(value:boolean){
+            if(!value){
+                this.$emit('input',value);
+            }else{
+                this.consumption=Util.extend(true,{},this.$store.state.consumption.editConsumption);
+            }
         }
     }
 </script>
+<style scoped>
+.df {
+    display: flex;
+}
+.df span {
+    flex: 1;
+}
+.text-right {
+    text-align: right;
+}
+</style>
 

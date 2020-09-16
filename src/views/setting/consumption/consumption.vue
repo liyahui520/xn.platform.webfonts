@@ -53,21 +53,19 @@
         orgId: number;
         sellerId: number;
         customerNameOrPhone: string; 
-
-
+        detailObj: Object;
     }
     
     @Component({
         components:{DetailConsumption}
     })
     export default class Consumptions extends AbpBase{
-        detail(){
-            this.detailModalShow=true;
-        }
+       
         creationTime:Date[]=[];
         pagerequest:PageConsumptionRequest=new PageConsumptionRequest();
         customerNameOrPhone: "";
         pPetName: "";
+        detailObj: {};
         detailModalShow:boolean=false;
         get list(){
             return this.$store.state.consumption.list;
@@ -77,7 +75,13 @@
         };
         get loading(){
             return this.$store.state.consumption.loading;
-        }
+        };
+        async detail(data){
+            await this.$store.dispatch({
+                type: 'consumption/GetDetail',
+                data: data
+            })
+        };
         pageChange(page:number){
             this.$store.commit('consumption/setCurrentPage',page);
             this.getpage();
@@ -164,8 +168,13 @@
                         },
                         on:{
                             click:()=>{
-                                this.$store.commit('consumption/detail',params.row);
-                                this.detail();
+                                this.detailObj = {
+                                    paymengId: params.row.id
+                                }
+                                console.log(params.row)
+                                this.$store.commit('consumption/detail',this.detailObj);
+                                this.detailModalShow=true;
+                                this.detail(this.detailObj);
                             }
                         }
                     },this.L('detail'))
