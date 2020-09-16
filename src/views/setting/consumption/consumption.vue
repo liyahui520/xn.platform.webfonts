@@ -82,6 +82,10 @@
                 data: data
             })
         };
+        modalShow(row) {
+            console.log(row)
+            this.detailModalShow=true;
+        }
         pageChange(page:number){
             this.$store.commit('consumption/setCurrentPage',page);
             this.getpage();
@@ -173,8 +177,9 @@
                                 }
                                 console.log(params.row)
                                 this.$store.commit('consumption/detail',this.detailObj);
-                                this.detailModalShow=true;
+                                
                                 this.detail(this.detailObj);
+                                this.modalShow(params.row)
                             }
                         }
                     },this.L('detail'))

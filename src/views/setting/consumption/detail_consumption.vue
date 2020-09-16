@@ -5,18 +5,19 @@
          :value="value"
          @on-visible-change="visibleChange"
         >
-            <Collapse v-for="item in detailList"  v-model="item.petId" >
-                <Panel :name="item.petId">
+            <Collapse v-for="item in detailList"  :value=" ''+ item.petId" >
+                <Panel :name="''+item.petId">
                     {{item.petName}}
                     <p slot="content" v-for="val in item.cpaymentDetails" >
-                       <p class="df" >
-                           <span>{{val.FeeItemName}}</span>
-                           <span class="text-right">金额：¥{{val.Amount}}   折扣：{{val.DiscountAmount}}</span>
+                        {{val}}
+                       <!-- <p class="df" >
+                           <span>{{ val.feeItemName}}</span>
+                           <span class="text-right">金额：¥{{val.amount}}   折扣：{{val.discountAmount}}</span>
                         </p>
                         <p class="df">
                             <span>数量</span>
-					        <span class="text-right">X {{val.Count}}</span>
-                        </p>
+					        <span class="text-right">X {{val.count}}</span>
+                        </p> -->
                     </p>
                 </Panel>
             </Collapse>
