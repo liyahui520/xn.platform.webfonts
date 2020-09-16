@@ -11,7 +11,8 @@ Vue.use(iView);
 import store from './store/index';
 import 'lib-flexible';
 import api from '@/lib/api';
-
+import Vuetree from 'vue-simple-tree'
+Vue.use(Vuetree)
 Vue.prototype.$AjaxApi=api;
 // console.log(this.$AjaxApi)
 Vue.config.productionTip = false;
