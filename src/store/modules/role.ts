@@ -7,7 +7,8 @@ import PageResult from '@/store/entities/page-result';
 import api from '@/lib/api'
 interface RoleState extends ListState<Role>{
     editRole:Role;
-    permissions:Array<string>
+    permissions:Array<string>,
+    newPermission: Array<string>
 }
 class RoleModule extends ListModule<RoleState,any,Role>{
     state={
@@ -17,7 +18,8 @@ class RoleModule extends ListModule<RoleState,any,Role>{
         list: new Array<Role>(),
         loading:false,
         editRole:new Role(),
-        permissions:new Array<string>()
+        permissions:new Array<string>(),
+        newPermission:new Array<string>()
     }
     actions={
         async getAll(context:ActionContext<RoleState,any>,payload:any){
@@ -40,6 +42,10 @@ class RoleModule extends ListModule<RoleState,any,Role>{
         async get(context:ActionContext<RoleState,any>,payload:any){
             let reponse=await api.RoleApi.Get(payload.id);
             return reponse.data.result as Role;
+        },
+        async GetUpdatePermissionsById(context:ActionContext<RoleState,any>,payload:number){
+            let reponse=await api.RoleApi.GetUpdatePermissionsById(payload.data);
+            context.state.newPermission= reponse.data.result;
         },
         async getAllPermissions(context:ActionContext<RoleState,any>){
             let reponse=await api.RoleApi.GetAllPermissions();
