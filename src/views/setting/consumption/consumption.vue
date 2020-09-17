@@ -131,35 +131,57 @@
         }
         columns=[{
             title:this.L('CustomerName'),
-            key:'customerName'
+            key:'customerName',
+            fixed:"left"
         },{
             title:this.L('SerialNumber'),
-            key:'serialNumber'
+            key:'serialNumber',
+            fixed:"left"
         },{
             title:this.L('CellPhone'),
-            key:'cellPhone'
+            key:'cellPhone',
+            fixed:"left"
         },{
             title:this.L('ActulyPayed'),
-            key:'actulyPayed'
+            key:'actulyPayed',
+            render:(h:any,params:any)=>{
+                return h("span",'￥'+params.row.actulyPayed.toFixed(2))
+            }
         },{
             title:this.L('KeepAccountDiffs'),
-            key:'keepAccountDiffs'
+            key:'keepAccountDiffs',
+            render:(h:any,params:any)=>{
+                return h("span",'￥'+params.row.keepAccountDiffs.toFixed(2))
+            }
         },{
             title:this.L('PayedByCashie'),
-            key:'payedByCashie'
+            key:'payedByCashie',
+            render:(h:any,params:any)=>{
+                return h("span",'￥'+params.row.payedByCashie.toFixed(2))
+            }
         },{
             title:this.L('PayedByAccount'),
-            key:'payedByAccount'
+            key:'payedByAccount',
+            render:(h:any,params:any)=>{
+                return h("span",'￥'+params.row.payedByAccount.toFixed(2))
+            }
         },{
             title:this.L('MemberCard'),
-            key:'memberCard'
+            key:'memberCard',
+            render:(h:any,params:any)=>{
+                return h("span",'￥'+params.row.memberCard.toFixed(2))
+            }
         },{
             title:this.L('PayedByChainMembercard'),
-            key:'payedByChainMembercard'
+            key:'payedByChainMembercard',
+            render:(h:any,params:any)=>{
+                return h("span",'￥'+params.row.payedByChainMembercard.toFixed(2))
+            }
         },{
             title:this.L('Actions'),
             key:'Actions',
             width:80,
+            fixed:"right",
             render:(h:any,params:any)=>{
                 return h('div',[
                     h('Button',{
