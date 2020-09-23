@@ -5,15 +5,15 @@
          :value="value"
          @on-visible-change="visibleChange"
          :width="'70%'"
-         
+          
         >
             <Collapse v-for="item in detailList"  :value=" ''+ item.petId" :key="item.petId">
                 <Panel :name="''+item.petId">
                    {{L('PetName')}}： {{item.petName}}
                      <p slot="content">  
-                        <Table :loading="loading" :columns="columns" stripe
-                            :highlight-row="true"
-                            :size="'small'" :no-data-text="L('NoDatas')" border :data="item.cpaymentDetails">
+                        <Table :columns="columns" 
+                            
+                            :size="'small'" :row-class-name="rowClassName" :loading="Detailloading" :no-data-text="L('NoDatas')" border :data="item.cpaymentDetails">
                     </Table>
                        <!-- <p class="df" >
                            <span>{{ val.feeItemName}}</span>
@@ -44,8 +44,8 @@
         cancel(){
             this.$emit('input',false);
         }
-          get loading(){
-            return this.$store.state.consumption.loading;
+          get Detailloading(){
+            return this.$store.state.consumption.Detailloading;
         };
         columns=[{
             title:this.L('FeeItemName'),
@@ -69,37 +69,62 @@
         },{
             title:this.L('Amount'),
             key:'amount',
-            width:'62px'
+            width:'62px',
+            render:(h:any,params:any)=>{
+                return h("span",'￥'+params.row.amount.toFixed(2))
+            }
         },{
             title:this.L('CPD_MemberPrice'),
             key:'cpD_MemberPrice',
-            width:'62px'
+            width:'92px',
+            render:(h:any,params:any)=>{
+                return h("span",'￥'+params.row.cpD_MemberPrice.toFixed(2))
+            }
         },{
             title:this.L('DetailTotalAmount'),
             key:'totalAmount',
-            width:'62px'
+            width:'92px',
+            render:(h:any,params:any)=>{
+                return h("span",'￥'+params.row.totalAmount.toFixed(2))
+            }
         },{
             title:this.L('DetailDiscountAmount'),
             key:'discountAmount',
-            width:'62px'
+            width:'92px',
+            render:(h:any,params:any)=>{
+                return h("span",'￥'+params.row.discountAmount.toFixed(2))
+            }
         },{
             title:this.L('ActlyPayed'),
             key:'actlyPayed',
-            width:'62px'
+            width:'92px',
+            render:(h:any,params:any)=>{
+                return h("span",'￥'+params.row.actlyPayed.toFixed(2))
+            }
         },{
             title:this.L('ChargeDatetime'),
             key:'chargeDatetime',
-            width:'162px'
+            width:'162px',
+            render:(h:any,params:any)=>{
+                return h("span", (this as any).$moment(params.row.chargeDatetime).format("YYYY-MM-DD HH:mm"))
+            }
         },{
             title:this.L('ReturnRemark'),
-            key:'remark'
+            key:'remark',
+            width:'82px'
         },{
             title:this.L('DetailSellerName'),
             key:'sellerName',
-            width:'162px'
+            width:'92px'
         },{
             title:this.L('PaymentDetailsStatus'),
-            key:'paymentDetailsStatus'
+            key:'paymentDetailsStatus',
+            render:(h:any,params:any)=>{
+                if(params.row.paymentDetailsStatus==5)
+                return h("span","已退单")
+                else
+                return h("span","已支付")
+            }
         }]
         get detailList(){
             return this.$store.state.consumption.detailList;
@@ -110,6 +135,12 @@
             }else{
                 this.consumption=Util.extend(true,{},this.$store.state.consumption.editConsumption);
             }
+        }
+        rowClassName(row, index){
+            if(row.paymentDetailsStatus==5){
+                return "demo-table-error-row"
+            }
+            return "";
         }
     }
 </script>
@@ -123,5 +154,12 @@
 .text-right {
     text-align: right;
 }
+
 </style>
 
+<style>
+.ivu-table .demo-table-error-row td{
+        background-color: #d5d5d5;
+        color: red;
+    }
+</style>

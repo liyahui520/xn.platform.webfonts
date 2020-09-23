@@ -12,12 +12,16 @@ import store from './store/index';
 import 'lib-flexible';
 import api from '@/lib/api';
 import Vuetree from 'vue-simple-tree'
+import moment from 'moment'
+Vue.prototype.$moment = moment;
 Vue.use(Vuetree)
 Vue.prototype.$AjaxApi=api;
 // console.log(this.$AjaxApi)
 Vue.config.productionTip = false;
 import { appRouters,otherRouters} from './router/router';
+console.log(navigator.language)
 if(!abp.utils.getCookieValue('Abp.Localization.CultureName')){
+  console.log(navigator.language)
   let language=navigator.language;
   abp.utils.setCookieValue('Abp.Localization.CultureName',language,new Date(new Date().getTime() + 5 * 365 * 86400000),abp.appPath);
 }

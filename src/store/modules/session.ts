@@ -16,18 +16,21 @@ class SessionStore implements Module<SessionState,any>{
     }
     actions={
         async init(content:ActionContext<SessionState,any>){
-            // let rep=await ajax.get('/api/services/app/Session/GetCurrentLoginInformations',{
-            //     headers:{
-            //         'Abp.TenantId': util.abp.multiTenancy.getTenantIdCookie()
-            //     }}
-            // );
-            let rep =await api.BaseApi.GetCurrentLoginInformations({
+            let rep=await ajax.get('/api/services/app/Session/GetCurrentLoginInformations',{
                 headers:{
                     'Abp.TenantId': util.abp.multiTenancy.getTenantIdCookie()
-                }});
+                }}
+            ); 
+            // let rep =await api.BaseApi.GetCurrentLoginInformations({
+            //     headers:{
+            //         'Abp.TenantId': util.abp.multiTenancy.getTenantIdCookie()
+            //     }});
             content.state.application=rep.data.result.application;
             content.state.user=rep.data.result.user;
             content.state.tenant=rep.data.result.tenant;
+            util.abp.multiTenancy.deleteTenantOrgId();
+            if(rep.data.result.tenant!=null)
+            util.abp.multiTenancy.setTenantOrgIdCookie(rep.data.result.tenant.tenancyName)
         }
     }
 }

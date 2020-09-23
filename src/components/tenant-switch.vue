@@ -45,7 +45,7 @@ export default class TenantSwitch extends AbpBase{
                 let tenant=await this.$store.dispatch({
                     type:'account/isTenantAvailable',
                     data:{tenancyName:this.changedTenancyName}
-                })
+                }) 
                 switch(tenant.state){
                     case 1:
                         Util.abp.multiTenancy.setTenantIdCookie(tenant.tenantId);

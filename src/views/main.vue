@@ -155,7 +155,7 @@
           }
         }
         handleSubmenuChange (val:string) {
-          // console.log(val)
+           console.log(val)
         }
         beforePush (name:string) {
           if (name === 'accesstest_index') {
@@ -165,7 +165,7 @@
           }
         }
         fullscreenChange (isFullScreen:boolean) {
-                // console.log(isFullScreen);
+                 console.log(isFullScreen);
         }
         @Watch('$route')
         routeChange(to:any){

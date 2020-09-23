@@ -52,6 +52,35 @@
         return parseInt(value);
     }
 
+    abp.multiTenancy.tenantIdCookieOrgId = 'Abp.TenantId.OrgId';
+
+    abp.multiTenancy.setTenantOrgIdCookie = function (OrgId) {
+        if (OrgId) {
+            abp.utils.setCookieValue(
+                abp.multiTenancy.tenantIdCookieOrgId,
+                OrgId.toString(),
+                new Date(new Date().getTime() + 5 * 365 * 86400000), //5 years
+                abp.appPath,
+                abp.domain
+            );
+        } else {
+            abp.utils.deleteCookie(abp.multiTenancy.tenantIdCookieOrgId, abp.appPath);
+        }
+    };
+
+    abp.multiTenancy.deleteTenantOrgId = function(){
+        abp.utils.deleteCookie(abp.multiTenancy.tenantIdCookieOrgId, abp.appPath);
+    }
+
+    abp.multiTenancy.getTenantOrgIdCookie = function () {
+        var value = abp.utils.getCookieValue(abp.multiTenancy.tenantIdCookieOrgId);
+        if (!value) {
+            return null;
+        }
+
+        return parseInt(value);
+    }
+
     /* SESSION */
 
     abp.session = abp.session ||

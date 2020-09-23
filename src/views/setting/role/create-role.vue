@@ -49,7 +49,7 @@
             return this.$store.state.role.permissions
         }
         save(){
-            var dataTree=this.$refs.tree.getCheckedAndIndeterminateNodes();
+            var dataTree=(this.$refs.tree as any).getCheckedAndIndeterminateNodes();
             let checkedIds=[];
             this.role.grantedPermissions=[];
             for(var i=0;i<dataTree.length;i++){

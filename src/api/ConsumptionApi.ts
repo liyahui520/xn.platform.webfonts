@@ -3,7 +3,7 @@
  * @Email: liyahui360@163.com
  * @Date: 2019-11-24 21:26:27
  * @Last Modified by: yhli
- * @Last Modified time: 2019-11-26 10:26:00
+ * @Last Modified time: 2020-09-18 17:15:00
  * @Description: 基础接口提供
  */
 
@@ -15,8 +15,8 @@ const ConsumptionApi = {
         return await Ajax.post('/api/services/app/CpaymentsService/GetAllCpayments',params);
     },
     //获取宠物列表
-   async GetSellersAll () {
-        return await Ajax.post('/api/services/app/CpaymentsService/GetSellers');
+   async GetSellersAll (params: any) {
+        return await Ajax.post('/api/services/app/CpaymentsService/GetSellers?orgId='+params);
     },
     //创建
     async GetDetail(params: any){

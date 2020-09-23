@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="main">
-        <div v-if="!!tenant" class="tenant-title"><a @click="showChangeTenant=true">{{L('CurrentTenant')}}:{{tenant.name}}</a></div>
+        <div v-if="!!tenant" class="tenant-title"><a @click="showChangeTenant=true">{{tenant.name}}</a></div>
         <div v-if="!tenant" class="tenant-title"><a @click="showChangeTenant=true">{{L('NotSelected')}}</a></div>
         <Form ref="loginform" :rules="rules" :model="loginModel">
           <FormItem prop="userNameOrEmailAddress">

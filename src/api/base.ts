@@ -3,7 +3,7 @@
  * @Email: liyahui360@163.com
  * @Date: 2019-11-24 21:26:27
  * @Last Modified by: yhli
- * @Last Modified time: 2019-11-26 10:25:42
+ * @Last Modified time: 2020-09-18 16:46:40
  * @Description: 基础接口提供
  */
 
@@ -24,6 +24,9 @@ const BaseApi = {
     },
     async GetAll(){
         return await Ajax.get("/AbpUserConfiguration/GetAll");
+    },
+    async GetPcliment(){
+        return await Ajax.post("/api/services/app/CpaymentsService/GetPcliment")
     }
 
 }

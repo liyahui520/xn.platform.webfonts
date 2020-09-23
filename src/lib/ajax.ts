@@ -6,6 +6,7 @@ const ajax = axios.create({
     timeout: 30000
 });
 ajax.interceptors.request.use(function (config) {
+    console.log(config)
     if(!!window.abp.auth.getToken()){
         config.headers.common["Authorization"]="Bearer "+window.abp.auth.getToken();
     }
@@ -18,6 +19,7 @@ ajax.interceptors.request.use(function (config) {
 });
 let vm=new Vue({});
 ajax.interceptors.response.use((respon)=>{    
+    console.log(respon)
     return respon
 },(error)=>{
     if(!!error.response&&!!error.response.data.error&&!!error.response.data.error.message&&error.response.data.error.details){

@@ -44,7 +44,7 @@ class RoleModule extends ListModule<RoleState,any,Role>{
             return reponse.data.result as Role;
         },
         async GetUpdatePermissionsById(context:ActionContext<RoleState,any>,payload:number){
-            let reponse=await api.RoleApi.GetUpdatePermissionsById(payload.data);
+            let reponse=await api.RoleApi.GetUpdatePermissionsById((payload as any).data);
             context.state.newPermission= reponse.data.result;
         },
         async getAllPermissions(context:ActionContext<RoleState,any>){

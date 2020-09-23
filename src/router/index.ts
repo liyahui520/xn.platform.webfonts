@@ -9,7 +9,7 @@ import { appRouters,otherRouters} from './router'
 Vue.use(VueRouter);
 
 const RouterConfig = {
-    // mode: 'history',
+    //mode: "history",
     routes: routers
 };
 
