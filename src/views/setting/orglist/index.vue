@@ -6,7 +6,7 @@
                     <Row :gutter="16">
                         <Col span="8">
                             <FormItem :label="L('Keyword')+':'" style="width:100%">
-                                <Input v-model="pagerequest.keyword" :placeholder="L('RoleName')+'/'+L('DisplayName')+'/'+L('Description')"></Input>
+                                <Input v-model="pagerequest.orgName" :placeholder="L('OrgName')"/>
                             </FormItem>
                         </Col>
                     </Row>
@@ -41,7 +41,7 @@
         pagerequest:PageOrgListRequest=new PageOrgListRequest();
 
         get list(){
-            console.log(this.$store.state.orglist.list)
+            console.log("请求的数据为",this.$store.state.orglist.list)
             return this.$store.state.orglist.list;
         };
         get loading(){
@@ -79,26 +79,34 @@
             title:this.L('OrgName'),
             key:'orgName'
         },{
-            title:this.L('Pcli.telephone'),
+            title:this.L('Telephone'),
             key:'telephone'
         },{
-            title:this.L('Pcli.contactName'),
+            title:this.L('ContactName'),
             key:'contactName'
         },{
-            title:this.L('Pcli.userNumber'),
+            title:this.L('UserNumber'),
             key:'userNumber'
         },{
-            title:this.L('Pcli.address'),
+            title:this.L('Address'),
             key:'address'
         },{
-            title:this.L('Pcli.serialNumber'),
+            title:this.L('SerialNumber'),
             key:'serialNumber'
         },{
-            title:this.L('Pcli.smsCount'),
+            title:this.L('SmsCount'),
             key:'smsCount'
         },{
-            title:this.L('Pcli.mainOrg'),
-            key:'mainOrg'
-        }]
+            title:this.L('MainOrg'),
+            key:'mainOrg',
+            render:(h:any,params:any)=>{
+                console.log("行数据为",params.row.mainOrg)
+                return h("span",(params.row.mainOrg?"是":"否"))
+            },
+        }];
+        async created() {
+          console.log("页面加载函数");
+          this.getpage();
+        };
     }
 </script>
