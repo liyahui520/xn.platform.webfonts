@@ -17,11 +17,15 @@ import TenantApi from '@/api/TenantApi'
 import UserApi from '@/api/UserApi'
 // 消费记录
 import ConsumptionApi from '@/api/ConsumptionApi'
+// 机构列表
+import OrgList from '@/api/OrgList'
+
 
 export default {
     BaseApi,
     RoleApi,
     TenantApi,
     UserApi,
-    ConsumptionApi
+    ConsumptionApi,
+    OrgList
 }
