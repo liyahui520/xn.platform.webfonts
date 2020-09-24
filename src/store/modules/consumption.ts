@@ -30,15 +30,15 @@ class ConsumptionModule extends ListModule<ConsumptionState,any,Consumption>{
             context.state.loading=true;
             let reponse=await api.ConsumptionApi.GetAll(payload.data);
             context.state.loading=false;
-            if(reponse.data.result.data.length==0){
+            if(reponse.data.result.length==0){
                 context.state.totalCount=0;
                 context.state.list=[];
                 return
             }
-            let page=reponse.data.result as PageResult<Consumption>;
+            let page=reponse.data.result as Array<Consumption>;
             
-            context.state.totalCount=(page as any).data[0].pageCount;
-            context.state.list=(page as any).data;
+            context.state.totalCount=(page[0] as any).pageCount;
+            context.state.list=page;
         },
         async GetSellersAll(context:ActionContext<ConsumptionState,any>,payload:any){
             let reponse=await api.ConsumptionApi.GetSellersAll(payload.data);
@@ -46,27 +46,28 @@ class ConsumptionModule extends ListModule<ConsumptionState,any,Consumption>{
                 context.state.sellerList=[];
                 return
             }
-            let page=reponse.data.result as PageResult<Consumption>;
+            let page=reponse.data.result as Array<Consumption>;
             console.log(page)
-            context.state.sellerList = (page as any).data;
+            context.state.sellerList = (page as any);
         },
         async GetDetail(context:ActionContext<ConsumptionState,any>,payload:any){
             context.state.Detailloading=true;
             let reponse=await api.ConsumptionApi.GetDetail(payload.data); 
-            if(reponse.data.result==null||reponse.data.result.data.length==0){ 
+            if(reponse.data.result==null||reponse.data.result.length==0){ 
                 context.state.detailList=[];
                 return
             }
             context.state.Detailloading=false;
-            context.state.detailList=reponse.data.result.data;
+            context.state.detailList=reponse.data.result;
         },
         async GetPcliment(context:ActionContext<ConsumptionState,any>){
-            let reponse=await api.BaseApi.GetPcliment(); 
-            if(reponse.data.result==null||reponse.data.result.data.length==0){ 
+            let reponse=await api.OrgList.GetPcliment(); 
+            console.log(reponse)
+            if(reponse.data.result==null||reponse.data.result.length==0){ 
                 context.state.pcliments=[];
                 return
             } 
-            context.state.pcliments=reponse.data.result.data;
+            context.state.pcliments=reponse.data.result;
         }
     };
     mutations={

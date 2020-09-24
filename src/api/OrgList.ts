@@ -2,8 +2,8 @@
  * @Author: cctong
  * @Email: tongchuanchuan@yeah.net
  * @Date: 2020-09-23 
- * @Last Modified by: cctong
- * @Last Modified time: 2020-09-23 17:15:00
+ * @Last Modified by: yhli
+ * @Last Modified time: 2020-09-24 17:20:37
  * @Description: 接口提供
  */
 
@@ -21,6 +21,10 @@ const OrgListApi = {
     //修改机构对应富有的支付码
     async UpdateOrgMerchnoById (params: any) {
         return await Ajax.post('/api/services/app/PClientManagementService/UpdatePClientManagement',params);
+    },
+    //查询所有机构无分页
+    async GetPcliment () {
+        return await Ajax.post('/api/services/app/PClientManagementService/GetPcliment');
     },
    
 }
