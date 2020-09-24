@@ -52,9 +52,8 @@ class ConsumptionModule extends ListModule<ConsumptionState,any,Consumption>{
         },
         async GetDetail(context:ActionContext<ConsumptionState,any>,payload:any){
             context.state.Detailloading=true;
-            let reponse=await api.ConsumptionApi.GetDetail(payload.data);
-            console.log(reponse.data.result.data)
-            if(reponse.data.result.data.length==0){ 
+            let reponse=await api.ConsumptionApi.GetDetail(payload.data); 
+            if(reponse.data.result==null||reponse.data.result.data.length==0){ 
                 context.state.detailList=[];
                 return
             }
@@ -62,9 +61,8 @@ class ConsumptionModule extends ListModule<ConsumptionState,any,Consumption>{
             context.state.detailList=reponse.data.result.data;
         },
         async GetPcliment(context:ActionContext<ConsumptionState,any>){
-            let reponse=await api.BaseApi.GetPcliment();
-            console.log(reponse.data.result.data)
-            if(reponse.data.result.data.length==0){ 
+            let reponse=await api.BaseApi.GetPcliment(); 
+            if(reponse.data.result==null||reponse.data.result.data.length==0){ 
                 context.state.pcliments=[];
                 return
             } 
