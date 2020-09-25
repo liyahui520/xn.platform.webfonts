@@ -6,7 +6,7 @@
                     <Row :gutter="16">
                         <Col span="8">
                             <FormItem :label="L('Keyword')+':'" style="width:100%">
-                                <Input v-model="pagerequest.keyword" :placeholder="L('RoleName')+'/'+L('DisplayName')+'/'+L('Description')"></Input>
+                                <Input v-model="pagerequest.orgName" :placeholder="L('OrgName')"/>
                             </FormItem>
                         </Col>
                     </Row>
@@ -41,7 +41,7 @@
         pagerequest:PageOrgListRequest=new PageOrgListRequest();
 
         get list(){
-            console.log(this.$store.state.orglist.list)
+            console.log("请求的数据为",this.$store.state.orglist.list)
             return this.$store.state.orglist.list;
         };
         get loading(){
@@ -197,5 +197,10 @@
                 ])
             }
         }]
+
+         async created() {
+          console.log("页面加载函数");
+          this.getpage();
+        };
     }
 </script>
