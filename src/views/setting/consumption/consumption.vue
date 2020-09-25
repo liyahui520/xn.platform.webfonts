@@ -38,7 +38,7 @@
                             </FormItem>
                         </Col>
                         <Col span="3">
-                        <Button icon="ios-search" type="primary"  @click="getpage" class="toolbar-btn">{{L('Find')}}</Button>
+                        <Button icon="ios-search" type="primary"  @click="find" class="toolbar-btn">{{L('Find')}}</Button>
                         </Col>
                     </Row> 
                 </Form>
@@ -49,7 +49,7 @@
                 </div>
             </div>
         </Card>
-        <detail-consumption v-model="detailModalShow"  @save-success="getpage"></detail-consumption>
+        <detail-consumption v-model="detailModalShow"  @save-success="find"></detail-consumption>
     </div>
 </template>
 <script lang="ts">
@@ -119,6 +119,10 @@
         isActiveChange(val:number){
             this.pagerequest.sellerId=val
         }
+        async find(){
+             this.$store.commit('consumption/setCurrentPage',1);
+            this.getpage();
+        }
         async getpage(){
             if(!this.tenant){
                 if(!this.pagerequest.orgId){
@@ -129,10 +133,10 @@
             this.pagerequest.pageSize = this.pageSize
             this.pagerequest.pageIndex = this.currentPage;
             if (this.creationTime.length>0) {
-                this.pagerequest.staDateTime=this.creationTime[0];
+                this.pagerequest.staDateTime=(this as any).$moment(this.creationTime[0]).format("YYYY-MM-DD HH:mm");
             }
             if (this.creationTime.length>1) {
-                this.pagerequest.endDateTime=this.creationTime[1];
+                this.pagerequest.endDateTime=(this as any).$moment(this.creationTime[1]).format("YYYY-MM-DD HH:mm");
             }
            // this.pagerequest.orgId = 0
             this.pagerequest.customerNameOrPhone = this.customerNameOrPhone
@@ -334,7 +338,6 @@
         async created(){
             this.pagerequest.sellerId = -1;
             let orgid = Util.abp.multiTenancy.getTenantOrgIdCookie()
-            console.log("11",orgid)
             if(orgid){
             this.GetSellersAll(orgid)
             }else{

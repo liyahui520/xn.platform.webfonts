@@ -42,7 +42,7 @@ class ConsumptionModule extends ListModule<ConsumptionState,any,Consumption>{
         },
         async GetSellersAll(context:ActionContext<ConsumptionState,any>,payload:any){
             let reponse=await api.ConsumptionApi.GetSellersAll(payload.data);
-            if(reponse.data.result.data.length==0){ 
+            if(reponse.data.result.length==0){ 
                 context.state.sellerList=[];
                 return
             }

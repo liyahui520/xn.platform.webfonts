@@ -4,15 +4,20 @@
             <div class="page-body">
                 <Form ref="queryForm" :label-width="90" label-position="left" inline>
                     <Row :gutter="16">
-                        <Col span="8">
-                            <FormItem :label="L('Keyword')+':'" style="width:100%">
+                        <Col span="6">
+                            <FormItem :label="L('OrgId')+':'" style="width:100%">
+                                <Input v-model="pagerequest.id" :placeholder="L('OrgId')"/>
+                            </FormItem>
+                        </Col>
+                        <Col span="6">
+                            <FormItem :label="L('OrgName')+':'" style="width:100%">
                                 <Input v-model="pagerequest.orgName" :placeholder="L('OrgName')"/>
                             </FormItem>
                         </Col>
-                    </Row>
-                    <Row>
-                        <Button icon="ios-search" type="primary" size="large" @click="getpage" class="toolbar-btn">{{L('Find')}}</Button>
-                    </Row>
+                        <Col span="6">
+                           <Button icon="ios-search" type="primary" size="large" @click="find" class="toolbar-btn">{{L('Find')}}</Button>
+                        </Col>
+                    </Row> 
                 </Form>
                 <div class="margin-top-10">
                     <Table :loading="loading" :columns="columns" :no-data-text="L('NoDatas')" border :data="list">
@@ -21,6 +26,7 @@
                 </div>
             </div>
         </Card> 
+        <UpdateFY v-model="detailModalShow"  @save-success="getpage"></UpdateFY>
     </div>
 </template>
 <script lang="ts">
@@ -28,16 +34,17 @@
     import Util from '@/lib/util'
     import AbpBase from '@/lib/abpbase'
     import MyPageRequest from '@/store/entities/mypage-request' 
-   
+   import UpdateFY from './updateFY.vue'
     class PageOrgListRequest extends MyPageRequest{
         id:number;
         orgName:string;
     }
     
     @Component({ 
+        components:{UpdateFY}
     })
     export default class OrgList extends AbpBase{ 
-
+        detailModalShow:boolean=false;
         pagerequest:PageOrgListRequest=new PageOrgListRequest();
 
         get list(){
@@ -65,11 +72,14 @@
                 data:this.pagerequest
             })
         }
+        async find(){ 
+             this.$store.commit('orglist/setCurrentPage',1);
+            this.getpage();
+        }
         get pageSize(){
             return this.$store.state.orglist.pageSize;
         }
-        get totalCount(){
-            console.log(this.$store.state.orglist.totalCount)
+        get totalCount(){ 
             return this.$store.state.orglist.totalCount;
         }
         get currentPage(){
@@ -191,16 +201,20 @@
                         },
                         on:{
                             click:()=>{
+                               this.$store.commit('orglist/detail',params.row);
+                                this.update();
                             }
                         }
                     },this.L('UpdateSHDetails'))
                 ])
             }
         }]
-
+        async update(){
+            this.detailModalShow = true;
+        }
          async created() {
           console.log("页面加载函数");
-          this.getpage();
+          this.find();
         };
     }
 </script>

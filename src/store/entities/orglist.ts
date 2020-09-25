@@ -84,6 +84,6 @@ shopId:string;
 merchno:string;
 WXBindedOrgId:string;
 DiscountRate:DoubleRange;
-MerchnoEntity:Array<MerchnoEntity>;
+merchnoEntity:MerchnoEntity;
 IsMerChno:boolean;
 }
