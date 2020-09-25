@@ -76,29 +76,126 @@
             return this.$store.state.orglist.currentPage;
         }
         columns=[{
+            title:this.L('OrgId'),
+            key:'id',
+            width: 60,
+            fixed:"left",
+        },{
             title:this.L('OrgName'),
-            key:'orgName'
+            key:'orgName',
+            width: 150,
+            fixed:"left",
         },{
-            title:this.L('Pcli.telephone'),
-            key:'telephone'
+            title:this.L('CellPhone'),
+            key:'telephone',
+            width: 100
         },{
-            title:this.L('Pcli.contactName'),
-            key:'contactName'
+            title:this.L('CustomerName'),
+            key:'contactName',
+            width: 100
         },{
-            title:this.L('Pcli.userNumber'),
-            key:'userNumber'
+            title:this.L('UserNumber'),
+            key:'userNumber',
+            width: 90
         },{
-            title:this.L('Pcli.address'),
-            key:'address'
+            title:this.L('Address'),
+            key:'address',
+            width: 320
         },{
-            title:this.L('Pcli.serialNumber'),
-            key:'serialNumber'
+            title:this.L("ActivetDate"),
+            key:'activetDate',
+             render:(h:any,params:any)=>{
+                return h("span",(this as any).$moment(params.row.payedDate).format("YYYY-MM-DD HH:mm"))
+            },
+            width: 150
+        },
+        // {
+        //     title:this.L('Pcli.serialNumber'),
+        //     key:'serialNumber'
+        // },
+        {
+            title:this.L('SmsCount'),
+            key:'smsCount',
+            width: 80
         },{
-            title:this.L('Pcli.smsCount'),
-            key:'smsCount'
+            title:this.L('MainOrg'),
+            key:'mainOrg',
+            render:(h:any,params:any)=>{
+               if(params.row.mainOrg)
+                return h("span","总店")
+                else
+                return h("span","分店")
+            },
+            width: 80
         },{
-            title:this.L('Pcli.mainOrg'),
-            key:'mainOrg'
+            title:this.L('IsMerChno'),
+            key:'isMerChno',
+            render:(h:any,params:any)=>{
+               if(params.row.isMerChno)
+                return h('div',[
+                    h("Tag",{
+                        props:{
+                            color:'green'
+                        }},params.row.merchnoEntity.mchnt_cd)
+                ])
+                else
+                return h("span","未配置")
+            },
+            width: 120
+        },{
+            title:this.L('AddressProvince'),
+            key:'addressProvince',
+            width: 80
+        },{
+            title:this.L('AddressCity'),
+            key:'addressCity',
+            width: 80
+        },{
+            title:this.L('AddressTown'),
+            key:'addressTown',
+            width: 80
+        },{
+            title:this.L('AddressStreet'),
+            key:'addressStreet',
+            width: 150
+        },{
+            title:this.L('NewVersion'),
+            key:'newVersion',
+            width: 120
+        },{
+            title:this.L('OrgState'),
+            key:'orgState',
+            width: 80
+        },{
+            title:this.L('IsBigCustomer'),
+            key:'isBigCustomer',
+            width: 120
+        },{
+            title:this.L('BigCustomerName'),
+            key:'bigCustomerName',
+            width: 120
+        },{
+            title:this.L('Actions'),
+            key:'Actions',
+            width:120,
+            fixed:"right",
+            render:(h:any,params:any)=>{
+                return h('div',[
+                    h('Button',{
+                        props:{
+                            type:'primary',
+                            size:'small'
+                        },
+                        style:{
+                            marginRight:'5px'
+                        },
+                        on:{
+                            click:()=>{
+                            }
+                        }
+                    },this.L('UpdateSHDetails'))
+                ])
+            }
         }]
     }
 </script>
