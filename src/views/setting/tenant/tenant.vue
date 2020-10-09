@@ -143,6 +143,32 @@
                             type:'error',
                             size:'small'
                         },
+                        style:{
+                            marginRight:'5px'
+                        },
+                        on:{
+                            click:async ()=>{
+                                this.$Modal.confirm({
+                                        title:this.L('Tips'),
+                                        content:this.L('DeleteTenantConfirm'),
+                                        okText:this.L('Yes'),
+                                        cancelText:this.L('No'),
+                                        onOk:async()=>{
+                                            await this.$store.dispatch({
+                                                type:'tenant/delete',
+                                                data:params.row
+                                            })
+                                            await this.getpage();
+                                        }
+                                })
+                            }
+                        }
+                    },this.L('Delete')),
+                    h('Button',{
+                        props:{
+                            type:'error',
+                            size:'small'
+                        },
                         on:{
                             click:async ()=>{
                                 this.$Modal.confirm({

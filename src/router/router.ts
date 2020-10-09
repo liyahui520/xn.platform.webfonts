@@ -67,6 +67,16 @@ export const appRouters: Array<Router> = [{
         { path: 'role', permission: 'Pages.Roles', meta: { title: 'Roles' }, name: 'role', component: () => import('@/views/setting/role/role.vue') },
         { path: 'tenant', permission: 'Pages.Tenants', meta: { title: 'Tenants' }, name: 'tenant', component: () => import('@/views/setting/tenant/tenant.vue') }
     ]
+},{
+    path: '/cmem',
+    name: 'cmem',
+    permission: '',
+    meta: { title: 'Cmembers' },
+    icon: '&#xe68a;',
+    component: main,
+    children: [
+        { path: 'cmemberscard', permission: 'Pages.Users', meta: { title: 'Users' }, name: 'cmemberscard', component: () => import('@/views/cmemberscard/index.vue') }
+    ]
 }]
 export const routers = [
     loginRouter,
