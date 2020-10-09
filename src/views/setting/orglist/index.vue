@@ -48,7 +48,6 @@
         pagerequest:PageOrgListRequest=new PageOrgListRequest();
 
         get list(){
-            console.log("请求的数据为",this.$store.state.orglist.list)
             return this.$store.state.orglist.list;
         };
         get loading(){
