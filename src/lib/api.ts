@@ -19,6 +19,8 @@ import UserApi from '@/api/UserApi'
 import ConsumptionApi from '@/api/ConsumptionApi'
 // 机构列表
 import OrgList from '@/api/OrgList'
+//充值信息
+import ChargeHistory from '@/api/ChargeHistory'
 
 import CmembersCard from '@/api/CmembersCardApi'
 
@@ -30,5 +32,6 @@ export default {
     UserApi,
     ConsumptionApi,
     OrgList,
-    CmembersCard
+    CmembersCard,
+    ChargeHistory
 }

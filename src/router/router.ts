@@ -51,7 +51,8 @@ export const appRouters: Array<Router> = [{
     icon: '&#xe68a;',
     component: main,
     children: [
-        { path: 'consumption', permission: 'Pages.Consumption', meta: { title: 'Consumption' }, name: 'consumption', component: () => import('@/views/setting/consumption/consumption.vue') }
+        { path: 'consumption', permission: 'Pages.Consumption', meta: { title: 'Consumption' }, name: 'consumption', component: () => import('@/views/setting/consumption/consumption.vue') },
+        { path: 'chargehistory', permission: 'Pages.ChargeHistory', meta: { title: 'ChargeHistory' }, name: 'chargehistory', component: () => import('@/views/setting/chargehistory/index.vue') }
     ]
 },
 {
