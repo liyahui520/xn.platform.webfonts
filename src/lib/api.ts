@@ -21,7 +21,8 @@ import ConsumptionApi from '@/api/ConsumptionApi'
 import OrgList from '@/api/OrgList'
 //充值信息
 import ChargeHistory from '@/api/ChargeHistory'
-
+//富友支付相关
+import FuYouPay from '@/api/FuYouPay'
 
 export default {
     BaseApi,
@@ -30,5 +31,6 @@ export default {
     UserApi,
     ConsumptionApi,
     OrgList,
-    ChargeHistory
+    ChargeHistory,
+    FuYouPay
 }

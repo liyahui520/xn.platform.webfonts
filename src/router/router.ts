@@ -19,6 +19,7 @@ declare global {
 import login from '@/views/login.vue'
 import home from '@/views/home/home.vue'
 import main from '@/views/main.vue'
+import fuyoupay from '@/views/setting/payment/fuyou/index.vue'
 
 export const locking = {
     path: '/locking',
@@ -32,6 +33,14 @@ export const loginRouter: Router = {
         title: 'LogIn'
     },
     component: () => import('@/views/login.vue')
+};
+export const paymentRouter: Router = {
+    path: '/fuyoupay',
+    name: 'fuyoupay',
+    meta: {
+        title: 'FuYouPay'
+    },
+    component: () => import('@/views/setting/payment/fuyou/index.vue')
 };
 export const otherRouters: Router = {
     path: '/main',
@@ -51,8 +60,9 @@ export const appRouters: Array<Router> = [{
     icon: '&#xe68a;',
     component: main,
     children: [
-        { path: 'consumption', permission: 'Pages.Consumption', meta: { title: 'Consumption' }, name: 'consumption', component: () => import('@/views/setting/consumption/consumption.vue') },
-        { path: 'chargehistory', permission: 'Pages.ChargeHistory', meta: { title: 'ChargeHistory' }, name: 'chargehistory', component: () => import('@/views/setting/chargehistory/index.vue') }
+        { path: 'consumption', permission: 'Pages.Consumption', meta: { title: 'Consumption' }, name: 'consumption', component: () => import('@/views/setting/consumption/consumption.vue') }
+        
+        //,{ path: 'chargehistory', permission: 'Pages.ChargeHistory', meta: { title: 'ChargeHistory' }, name: 'chargehistory', component: () => import('@/views/setting/chargehistory/index.vue') }
     ]
 },
 {
@@ -73,5 +83,6 @@ export const routers = [
     loginRouter,
     locking,
     ...appRouters,
-    otherRouters
+    otherRouters,
+    paymentRouter
 ];

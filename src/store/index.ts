@@ -10,6 +10,8 @@ import tenant from './modules/tenant'
 import consumption from './modules/consumption'
 import orglist from './modules/orglist'
 import chargehistory from './modules/chargehistory'
+import fuyoupay from './modules/fuyoupay'
+
 const store = new Vuex.Store({
     state: {
         //
@@ -29,7 +31,8 @@ const store = new Vuex.Store({
         tenant,
         consumption,
         orglist,
-        chargehistory
+        chargehistory,
+        fuyoupay
     }
 });
 

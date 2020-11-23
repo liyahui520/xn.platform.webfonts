@@ -4,55 +4,78 @@
             <div class="page-body">
                 <Form ref="queryForm" :label-width="90" label-position="left" inline>
                     <Row :gutter="16">
-                        <Col span="6">
-                            <FormItem :label="L('OrgId')+':'" style="width:100%">
-                                <Input v-model="pagerequest.CustomerName" :placeholder="L('OrgId')"/>
+                        <!-- <Col span="5" v-if="!tenant">
+                            <FormItem :label="L('OrgName')+':'" style="width:100%"> 
+                                <Select v-model="pagerequest.orgId" @on-change="onChange" :placeholder="L('OrgName')"  filterable> 
+                                    <Option v-for="item in pcliments" :value="item.id" :label="item.orgName" :key="item.id">
+                                        <span>{{item.orgName}}</span>
+                                        <span style="float:right;color:#ccc">{{item.id}}</span>
+                                        </Option>
+                                </Select>
                             </FormItem>
-                        </Col>
-                        <Col span="6">
-                            <FormItem :label="L('OrgName')+':'" style="width:100%">
-                                <Input v-model="pagerequest.orgName" :placeholder="L('OrgName')"/>
-                            </FormItem>
-                        </Col>
-                        <Col span="6">
-                           <Button icon="ios-search" type="primary" size="large" @click="find" class="toolbar-btn">{{L('Find')}}</Button>
+                        </Col> -->
+                        
+                        <Col span="3">
+                        <Button icon="ios-search" type="primary"  @click="find" class="toolbar-btn">{{L('Find')}}</Button>
                         </Col>
                     </Row> 
                 </Form>
                 <div class="margin-top-10">
-                    <Table :loading="loading" :columns="columns" :no-data-text="L('NoDatas')" border :data="list">
+                    <Table :loading="loading" :row-class-name="rowClassName"  :columns="columns" :no-data-text="L('NoDatas')" border :data="list">
                     </Table>
                     <Page  show-sizer class-name="fengpage" :total="totalCount" class="margin-top-10" @on-change="pageChange" @on-page-size-change="pagesizeChange" :page-size="pageSize" :current="currentPage"></Page>
                 </div>
             </div>
-        </Card> 
-        <!-- <UpdateFY v-model="detailModalShow"  @save-success="getpage"></UpdateFY> -->
+        </Card>
+        <!-- <detail-consumption v-model="detailModalShow"  @save-success="find"></detail-consumption> -->
     </div>
 </template>
 <script lang="ts">
     import { Component, Vue,Inject, Prop,Watch } from 'vue-property-decorator';
     import Util from '@/lib/util'
     import AbpBase from '@/lib/abpbase'
-    import MyPageRequest from '@/store/entities/mypage-request' 
-    class PageChargeHistoryRequest extends MyPageRequest{
-        OrgId:number;
-        CustomerName:string;
-        CellPhone:string;
-        CustomerID:number;
+    import PageRequest from '@/store/entities/page-request'
+    import { dragTable } from '@/lib/dragtable'
+   
+    class PageChargeHistoryRequest {
+        orgId:number;
+        customerName:string;
+        cellPhone:string;
+        customerID:number;
+        pageIndex:number;
+        pageSize:number;
     }
-    
-    // @Component({ 
-    //     components:{UpdateFY}
-    // })
-    export default class ChargeHistory extends AbpBase{ 
-        detailModalShow:boolean=false;
+    @Component({ 
+    })
+    export default class ChargeHistorys extends AbpBase{
+       
         pagerequest:PageChargeHistoryRequest=new PageChargeHistoryRequest();
-
+        detailObj: {};
+        detailModalShow:boolean=false;
         get list(){
             return this.$store.state.chargehistory.list;
         };
+        get sellerList(){
+            return this.$store.state.chargehistory.sellerList;
+        };
         get loading(){
             return this.$store.state.chargehistory.loading;
+        };
+         get pcliments(){
+            if(this.$store.state.chargehistory.pcliments&&this.$store.state.chargehistory.pcliments[0]){
+                this.pagerequest.orgId = this.$store.state.chargehistory.pcliments[0].id;
+                this.GetSellersAll(this.pagerequest.orgId);
+            }
+            return this.$store.state.chargehistory.pcliments;
+        }
+        detail(data){
+            this.$store.dispatch({
+                type: 'chargehistory/GetChargeHistoryAll',
+                data: data
+            })
+        };
+        modalShow(row) { 
+            this.detailModalShow=true;
         }
         pageChange(page:number){
             this.$store.commit('chargehistory/setCurrentPage',page);
@@ -62,55 +85,64 @@
             this.$store.commit('chargehistory/setPageSize',pagesize);
             this.getpage();
         }
-        async getpage(){
-            console.log("页面加载时是否会执行")
-            this.pagerequest.pageSize=this.pageSize;
-            this.pagerequest.pageIndex=this.currentPage;
-            
-            await this.$store.dispatch({
+        find(){
+             this.$store.commit('chargehistory/setCurrentPage',1);
+            this.getpage();
+        }
+        getpage(){
+            this.$store.dispatch({
                 type:'chargehistory/GetChargeHistoryAll',
                 data:this.pagerequest
             })
         }
-        async find(){ 
-            console.log("此处是find方法")
-             this.$store.commit('chargehistory/setCurrentPage',1);
-            this.getpage();
+        GetSellersAll(data){
+            this.$store.dispatch({
+                type:'chargehistory/GetChargeHistoryAll',
+                data:data
+            })
+        }
+        get tenant(){
+            return this.$store.state.session.tenant;
         }
         get pageSize(){
             return this.$store.state.chargehistory.pageSize;
         }
-        get totalCount(){ 
+        get totalCount(){
             return this.$store.state.chargehistory.totalCount;
         }
         get currentPage(){
             return this.$store.state.chargehistory.currentPage;
         }
         columns=[{
-            title:this.L('OrgId'),
-            key:'id',
-            width: 60,
-            fixed:"left",
-        },{
             title:this.L('OrgName'),
             key:'orgName',
-            width: 150,
             fixed:"left",
-        },{
-            title:this.L('CellPhone'),
-            key:'telephone',
-            width: 100
+            width:"80px"
         },{
             title:this.L('CustomerName'),
-            key:'contactName',
-            width: 100
+            key:'customerName',
+            fixed:"left",
+            width:"110px"
         }]
-        async update(){
-            this.detailModalShow = true;
-        };
-         async created() {
-          console.log("页面加载函数");
-          this.find();
-        };
+        created(){
+            this.find()
+        }
+        rowClassName(row, index){
+            if(row.paymentStatus==5){
+                return "demo-table-error-row"
+            }
+            return "";
+        } 
+        onChange(val:number){  
+            if(val>0)
+                    this.GetSellersAll(val) 
+            }
+
     }
 </script>
+<style>
+.ivu-table .demo-table-error-row td{
+        background-color: #d5d5d5;
+        color: red;
+    }
+</style>

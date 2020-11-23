@@ -1,5 +1,6 @@
 import Entity from './entity'
 
+
 export default class ChargeHistory extends Entity<number>{
     OrgId:string;
     CustomerID:number;
