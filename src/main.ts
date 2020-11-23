@@ -1,3 +1,5 @@
+ 
+import '@babel/polyfill'
 import Vue from 'vue';
 import App from './app.vue';
 import iView from 'iview';
@@ -15,7 +17,7 @@ import Vuetree from 'vue-simple-tree'
 import moment from 'moment'
 Vue.prototype.$moment = moment;
 Vue.use(Vuetree)
-Vue.prototype.$AjaxApi=api;
+Vue.prototype.$AjaxApi=api; 
 // console.log(this.$AjaxApi)
 Vue.config.productionTip = false;
 import { appRouters,otherRouters} from './router/router';

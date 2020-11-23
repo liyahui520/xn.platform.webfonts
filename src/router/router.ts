@@ -33,6 +33,14 @@ export const loginRouter: Router = {
     },
     component: () => import('@/views/login.vue')
 };
+export const homeRouter: Router = {
+    path: '/home',
+    name: 'home',
+    meta: {
+        title: 'home'
+    },
+    component: () => import('@/views/index.vue')
+};
 export const otherRouters: Router = {
     path: '/main',
     name: 'main',
@@ -66,7 +74,8 @@ export const appRouters: Array<Router> = [{
         { path: 'orglist', permission: 'Pages.Orglist', meta: { title: 'Orglist' }, name: 'orglist', component: () => import('@/views/setting/orglist/index.vue') },
         { path: 'user', permission: 'Pages.Users', meta: { title: 'Users' }, name: 'user', component: () => import('@/views/setting/user/user.vue') },
         { path: 'role', permission: 'Pages.Roles', meta: { title: 'Roles' }, name: 'role', component: () => import('@/views/setting/role/role.vue') },
-        { path: 'tenant', permission: 'Pages.Tenants', meta: { title: 'Tenants' }, name: 'tenant', component: () => import('@/views/setting/tenant/tenant.vue') }
+        { path: 'tenant', permission: 'Pages.Tenants', meta: { title: 'Tenants' }, name: 'tenant', component: () => import('@/views/setting/tenant/tenant.vue') },
+        { path: 'hangfre', permission: 'Pages.Tenants', meta: { title: 'hangfre' }, name: 'hangfre', component: () => import('@/views/hangfire/hangfire.vue') }
     ]
 },{
     path: '/cmem',
@@ -83,5 +92,6 @@ export const routers = [
     loginRouter,
     locking,
     ...appRouters,
-    otherRouters
+    otherRouters,
+    homeRouter
 ];

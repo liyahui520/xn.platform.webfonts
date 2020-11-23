@@ -295,6 +295,24 @@ class Util{
         }　　
         return m;
     }
+    /**
+ * 嵌套页面IFrame模块
+ */
+
+/**
+ * 嵌套页面URL地址
+ * @param {*} url
+ */
+getIFrameUrl (url) {
+    let iframeUrl = ''
+    if(/^iframe:.*/.test(url)) {
+      iframeUrl = url.replace('iframe:', '')
+    } else if(/^http[s]?:\/\/.*/.test(url)) {
+      iframeUrl = url.replace('http://', '')
+      iframeUrl = iframeUrl.replace('https://', '')
+    }
+    return iframeUrl
+  }
 }
 const util=new Util();
 export default util;

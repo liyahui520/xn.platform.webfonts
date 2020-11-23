@@ -6,10 +6,11 @@ const ajax = axios.create({
     timeout: 30000
 });
 ajax.interceptors.request.use(function (config) {
-    console.log(config)
+   // console.log(config)
     if(!!window.abp.auth.getToken()){
         config.headers.common["Authorization"]="Bearer "+window.abp.auth.getToken();
     }
+    config.headers.common["X-Frame-Options"]="AllowAll";
     config.headers.common[".AspNetCore.Culture"]=window.abp.utils.getCookieValue("Abp.Localization.CultureName");
     config.headers.common["Abp.TenantId"]=window.abp.multiTenancy.getTenantIdCookie();
     return config;
@@ -19,7 +20,7 @@ ajax.interceptors.request.use(function (config) {
 });
 let vm=new Vue({});
 ajax.interceptors.response.use((respon)=>{    
-    console.log(respon)
+    //console.log(respon)
     return respon
 },(error)=>{
     if(!!error.response&&!!error.response.data.error&&!!error.response.data.error.message&&error.response.data.error.details){
