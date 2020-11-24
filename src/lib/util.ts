@@ -189,6 +189,7 @@ class Util{
         return currentPathArr;
     }
     openNewPage (vm:Vue, name:string|undefined, argu?:any, query?:any) {
+        console.log("此时VM的值为",vm);
         let pageOpenedList = vm.$store.state.app.pageOpenedList;
         let openedPageLen = pageOpenedList.length;
         let i = 0;

@@ -11,6 +11,8 @@ import consumption from './modules/consumption'
 import orglist from './modules/orglist'
 import cmemberscard from './modules/cmemberscard'
 import chargehistory from './modules/chargehistory'
+import fuyoupay from './modules/fuyoupay'
+
 const store = new Vuex.Store({
     state: {
         //
@@ -31,7 +33,8 @@ const store = new Vuex.Store({
         consumption,
         orglist,
         cmemberscard,
-        chargehistory
+        chargehistory,
+        fuyoupay
     }
 });
 

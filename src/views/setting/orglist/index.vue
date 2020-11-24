@@ -39,7 +39,6 @@
         id:number;
         orgName:string;
     }
-    
     @Component({ 
         components:{UpdateFY}
     })
@@ -70,6 +69,18 @@
                 type:'orglist/getAll',
                 data:this.pagerequest
             })
+            // console.log("请求接口之前")
+            // var requestParams={orgId:7990,
+            //                     customerName:"",
+            //                     cellPhone:"",
+            //                     customerID:-1,
+            //                     pageIndex:1,
+            //                     pageSize:10}
+            // await this.$store.dispatch({
+            //     type:'chargehistory/GetChargeHistoryAll',
+            //     data:requestParams
+            // })
+            // console.log("请求接口之后")
         }
         async find(){ 
              this.$store.commit('orglist/setCurrentPage',1);
