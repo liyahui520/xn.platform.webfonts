@@ -23,7 +23,7 @@
           <FormItem>
             <Row>
               <Col span="12">
-                <FormItem label="商户全称">
+                <FormItem label="商户全称" prop="mchnt_name">
                   <Input
                     v-model="formValidate.mchnt_name"
                     title="需与营业执照一致，如遇提示重复，请在后面加数字1、2...，若为小微商户，请命名为 个体户 xxx。"
@@ -33,7 +33,7 @@
                 </FormItem>
               </Col>
               <Col span="12">
-                <FormItem label="商户简称">
+                <FormItem label="商户简称" prop="mchnt_shortname">
                   <Input
                     v-model="formValidate.mchnt_shortname"
                     title="建议和商户门头名称保持一致"
@@ -48,7 +48,7 @@
           <FormItem>
             <Row>
               <Col span="12">
-                <FormItem label="商户真实名称">
+                <FormItem label="商户真实名称" prop="real_name">
                   <Input
                     v-model="formValidate.real_name"
                     title="需与营业执照上相同"
@@ -81,17 +81,17 @@
             <Row>
               <Col span="12">
                 <FormItem label="门脸照片">
-                  <div class="demo-upload-list" v-for="item in uploadList">
+                  <div class="demo-upload-list" v-for="item in doorFaceUploadList" :key="item.url">
                     <template v-if="item.status === 'finished'">
                       <img :src="item.url" />
                       <div class="demo-upload-list-cover">
                         <Icon
                           type="ios-eye-outline"
-                          @click.native="handleView(item.name)"
+                          @click.native="handleDoorFaceView(item.name)"
                         ></Icon>
                         <Icon
                           type="ios-trash-outline"
-                          @click.native="handleRemove(item)"
+                          @click.native="handleDoorFaceRemove(item)"
                         ></Icon>
                       </div>
                     </template>
@@ -104,45 +104,42 @@
                     </template>
                   </div>
                   <Upload
-                    ref="upload"
+                    ref="uploadDoorFace"
+                    accept="['image/jpg']"
                     :show-upload-list="false"
-                    :on-success="handleSuccess"
+                    :on-success="handleDoorFaceSuccess"
                     :format="['jpg']"
                     :max-size="1024"
-                    :on-format-error="handleFormatError"
-                    :on-exceeded-size="handleMaxSize"
-                    :before-upload="handleBeforeUpload"
+                    :on-format-error="handleDoorFaceFormatError"
+                    :on-exceeded-size="handleDoorFaceMaxSize"
+                    :before-upload="handleDoorFaceBeforeUpload"
                     type="drag"
-                    action="http://localhost:21021/api/services/app/FuYouService/PostUpload?fileType=1"
+                    action="http://localhost:21021/api/services/app/FuYouService/PostUpload"
                     style="display: inline-block; width: 58px"
                   >
                     <div style="width: 58px; height: 58px; line-height: 58px">
                       <Icon type="ios-camera" size="20"></Icon>
                     </div>
                   </Upload>
-                  <Modal title="View Image" v-model="visible">
-                    <!-- <img
-                :src="'https://o5wwk8baw.qnssl.com/' + imgName + '/large'"
-                v-if="visible"
-                style="width: 100%"
-              /> -->
+                  <Modal title="门脸照片" v-model="doorFaceVisible">
+                    <img :src="doorFacePath" v-if="doorFaceVisible" style="width: 100%" />
                   </Modal>
                 </FormItem>
               </Col>
               <Col span="12">
               
               <FormItem label="门头照片">
-                  <div class="demo-upload-list" v-for="item in uploadList">
+                  <div class="demo-upload-list" v-for="item in doorHeadUploadList" :key="item.url">
                     <template v-if="item.status === 'finished'">
                       <img :src="item.url" />
                       <div class="demo-upload-list-cover">
                         <Icon
                           type="ios-eye-outline"
-                          @click.native="handleView(item.name)"
+                          @click.native="handleDoorHeadView(item.name)"
                         ></Icon>
                         <Icon
                           type="ios-trash-outline"
-                          @click.native="handleRemove(item)"
+                          @click.native="handleDoorHeadRemove(item)"
                         ></Icon>
                       </div>
                     </template>
@@ -155,28 +152,25 @@
                     </template>
                   </div>
                   <Upload
-                    ref="upload"
+                    ref="uploadDoorHead"
+                    accept="['image/jpg']"
                     :show-upload-list="false"
-                    :on-success="handleSuccess"
-                    :format="['jpg', 'jpeg', 'png']"
+                    :on-success="handleDoorHeadSuccess"
+                    :format="['jpg']"
                     :max-size="1024"
-                    :on-format-error="handleFormatError"
-                    :on-exceeded-size="handleMaxSize"
-                    :before-upload="handleBeforeUpload"
+                    :on-format-error="handleDoorHeadFormatError"
+                    :on-exceeded-size="handleDoorHeadMaxSize"
+                    :before-upload="handleDoorHeadBeforeUpload"
                     type="drag"
-                    action="C:/Users/tongc/Pictures/Saved Pictures"
+                    action="http://localhost:21021/api/services/app/FuYouService/PostUpload"
                     style="display: inline-block; width: 58px"
                   >
                     <div style="width: 58px; height: 58px; line-height: 58px">
                       <Icon type="ios-camera" size="20"></Icon>
                     </div>
                   </Upload>
-                  <Modal title="View Image" v-model="visible">
-                    <!-- <img
-                :src="'https://o5wwk8baw.qnssl.com/' + imgName + '/large'"
-                v-if="visible"
-                style="width: 100%"
-              /> -->
+                  <Modal title="门头照片" v-model="doorHeadVisible">
+                    <img :src="doorHeadPath" v-if="doorHeadVisible" style="width: 100%" />
                   </Modal>
                 </FormItem>
                </Col>
@@ -242,17 +236,17 @@
             <Row>
               <Col span="12">
                 <FormItem label="法人身份证正面照片">
-                  <div class="demo-upload-list" v-for="item in uploadList">
+                  <div class="demo-upload-list" v-for="item in legalPersonPositiveUploadList" :key="item.url">
                     <template v-if="item.status === 'finished'">
                       <img :src="item.url" />
                       <div class="demo-upload-list-cover">
                         <Icon
                           type="ios-eye-outline"
-                          @click.native="handleView(item.name)"
+                          @click.native="handleLegalPersonPositiveView(item.name)"
                         ></Icon>
                         <Icon
                           type="ios-trash-outline"
-                          @click.native="handleRemove(item)"
+                          @click.native="handleLegalPersonPositiveRemove(item)"
                         ></Icon>
                       </div>
                     </template>
@@ -265,45 +259,41 @@
                     </template>
                   </div>
                   <Upload
-                    ref="upload"
+                    ref="uploadLegalPersonPositive"
                     :show-upload-list="false"
-                    :on-success="handleSuccess"
-                    :format="['jpg', 'jpeg', 'png']"
+                    accept="['image/jpg']"
+                    :on-success="handleLegalPersonPositiveSuccess"
+                    :format="['jpg']"
                     :max-size="1024"
-                    :on-format-error="handleFormatError"
-                    :on-exceeded-size="handleMaxSize"
-                    :before-upload="handleBeforeUpload"
+                    :on-format-error="handleLegalPersonPositiveFormatError"
+                    :on-exceeded-size="handleLegalPersonPositiveMaxSize"
+                    :before-upload="handleLegalPersonPositiveBeforeUpload"
                     type="drag"
-                    action="C:/Users/tongc/Pictures/Saved Pictures"
+                    action="http://localhost:21021/api/services/app/FuYouService/PostUpload"
                     style="display: inline-block; width: 58px"
                   >
                     <div style="width: 58px; height: 58px; line-height: 58px">
                       <Icon type="ios-camera" size="20"></Icon>
                     </div>
                   </Upload>
-                  <Modal title="View Image" v-model="visible">
-                    <!-- <img
-                :src="'https://o5wwk8baw.qnssl.com/' + imgName + '/large'"
-                v-if="visible"
-                style="width: 100%"
-              /> -->
+                  <Modal title="法人身份证正面照片" v-model="legalPersonPositiveVisible">
+                    <img :src="legalPersonPositivePath" v-if="legalPersonPositiveVisible" style="width: 100%" />
                   </Modal>
                 </FormItem>
               </Col>
               <Col span="12">
-              
               <FormItem label="法人身份证反面照片">
-                  <div class="demo-upload-list" v-for="item in uploadList">
+                  <div class="demo-upload-list" v-for="item in legalPersonBackUploadList" :key="item.url">
                     <template v-if="item.status === 'finished'">
                       <img :src="item.url" />
                       <div class="demo-upload-list-cover">
                         <Icon
                           type="ios-eye-outline"
-                          @click.native="handleView(item.name)"
+                          @click.native="handleLegalPersonBackView(item.name)"
                         ></Icon>
                         <Icon
                           type="ios-trash-outline"
-                          @click.native="handleRemove(item)"
+                          @click.native="handleLegalPersonBackRemove(item)"
                         ></Icon>
                       </div>
                     </template>
@@ -316,28 +306,25 @@
                     </template>
                   </div>
                   <Upload
-                    ref="upload"
+                    ref="uploadLegalPersonBack"
                     :show-upload-list="false"
-                    :on-success="handleSuccess"
-                    :format="['jpg', 'jpeg', 'png']"
+                    accept="['image/jpg']"
+                    :on-success="handleLegalPersonBackSuccess"
+                    :format="['jpg']"
                     :max-size="1024"
-                    :on-format-error="handleFormatError"
-                    :on-exceeded-size="handleMaxSize"
-                    :before-upload="handleBeforeUpload"
+                    :on-format-error="handleLegalPersonBackFormatError"
+                    :on-exceeded-size="handleLegalPersonBackMaxSize"
+                    :before-upload="handleLegalPersonBackBeforeUpload"
                     type="drag"
-                    action="C:/Users/tongc/Pictures/Saved Pictures"
+                    action="http://localhost:21021/api/services/app/FuYouService/PostUpload"
                     style="display: inline-block; width: 58px"
                   >
                     <div style="width: 58px; height: 58px; line-height: 58px">
                       <Icon type="ios-camera" size="20"></Icon>
                     </div>
                   </Upload>
-                  <Modal title="View Image" v-model="visible">
-                    <!-- <img
-                :src="'https://o5wwk8baw.qnssl.com/' + imgName + '/large'"
-                v-if="visible"
-                style="width: 100%"
-              /> -->
+                  <Modal title="法人身份证反面照片" v-model="legalPersonBackVisible">
+                    <img :src="legalPersonBackPath" v-if="legalPersonBackVisible" style="width: 100%" />
                   </Modal>
                 </FormItem>
                </Col>
@@ -541,17 +528,17 @@
             <Row>
               <Col span="12">
                 <FormItem label="入账银行卡正面照片">
-                  <div class="demo-upload-list" v-for="item in uploadList">
+                  <div class="demo-upload-list" v-for="item in entryBankPositiveUploadList" :key="item.url">
                     <template v-if="item.status === 'finished'">
                       <img :src="item.url" />
                       <div class="demo-upload-list-cover">
                         <Icon
                           type="ios-eye-outline"
-                          @click.native="handleView(item.name)"
+                          @click.native="handleEntryBankPositiveView(item.name)"
                         ></Icon>
                         <Icon
                           type="ios-trash-outline"
-                          @click.native="handleRemove(item)"
+                          @click.native="handleEntryBankPositiveRemove(item)"
                         ></Icon>
                       </div>
                     </template>
@@ -564,34 +551,79 @@
                     </template>
                   </div>
                   <Upload
-                    ref="upload"
+                    ref="uploadEntryBankPositive"
                     :show-upload-list="false"
-                    :on-success="handleSuccess"
-                    :format="['jpg', 'jpeg', 'png']"
+                    accept="['image/jpg']"
+                    :on-success="handleEntryBankPositiveSuccess"
+                    :format="['jpg']"
                     :max-size="1024"
-                    :on-format-error="handleFormatError"
-                    :on-exceeded-size="handleMaxSize"
-                    :before-upload="handleBeforeUpload"
+                    :on-format-error="handleEntryBankPositiveFormatError"
+                    :on-exceeded-size="handleEntryBankPositiveMaxSize"
+                    :before-upload="handleEntryBankPositiveBeforeUpload"
                     type="drag"
-                    action="C:/Users/tongc/Pictures/Saved Pictures"
+                    action="http://localhost:21021/api/services/app/FuYouService/PostUpload"
                     style="display: inline-block; width: 58px"
                   >
                     <div style="width: 58px; height: 58px; line-height: 58px">
                       <Icon type="ios-camera" size="20"></Icon>
                     </div>
                   </Upload>
-                  <Modal title="View Image" v-model="visible">
-                    <!-- <img
-                :src="'https://o5wwk8baw.qnssl.com/' + imgName + '/large'"
-                v-if="visible"
-                style="width: 100%"
-              /> -->
+                  <Modal title="入账银行卡正面照片" v-model="entryBankPositiveVisible">
+                    <img :src="entryBankPositivePath" v-if="entryBankPositiveVisible" style="width: 100%" />
                   </Modal>
                 </FormItem>
               </Col>
-              <Col span="12"> </Col>
+              <Col span="12"> 
+              <FormItem label="手持证件照片">
+                  <div class="demo-upload-list" v-for="item in holdIDUploadList" :key="item.url">
+                    <template v-if="item.status === 'finished'">
+                      <img :src="item.url" />
+                      <div class="demo-upload-list-cover">
+                        <Icon
+                          type="ios-eye-outline"
+                          @click.native="handleHoldIDView(item.name)"
+                        ></Icon>
+                        <Icon
+                          type="ios-trash-outline"
+                          @click.native="handleHoldIDRemove(item)"
+                        ></Icon>
+                      </div>
+                    </template>
+                    <template v-else>
+                      <Progress
+                        v-if="item.showProgress"
+                        :percent="item.percentage"
+                        hide-info
+                      ></Progress>
+                    </template>
+                  </div>
+                  <Upload
+                    ref="uploadHoldID"
+                    :show-upload-list="false"
+                    accept="['image/jpg']"
+                    :on-success="handleHoldIDSuccess"
+                    :format="['jpg']"
+                    :max-size="1024"
+                    :on-format-error="handleHoldIDFormatError"
+                    :on-exceeded-size="handleHoldIDMaxSize"
+                    :before-upload="handleHoldIDBeforeUpload"
+                    type="drag"
+                    action="http://localhost:21021/api/services/app/FuYouService/PostUpload"
+                    style="display: inline-block; width: 58px"
+                  >
+                    <div style="width: 58px; height: 58px; line-height: 58px">
+                      <Icon type="ios-camera" size="20"></Icon>
+                    </div>
+                  </Upload>
+                  <Modal title="手持证件照片" v-model="holdIDVisible">
+                    <img :src="holdIDPath" v-if="holdIDVisible" style="width: 100%" />
+                  </Modal>
+                </FormItem>
+              </Col>
             </Row>
           </FormItem>
+
+          
           <FormItem>
             <Button type="primary" @click="handleSubmit('formValidate')"
               >Submit</Button
@@ -666,11 +698,18 @@ export default class FuYou extends AbpBase {
   bankInfo: Object = Dictionaries.BankInfo;
   liquidationType: Object = Dictionaries.LiquidationType;
   legalPersonMoneyType: Object = Dictionaries.LegalPersonMoneyType;
+
   //验证规则
   ruleValidate: any = {
-    // name: [
-    //   { required: true, message: "The name cannot be empty", trigger: "blur" },
-    // ],
+    mchnt_name: [
+      { required: true, message: "商户全称不能为空", trigger: "blur" },
+    ],
+    mchnt_shortname: [
+      { required: true, message: "商户简称不能为空", trigger: "blur" },
+    ],
+    real_name: [
+      { required: true, message: "商户真实名称不能为空", trigger: "blur" },
+    ],
     // mail: [
     //   { required: true, message: "Mailbox cannot be empty", trigger: "blur" },
     //   { type: "email", message: "Incorrect email format", trigger: "blur" },
@@ -695,32 +734,98 @@ export default class FuYou extends AbpBase {
     //   },
     // ],
   };
+  
+
+
   //图片名称
   imgName: string = "";
-  //是否可见（图片点击）
-  visible: boolean = false;
-  //上传列表
-  uploadList: any = [];
   //文件集合中转变量
   fileListAll: any;
+
+  //#region 门脸变量相关
+  //门脸图片路径
+  doorFacePath:string='';
+  //门脸图片集合
+  doorFaceUploadList:any=[];
+    //是否可见（图片点击）
+  doorFaceVisible: boolean = false;
+//#endregion
+
+//#region 门头变量相关
+  //门头图片路径
+  doorHeadPath:string='';
+  //门头图片集合
+  doorHeadUploadList:any=[];
+      //是否可见（图片点击）
+  doorHeadVisible: boolean = false;
+//#endregion
+
+
+//#region 法人身份证正面照变量相关
+
+  //法人身份证正面照路径
+  legalPersonPositivePath:string='';
+  //法人身份证正面照集合
+  legalPersonPositiveUploadList:any=[];
+  //是否可见（图片点击）
+  legalPersonPositiveVisible: boolean = false;
+//#endregion
+
+
+//#region 法人身份证反面照变量相关
+  //法人身份证反面照路径
+  legalPersonBackPath:string='';
+  //法人身份证反面照集合
+  legalPersonBackUploadList:any=[];
+  //是否可见（图片点击）
+  legalPersonBackVisible: boolean = false;
+
+//#endregion
+
+//#region 入账银行卡正面照片变量相关
+  //入账银行卡正面照片路径
+  entryBankPositivePath:string='';
+  //入账银行卡正面照片集合
+  entryBankPositiveUploadList:any=[];
+  //是否可见（图片点击）
+  entryBankPositiveVisible: boolean = false;
+//#endregion
+  
+
+
+//#region 手持证件照片变量相关
+  //手持证件照片路径
+  holdIDPath:string='';
+  //手持证件照片集合
+  holdIDUploadList:any=[];
+  //是否可见（图片点击）
+  holdIDVisible: boolean = false;
+//#endregion
+  
+
+
+
+//#region  门脸上传相关
+  //门脸上传相关
   //图片预览显示
-  handleView(name) {
+  handleDoorFaceView(name) {
     this.imgName = name;
-    this.visible = true;
+    this.doorFaceVisible = true;
   }
   //删除图片
-  handleRemove(file) {
-    this.fileListAll = this.$refs.upload;
-    const fileList = this.fileListAll.fileList;
-    this.fileListAll.splice(fileList.indexOf(file), 1);
+  handleDoorFaceRemove(file) {
+      this.fileListAll=this.$refs.uploadDoorFace;
+      const fileList = this.fileListAll.fileList;
+      this.doorFaceUploadList.splice(fileList.indexOf(file), 1);
   }
   //上传成功以后
-  handleSuccess(res, file) {
-    file.url = "C://Users//tongc//Pictures//Saved Pictures//avatar";
-    file.name = "7eb99afb9d5f317c912f08b5212fd69a";
+  handleDoorFaceSuccess(res, file) {
+    file.url = res.result.url;
+    file.name = res.result.title;
+    this.doorFacePath=res.result.url;
   }
   //格式化输出上传文件
-  handleFormatError(file) {
+  handleDoorFaceFormatError(file) {
     this.$Notice.warning({
       title: "文件格式错误",
       desc:
@@ -728,30 +833,288 @@ export default class FuYou extends AbpBase {
     });
   }
   //图片上传最大值
-  handleMaxSize(file) {
+  handleDoorFaceMaxSize(file) {
     this.$Notice.warning({
       title: "超出文件大小限制",
       desc: "文件大小不能超过1M",
     });
   }
   //图片上传之前验证
-  handleBeforeUpload(file) {
+  handleDoorFaceBeforeUpload(file) {
     console.log("上传的文件为：",file);
-    const check = this.uploadList.length < 5;
+    var check=this.doorFaceUploadList.length < 1;
     if (!check) {
       this.$Notice.warning({
-        title: "Up to five pictures can be uploaded.",
+        title: "最多可上传一张图片",
       });
     }
     return check;
   }
-  //组件加载完成钩子函数
+
+//#endregion
+
+
+//#region  门头上传相关
+  //门头上传相关
+  //图片预览显示
+  handleDoorHeadView(name) {
+    this.imgName = name;
+    this.doorHeadVisible = true;
+  }
+  //删除图片
+  handleDoorHeadRemove(file) {
+      this.fileListAll=this.$refs.uploadDoorHead;
+      const fileList = this.fileListAll.fileList;
+      this.doorHeadUploadList.splice(fileList.indexOf(file), 1);
+  }
+  //上传成功以后
+  handleDoorHeadSuccess(res, file) {
+    file.url = res.result.url;
+    file.name = res.result.title;
+    this.doorHeadPath=res.result.url;
+  }
+  //格式化输出上传文件
+  handleDoorHeadFormatError(file) {
+    this.$Notice.warning({
+      title: "文件格式错误",
+      desc:
+        "请选择jpg文件上传",
+    });
+  }
+  //图片上传最大值
+  handleDoorHeadMaxSize(file) {
+    this.$Notice.warning({
+      title: "超出文件大小限制",
+      desc: "文件大小不能超过1M",
+    });
+  }
+  //图片上传之前验证
+  handleDoorHeadBeforeUpload(file) {
+    console.log("上传的文件为：",file);
+    var check=this.doorHeadUploadList.length < 1;
+    if (!check) {
+      this.$Notice.warning({
+        title: "最多可上传一张图片",
+      });
+    }
+    return check;
+  }
+  //#endregion
+ 
+ 
+ //#region 法人身份证正面照
+ //图片预览显示  
+//LegalPersonPositive
+  handleLegalPersonPositiveView(name) {
+    this.imgName = name;
+    this.legalPersonPositiveVisible = true;
+  }
+  //删除图片
+  handleLegalPersonPositiveRemove(file) {
+      this.fileListAll=this.$refs.uploadLegalPersonPositive;
+      const fileList = this.fileListAll.fileList;
+      this.legalPersonPositiveUploadList.splice(fileList.indexOf(file), 1);
+  }
+  //上传成功以后
+  handleLegalPersonPositiveSuccess(res, file) {
+    file.url = res.result.url;
+    file.name = res.result.title;
+    this.legalPersonPositivePath=res.result.url;
+  }
+  //格式化输出上传文件
+  handleLegalPersonPositiveFormatError(file) {
+    this.$Notice.warning({
+      title: "文件格式错误",
+      desc:
+        "请选择jpg文件上传",
+    });
+  }
+  //图片上传最大值
+  handleLegalPersonPositiveMaxSize(file) {
+    this.$Notice.warning({
+      title: "超出文件大小限制",
+      desc: "文件大小不能超过1M",
+    });
+  }
+  //图片上传之前验证
+  handleLegalPersonPositiveBeforeUpload(file) {
+    var check=this.legalPersonPositiveUploadList.length < 1;
+    if (!check) {
+      this.$Notice.warning({
+        title: "最多可上传一张图片",
+      });
+    }
+    return check;
+  }
+ //#endregion
+
+  //#region 法人身份证反面照
+
+ handleLegalPersonBackView(name) {
+    this.imgName = name;
+    this.legalPersonBackVisible = true;
+  }
+  //删除图片
+  handleLegalPersonBackRemove(file) {
+      this.fileListAll=this.$refs.uploadLegalPersonBack;
+      const fileList = this.fileListAll.fileList;
+      this.legalPersonBackUploadList.splice(fileList.indexOf(file), 1);
+  }
+  //上传成功以后
+  handleLegalPersonBackSuccess(res, file) {
+    file.url = res.result.url;
+    file.name = res.result.title;
+    this.legalPersonBackPath=res.result.url;
+  }
+  //格式化输出上传文件
+  handleLegalPersonBackFormatError(file) {
+    this.$Notice.warning({
+      title: "文件格式错误",
+      desc:
+        "请选择jpg文件上传",
+    });
+  }
+  //图片上传最大值
+  handleLegalPersonBackMaxSize(file) {
+    this.$Notice.warning({
+      title: "超出文件大小限制",
+      desc: "文件大小不能超过1M",
+    });
+  }
+  //图片上传之前验证
+  handleLegalPersonBackBeforeUpload(file) {
+    var check=this.legalPersonBackUploadList.length < 1;
+    if (!check) {
+      this.$Notice.warning({
+        title: "最多可上传一张图片",
+      });
+    }
+    return check;
+  }
+ //#endregion
+ 
+//#region 入账银行卡正面照片
+
+//图片预览显示
+  handleEntryBankPositiveView(name) {
+    this.imgName = name;
+    this.entryBankPositiveVisible = true;
+  }
+  //删除图片
+  handleEntryBankPositiveRemove(file) {
+      this.fileListAll=this.$refs.uploadEntryBankPositive;
+      const fileList = this.fileListAll.fileList;
+      this.entryBankPositiveUploadList.splice(fileList.indexOf(file), 1);
+  }
+  //上传成功以后
+  handleEntryBankPositiveSuccess(res, file) {
+    file.url = res.result.url;
+    file.name = res.result.title;
+    this.entryBankPositivePath=res.result.url;
+  }
+  //格式化输出上传文件
+  handleEntryBankPositiveFormatError(file) {
+    this.$Notice.warning({
+      title: "文件格式错误",
+      desc:
+        "请选择pdf文件上传",
+    });
+  }
+  //图片上传最大值
+  handleEntryBankPositiveMaxSize(file) {
+    this.$Notice.warning({
+      title: "超出文件大小限制",
+      desc: "文件大小不能超过1M",
+    });
+  }
+  //图片上传之前验证
+  handleEntryBankPositiveBeforeUpload(file) {
+    console.log("上传的文件为：",file);
+    var check=this.entryBankPositiveUploadList.length < 1;
+    if (!check) {
+      this.$Notice.warning({
+        title: "最多可上传一张图片",
+      });
+    }
+    return check;
+  }
+//#endregion
+ 
+ //#region 手持证件照片
+
+//图片预览显示
+  handleHoldIDView(name) {
+    this.imgName = name;
+    this.holdIDVisible = true;
+  }
+  //删除图片
+  handleHoldIDRemove(file) {
+      this.fileListAll=this.$refs.uploadHoldID;
+      const fileList = this.fileListAll.fileList;
+      this.holdIDUploadList.splice(fileList.indexOf(file), 1);
+  }
+  //上传成功以后
+  handleHoldIDSuccess(res, file) {
+    console.log("上传完成以后的值为",this.holdIDUploadList);
+    file.url = res.result.url;
+    file.name = res.result.title;
+    this.holdIDPath=res.result.url;
+  }
+  //格式化输出上传文件
+  handleHoldIDFormatError(file) {
+    this.$Notice.warning({
+      title: "文件格式错误",
+      desc:
+        "请选择pdf文件上传",
+    });
+  }
+  //图片上传最大值
+  handleHoldIDMaxSize(file) {
+    this.$Notice.warning({
+      title: "超出文件大小限制",
+      desc: "文件大小不能超过1M",
+    });
+  }
+  //图片上传之前验证
+  handleHoldIDBeforeUpload(file) {
+    console.log("上传的文件为：",file);
+    var check=this.holdIDUploadList.length < 1;
+    if (!check) {
+      this.$Notice.warning({
+        title: "最多可上传一张图片",
+      });
+    }
+    return check;
+  }
+ //#endregion
+ 
+ //组件加载完成钩子函数
   mounted() {
-    console.log("下拉内容为", this.identityType);
-    console.log(this.formValidate.license_type);
-    console.log(this.formValidate.business);
-    this.fileListAll = this.$refs.upload;
-    this.uploadList = this.fileListAll.fileList;
+    //加载门脸上传
+    this.fileListAll=[];
+    this.fileListAll = this.$refs.uploadDoorFace;
+    this.doorFaceUploadList = this.fileListAll.fileList;
+    //加载门头上传
+    this.fileListAll=[];
+    this.fileListAll= this.$refs.uploadDoorHead;
+    this.doorHeadUploadList = this.fileListAll.fileList;
+    //加载法人身份证正面
+    this.fileListAll=[];
+    this.fileListAll= this.$refs.uploadLegalPersonPositive;
+    this.legalPersonPositiveUploadList = this.fileListAll.fileList;
+    //加载法人身份证反面
+    this.fileListAll=[];
+    this.fileListAll= this.$refs.uploadLegalPersonBack;
+    this.legalPersonBackUploadList = this.fileListAll.fileList;
+
+    //加载入账银行卡正面照片
+    this.fileListAll=[];
+    this.fileListAll= this.$refs.uploadEntryBankPositive;
+    this.entryBankPositiveUploadList = this.fileListAll.fileList;
+    //加载手持证件照片
+    this.fileListAll=[];
+    this.fileListAll= this.$refs.uploadHoldID;
+    this.holdIDUploadList = this.fileListAll.fileList;
   }
   //提交信息
   handleSubmit(name) {
@@ -823,5 +1186,8 @@ export default class FuYou extends AbpBase {
   display: inline-block !important;
   width: 65% !important;
   position: relative !important;
+}
+.ivu-form-item-error-tip{
+  left:120px !important;
 }
 </style>
