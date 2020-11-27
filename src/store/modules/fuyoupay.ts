@@ -21,6 +21,7 @@ class FuYouPayModule extends ListModule<FuYouPayState,any,FuYouPay>{
     actions={
         async SaveFuYouPayInfo(context:ActionContext<FuYouPayState,any>,payload:any){
             context.state.loading=true;
+            console.log("保存富友支付接口");
             let reponse=await api.FuYouPay.SaveFuYouPayInfo(payload.data);
             context.state.loading=false;
 
@@ -40,7 +41,6 @@ class FuYouPayModule extends ListModule<FuYouPayState,any,FuYouPay>{
             context.state.loading=true;
             let reponse=await api.FuYouPay.UploadImage(payload.data);
             context.state.loading=false;
-            console.log("保存富有支付信息返回的内容为",reponse);
             return;
             console.log(reponse.data.result.result.length)
             

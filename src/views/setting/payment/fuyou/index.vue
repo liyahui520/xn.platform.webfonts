@@ -3,16 +3,15 @@
         <div>
       <Card dis-hover>
         <Steps :current="stepValue">
-          <Step title="签署" content="这里是该步骤的描述信息"></Step>
+          <Step title="签署" content="这里是该步骤的描述信息">
+              
+          </Step>
           <Step title="确认" content="这里是该步骤的描述信息"></Step>
           <Step title="完成" content="这里是该步骤的描述信息"></Step>
         </Steps>
+
         <Button type="primary" @click="nextStep">下一步</Button>
-      </Card>
-        </div>
-<div>
-   
-        <Card dis-hover>
+
             <First v-if="stepValue == 0" />
         <Second v-if="stepValue == 1" />
         <Third v-if="stepValue == 2" />
