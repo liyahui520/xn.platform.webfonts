@@ -16,7 +16,8 @@ const FuYouPayApi = {
     },
     //根据客户id获取客户的充值消费信息
     async SaveFuYouPayInfo (params: any) {
-        return await Ajax.post('​/api​/services​/app​/ChargeHistoryService​/GetChargeHistoryByCustormeID',params);
+        console.log("请求的数据为",params)//'/​api/services/app/FuYouService/AddFuYouTask'
+        return await Ajax.post('/api/services/app/FuYouService/AddFuYouTask',params);
     },
    
 }
