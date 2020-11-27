@@ -1,8 +1,7 @@
 <template>
-    <div>
-        <div>
+    <div> 
       <Card dis-hover>
-        <Steps :current="stepValue">
+        <Steps :current="stepValue" direction="horizontal">
           <Step title="签署" content="这里是该步骤的描述信息">
               
           </Step>
@@ -11,15 +10,14 @@
         </Steps>
 
         <Button type="primary" @click="nextStep">下一步</Button>
-
-            <First v-if="stepValue == 0" />
+        
+      <div :height="height-200" :style="style">
+        <First v-if="stepValue == 0" />
         <Second v-if="stepValue == 1" />
         <Third v-if="stepValue == 2" />
-      </Card>
-    
-      
-</div>
-
+        </div>
+        
+      </Card>  
     </div>
 </template>
 
@@ -37,6 +35,21 @@ import Third from "./third.vue";
 })
 export default class FuYou extends AbpBase {
   stepValue: number = 0;
+  
+  height=`${document.documentElement.clientHeight}`;
+  style="overflow: auto;height:"+(parseInt(this.height)-100)+"px";
+
+mounted(){
+  let that = this; 
+     window.onresize = () => {
+        return (() => {
+          console.log("浏览器")
+          let height=`${document.documentElement.clientHeight}`;
+        that.style="overflow: auto;height:"+(parseInt(height)-100)+"px";
+        })();
+      };
+}
+ 
   nextStep() {
     if (this.stepValue == 2) {
       this.stepValue = 0;
@@ -48,27 +61,5 @@ export default class FuYou extends AbpBase {
 </script>
 
 <style scoped>
-.container {
-  overflow: hidden;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  min-height: 100%;
-  background: #f0f2f5;
-}
 
-::-webkit-scrollbar {
-  width: 6px;
-  background-color: #d8d8d8;
-}
-
-/* 滚动槽 */
-::-webkit-scrollbar-track {
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #bfc1c4;
-}
 </style>
