@@ -12648,6 +12648,10 @@ var info = {
     LegalPersonMoneyType:[
         {"ID":"0","Name":"非法人入账"},
         {"ID":"1","Name":"法人入账"}
+    ],
+    //入账证件类型
+    EntryBankIdentityType:[
+        {"ID":"0","Name":"身份证"}
     ]
 }
 

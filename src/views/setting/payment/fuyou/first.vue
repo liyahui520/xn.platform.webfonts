@@ -4,9 +4,9 @@
         ref="formValidate"
         :model="formValidate"
         :rules="ruleValidate"
-        :label-width="120"
+        :label-width="130"
       >
-        <FormItem>
+        <!-- <FormItem>
           <Row>
             <Col span="24">
               <FormItem label="机构号">
@@ -18,7 +18,7 @@
               </FormItem>
             </Col>
           </Row>
-        </FormItem>
+        </FormItem> -->
         <FormItem>
           <Row>
             <Col span="12">
@@ -78,7 +78,7 @@
         <FormItem>
           <Row>
             <Col span="12">
-              <FormItem label="门脸照片">
+              <FormItem label="门脸照片" prop="door_face">
                 <div
                   class="demo-upload-list"
                   v-for="item in doorFaceUploadList"
@@ -116,7 +116,7 @@
                   :on-exceeded-size="handleDoorFaceMaxSize"
                   :before-upload="handleDoorFaceBeforeUpload"
                   type="drag"
-                  action="http://localhost:21021/api/services/app/FuYouService/PostUpload"
+                  action="http://localhost:21021/api/services/app/FuYouService/PostUpload?fileTypeValue=6"
                   style="display: inline-block; width: 58px"
                 >
                   <div style="width: 58px; height: 58px; line-height: 58px">
@@ -133,7 +133,7 @@
               </FormItem>
             </Col>
             <Col span="12">
-              <FormItem label="门头照片">
+              <FormItem label="门头照片" prop="door_head">
                 <div
                   class="demo-upload-list"
                   v-for="item in doorHeadUploadList"
@@ -171,7 +171,7 @@
                   :on-exceeded-size="handleDoorHeadMaxSize"
                   :before-upload="handleDoorHeadBeforeUpload"
                   type="drag"
-                  action="http://localhost:21021/api/services/app/FuYouService/PostUpload"
+                  action="http://localhost:21021/api/services/app/FuYouService/PostUpload?fileTypeValue=7"
                   style="display: inline-block; width: 58px"
                 >
                   <div style="width: 58px; height: 58px; line-height: 58px">
@@ -193,7 +193,7 @@
         <FormItem>
           <Row>
             <Col span="12">
-              <FormItem label="证件号码">
+              <FormItem label="证件号码" prop="license_no">
                 <Input
                   v-model="formValidate.license_no"
                   title="证件号码"
@@ -203,7 +203,7 @@
               </FormItem>
             </Col>
             <Col span="12">
-              <FormItem label="证件到期日">
+              <FormItem label="证件到期日" prop="license_expire_dt">
                 <Input
                   v-model="formValidate.license_expire_dt"
                   :maxlength="8"
@@ -218,7 +218,7 @@
         <FormItem>
           <Row>
             <Col span="12">
-              <FormItem label="法人身份证号">
+              <FormItem label="法人身份证号" prop="certif_id">
                 <Input
                   v-model="formValidate.certif_id"
                   title="法人身份证号"
@@ -228,7 +228,7 @@
               </FormItem>
             </Col>
             <Col span="12">
-              <FormItem label="法人身份证到期日">
+              <FormItem label="法人身份证到期日" prop="certif_id_expire_dt">
                 <Input
                   v-model="formValidate.certif_id_expire_dt"
                   :maxlength="8"
@@ -244,7 +244,7 @@
         <FormItem>
           <Row>
             <Col span="12">
-              <FormItem label="法人身份证正面照片">
+              <FormItem label="法人身份证正面照片" prop="legalperson_positive">
                 <div
                   class="demo-upload-list"
                   v-for="item in legalPersonPositiveUploadList"
@@ -282,7 +282,7 @@
                   :on-exceeded-size="handleLegalPersonPositiveMaxSize"
                   :before-upload="handleLegalPersonPositiveBeforeUpload"
                   type="drag"
-                  action="http://localhost:21021/api/services/app/FuYouService/PostUpload"
+                  action="http://localhost:21021/api/services/app/FuYouService/PostUpload?fileTypeValue=4"
                   style="display: inline-block; width: 58px"
                 >
                   <div style="width: 58px; height: 58px; line-height: 58px">
@@ -302,7 +302,7 @@
               </FormItem>
             </Col>
             <Col span="12">
-              <FormItem label="法人身份证反面照片">
+              <FormItem label="法人身份证反面照片" prop="legalperson_back">
                 <div
                   class="demo-upload-list"
                   v-for="item in legalPersonBackUploadList"
@@ -340,7 +340,7 @@
                   :on-exceeded-size="handleLegalPersonBackMaxSize"
                   :before-upload="handleLegalPersonBackBeforeUpload"
                   type="drag"
-                  action="http://localhost:21021/api/services/app/FuYouService/PostUpload"
+                  action="http://localhost:21021/api/services/app/FuYouService/PostUpload?fileTypeValue=5"
                   style="display: inline-block; width: 58px"
                 >
                   <div style="width: 58px; height: 58px; line-height: 58px">
@@ -365,7 +365,7 @@
         <FormItem>
           <Row>
             <Col span="12">
-              <FormItem label="联系人姓名">
+              <FormItem label="联系人姓名" prop="contact_person">
                 <Input
                   v-model="formValidate.contact_person"
                   title="联系人姓名"
@@ -375,7 +375,7 @@
               </FormItem>
             </Col>
             <Col span="12">
-              <FormItem label="客服电话">
+              <FormItem label="客服电话" prop="contact_phone">
                 <Input
                   v-model="formValidate.contact_phone"
                   title="客服电话，必须纯数字。推荐 400开头电话或11位有效手机号"
@@ -390,7 +390,7 @@
         <FormItem>
           <Row>
             <Col span="12">
-              <FormItem label="商户经营地">
+              <FormItem label="商户经营地" prop="contact_addr" >
                 <Cascader
                   :data="mapList"
                   v-model="address"
@@ -398,11 +398,13 @@
                   clearable
                   style="width: 93%"
                   transfer
+                  :render-format="format"
+                  @on-change="addressChange"
                 ></Cascader>
               </FormItem>
             </Col>
             <Col span="12">
-              <FormItem label="联系电话">
+              <FormItem label="联系电话" prop="contact_mobile">
                 <Input
                   v-model="formValidate.contact_mobile"
                   title="联系电话"
@@ -417,7 +419,7 @@
         <FormItem>
           <Row>
             <Col span="12">
-              <FormItem label="联系邮箱">
+              <FormItem label="联系邮箱" prop="contact_email">
                 <Input
                   v-model="formValidate.contact_email"
                   title="联系邮箱"
@@ -427,8 +429,8 @@
               </FormItem>
             </Col>
             <Col span="12">
-              <FormItem label="入账卡类型">
-                <Select v-model="formValidate.acnt_type" style="width: 60%">
+              <FormItem label="入账卡类型" >
+                <Select v-model="formValidate.acnt_type" style="width: 60%" disabled>
                   <Option
                     v-for="item in acntType"
                     :value="item.ID"
@@ -443,19 +445,36 @@
         <FormItem>
           <Row>
             <Col span="12">
-              <FormItem label="入账卡开户行名称">
-                <Select v-model="formValidate.iss_bank_nm" style="width: 60%">
+              <FormItem label="行别" prop="bank_type">
+                <Select v-model="formValidate.bank_type" style="width: 60%" :label-in-value="true" @on-change="bankChange">
                   <Option
                     v-for="item in bankInfo"
                     :value="item.ID"
                     :key="item.Name"
-                    >{{ item.Name }}</Option
-                  >
+                    >{{ item.Name }}</Option>
                 </Select>
               </FormItem>
             </Col>
             <Col span="12">
-              <FormItem label="入账卡号">
+              <FormItem label="入账卡开户行名称" prop="inter_bank_no">
+                <Select v-model="formValidate.inter_bank_no" filterable clearable style="width: 60%" :label-in-value="true" @on-change="bankDictChange" not-found-text="请先选择商户经营地或行别">
+                  <Option
+                    v-for="item in bankDictList"
+                    :value="item.primaryID"
+                    :key="item.primaryID"
+                    >{{ item.bankName }}</Option>
+                </Select>
+                
+              </FormItem>
+            </Col>
+          </Row>
+        </FormItem>
+
+        <FormItem>
+          <Row>
+            
+            <Col span="12">
+              <FormItem label="入账卡号" prop="acnt_no">
                 <Input
                   v-model="formValidate.acnt_no"
                   title="入账卡号"
@@ -464,13 +483,9 @@
                 ></Input>
               </FormItem>
             </Col>
-          </Row>
-        </FormItem>
-        <FormItem>
-          <Row>
             <Col span="12">
               <FormItem label="清算类型">
-                <Select v-model="formValidate.settle_tp" style="width: 60%">
+                <Select v-model="formValidate.settle_tp" disabled style="width: 60%">
                   <Option
                     v-for="item in liquidationType"
                     :value="item.ID"
@@ -480,8 +495,13 @@
                 </Select>
               </FormItem>
             </Col>
+          </Row>
+        </FormItem>
+        <FormItem>
+          <Row>
+            
             <Col span="12">
-              <FormItem label="法人姓名">
+              <FormItem label="法人姓名" prop="artif_nm">
                 <Input
                   v-model="formValidate.artif_nm"
                   title="对私结算入账户名和法人名称一致"
@@ -490,15 +510,11 @@
                 ></Input>
               </FormItem>
             </Col>
-          </Row>
-        </FormItem>
-
-        <FormItem>
-          <Row>
             <Col span="12">
               <FormItem label="法人入账标识">
                 <Select
                   v-model="formValidate.acnt_artif_flag"
+                  disabled
                   style="width: 60%"
                 >
                   <Option
@@ -510,14 +526,21 @@
                 </Select>
               </FormItem>
             </Col>
+          </Row>
+        </FormItem>
+
+        <FormItem>
+          <Row>
+            
             <Col span="12">
               <FormItem label="入账证件类型">
                 <Select
                   v-model="formValidate.acnt_certif_tp"
+                  disabled
                   style="width: 60%"
                 >
                   <Option
-                    v-for="item in identityType"
+                    v-for="item in entryBankIdentityType"
                     :value="item.ID"
                     :key="item.Name"
                     >{{ item.Name }}</Option
@@ -525,23 +548,24 @@
                 </Select>
               </FormItem>
             </Col>
-          </Row>
-        </FormItem>
-
-        <FormItem>
-          <Row>
             <Col span="12">
-              <FormItem label="入账证件号">
+              <FormItem label="入账证件号" prop="acnt_certif_id">
                 <Input
-                  v-model="formValidate.artif_nm"
+                  v-model="formValidate.acnt_certif_id"
                   title="入账证件号"
                   placeholder="入账证件号"
                   style="width: 60%"
                 ></Input>
               </FormItem>
             </Col>
+          </Row>
+        </FormItem>
+
+        <FormItem>
+          <Row>
+            
             <Col span="12">
-              <FormItem label="入账证件到期日">
+              <FormItem label="入账证件到期日" prop="acnt_certif_expire_dt">
                 <Input
                   v-model="formValidate.acnt_certif_expire_dt"
                   :maxlength="8"
@@ -551,13 +575,8 @@
                 ></Input>
               </FormItem>
             </Col>
-          </Row>
-        </FormItem>
-
-        <FormItem>
-          <Row>
             <Col span="12">
-              <FormItem label="入账银行卡正面照片">
+              <FormItem label="入账银行卡正面照片" prop="entry_bank_positive">
                 <div
                   class="demo-upload-list"
                   v-for="item in entryBankPositiveUploadList"
@@ -595,7 +614,7 @@
                   :on-exceeded-size="handleEntryBankPositiveMaxSize"
                   :before-upload="handleEntryBankPositiveBeforeUpload"
                   type="drag"
-                  action="http://localhost:21021/api/services/app/FuYouService/PostUpload"
+                  action="http://localhost:21021/api/services/app/FuYouService/PostUpload?fileTypeValue=12"
                   style="display: inline-block; width: 58px"
                 >
                   <div style="width: 58px; height: 58px; line-height: 58px">
@@ -614,8 +633,14 @@
                 </Modal>
               </FormItem>
             </Col>
+          </Row>
+        </FormItem>
+
+        <FormItem>
+          <Row>
+            
             <Col span="12">
-              <FormItem label="手持证件照片">
+              <FormItem label="手持证件照片" prop="hand_id">
                 <div
                   class="demo-upload-list"
                   v-for="item in holdIDUploadList"
@@ -653,7 +678,7 @@
                   :on-exceeded-size="handleHoldIDMaxSize"
                   :before-upload="handleHoldIDBeforeUpload"
                   type="drag"
-                  action="http://localhost:21021/api/services/app/FuYouService/PostUpload"
+                  action="http://localhost:21021/api/services/app/FuYouService/PostUpload?fileTypeValue=16"
                   style="display: inline-block; width: 58px"
                 >
                   <div style="width: 58px; height: 58px; line-height: 58px">
@@ -673,20 +698,16 @@
         </FormItem>
 
         <FormItem>
-          <Button type="primary" @click="handleSubmit('formValidate')">Submit</Button
-          >
-          <!-- <Button
-              @click="handleReset('formValidate')"
-              style="margin-left: 8px"
-              >Reset</Button
-            > -->
+          <Row style="text-align:right;top:30px;padding-bottom:30px;right:30px;">
+            <Button type="primary" @click="handleSubmit('formValidate')" size="large" style="width:10%">下 一 步</Button>
+          </Row>
         </FormItem>
       </Form>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Inject, Prop, Watch } from "vue-property-decorator";
+import { Component, Vue, Inject, Prop, Watch, Emit } from "vue-property-decorator";
 import Util from "@/lib/util";
 
 import AbpBase from "@/lib/abpbase";
@@ -695,119 +716,68 @@ import Dictionaries from "@/lib/fuyoustaticdata";
 
 //引入表单实体
 import payInfo from "@/store/entities/fuyoupay";
+import info from "@/lib/fuyoustaticdata";
 
 // //引用组件模板
 @Component({})
 export default class FuYou extends AbpBase {
-  //步骤值
-  stepValue: number = 0;
+  @Emit('stepValueEmit') send(val:any){};
   //地址集合
   mapList: Object = Dictionaries.MapList;
   //选择的地址集合
   address: any = [];
+  //入账卡开户行名称
+  bankDictList:any=[];
   //表单信息
   formValidate: any = {
-    // trace_no: "", //唯一流水号，机构自己定义，此字段可辅助拉取报文
-    // ins_cd: "", //机构号,接入机构在富友的唯一代码
-    // sub_ins_cd:"",
-    // mchnt_name: "", //商户全称，不能有特殊字符，仅可包含汉字、数字、字母
-    // mchnt_shortname: "", //商户简称，不能有特殊字符，仅可包含汉字、数字、字母
-    // real_name: "", //商户真实名称(与营业执照上相同)
-    // license_type: "", //证件类型
-    // license_no: "", //证件号码
-    // license_expire_dt: "", //证件到期日  长期请填20991231，无有效期请填19000101  （格式yyyyMMdd）
-    // certif_id: "", //法人身份证号
-    // certif_id_expire_dt: "", //法人身份证到期日
-    // contact_person: "", //联系人姓名
-    // contact_phone: "", //客服电话，必须纯数字。推荐 400开头电话或11位有效手机号
-    // contact_addr: "", //商户经营地联系地址
-    // contact_mobile: "", //联系电话
-    // contact_email: "", //联系邮箱
-    // business: "570", //经营范围代码   个体工商户	居民生活/商业服务	宠物医院/宠物店	宠物医院	570
-    // city_cd: "", //商户经营地市代码
-    // county_cd: "", //商户经营地区县代码
-    // acnt_type: "", //入账卡类型
-    // bank_type:"",
-    // inter_bank_no: "", //入账卡开户行联行号
-    // iss_bank_nm: "", //入账卡开户行名称
-    // acnt_nm: "", //入账卡户名
-    // acnt_no: "", //入账卡号
-    // settle_tp: "", //清算类型
-    // artif_nm: "", //法人姓名
-    // acnt_artif_flag: "", //法人入账标识
-    // acnt_certif_tp: "", //入账证件类型
-    // acnt_certif_id: "", //入账证件号
-    // acnt_certif_expire_dt: "", //入账证件到期日（格式 yyyyMMdd）
-    // sign: "", //签名，详见签名算法
-    // door_face:-1,//门脸照片
-    // door_head:-1,//门头照片
-    // legalperson_positive:-1,//法人正面照片
-    // legalperson_back:-1,//法人反面照片
-    // entry_bank_positive:-1,//入账银行正面
-    // hand_id:-1,//手持照片
-    // th_flag:1,//退货标识(0：不能退货，1：可以退货)
-    // wx_busi_flag:0,//微信业务标识(0：微信一般类)
-    // wx_flag:1,
-    // wx_set_cd:"M0215",
-    // ali_flag:1,
-    // ali_set_cd:"M0215",
-    // qpay_flag:0,
-    // jdpay_flag:0,
-    // has_reserve_acnt:0
-    		  trace_no: "160569285641",
-          ins_cd: "08A9999999",
-          sub_ins_cd: "",
-          mchnt_name: "内蒙省正道品牌123汤伟杰",
-          mchnt_shortname: "汤伟杰",
-          real_name: "内蒙省正道品牌123汤伟杰",
-          license_type: "2",
-          license_no: "222222222122222222",
-          license_expire_dt: "20991231",
-          certif_id: "222222222122222222",
-          certif_id_expire_dt: "20991231",
-          contact_person: "汤伟杰",
-          contact_phone: "12345678901",
-          contact_addr: "上海富友",
-          contact_mobile: "18262532522",
-          contact_email: "1207159418123123@qq.com",
-          business: "204",
-          city_cd: "2900",
-          county_cd: "2904",
-          acnt_type: "2",
-          bank_type: "0301",
-          inter_bank_no: "301290000007",
-          iss_bank_nm: "交通银行",
-          acnt_nm: "汤伟杰",
-          acnt_no: "6222600140021827110",
-          settle_tp: "3",
-          artif_nm: "汤伟杰",
-          acnt_artif_flag: "1",
-          acnt_certif_tp: "0",
-          acnt_certif_id: "222222222122222222",
-          acnt_certif_expire_dt: "20991231",
-          th_flag: "0",
-          wx_busi_flag: "0",
-          wx_flag: "1",
-          wx_set_cd: "M0000",
-          ali_flag: "1",
-          ali_set_cd: "M0000",
-          qpay_flag: 0,
-          qpay_set_cd: "",
-          jdpay_flag: 0,
-          jdpay_set_cd: "",
-          settle_tp_cd: "M0000",
-          settle_ts: "",
-          has_reserve_acnt: 0,
-          reserve_acnt_no: "",
-          reserve_acnt_nm: "",
-          reserve_inter_bank_no: "",
-          reserve_iss_bank_nm: "",
-          reserve_bank_type: "",
-          contact_cert_no: "222222222222222222",
-          license_start_dt: "20120830",
-          lic_regis_addr: "上海富友",
-          card_start_dt: "20120830",
-          sign: "377989096d9fe55ae1fda6a00c49fa14"
+    trace_no: "", //唯一流水号，机构自己定义，此字段可辅助拉取报文
+    ins_cd: "", //机构号,接入机构在富友的唯一代码
+    sub_ins_cd:"",
+    mchnt_name: "内蒙省正道品牌2132", //商户全称，不能有特殊字符，仅可包含汉字、数字、字母
+    mchnt_shortname: "汤伟杰4233", //商户简称，不能有特殊字符，仅可包含汉字、数字、字母
+    real_name: "内蒙省正道品牌4321432", //商户真实名称(与营业执照上相同)
+    license_type: "", //证件类型
+    license_no: "222222222122222222", //证件号码
+    license_expire_dt: "20991231", //证件到期日  长期请填20991231，无有效期请填19000101  （格式yyyyMMdd）
+    certif_id: "222222222122222222", //法人身份证号
+    certif_id_expire_dt: "20991231", //法人身份证到期日
+    contact_person: "汤伟杰", //联系人姓名
+    contact_phone: "18518647153", //客服电话，必须纯数字。推荐 400开头电话或11位有效手机号
+    contact_addr: "", //商户经营地联系地址
+    contact_mobile: "18518647153", //联系电话
+    contact_email: "1207159418123123@qq.com", //联系邮箱
+    business: "570", //经营范围代码   个体工商户	居民生活/商业服务	宠物医院/宠物店	宠物医院	570
+    city_cd: "", //商户经营地市代码
+    county_cd: "", //商户经营地区县代码
+    acnt_type: "", //入账卡类型
+    bank_type:"",//行别
+    inter_bank_no: "", //入账卡开户行联行号
+    iss_bank_nm: "", //入账卡开户行名称
+    acnt_nm: "", //入账卡户名
+    acnt_no: "6222600140021827110", //入账卡号
+    settle_tp: "", //清算类型
+    artif_nm: "汤伟杰", //法人姓名
+    acnt_artif_flag: "", //法人入账标识
+    acnt_certif_tp: "", //入账证件类型
+    acnt_certif_id: "222222222122222222", //入账证件号
+    acnt_certif_expire_dt: "20991231", //入账证件到期日（格式 yyyyMMdd）
+    sign: "", //签名，详见签名算法
+    door_face:-1,//门脸照片
+    door_head:-1,//门头照片
+    legalperson_positive:-1,//法人正面照片
+    legalperson_back:-1,//法人反面照片
+    entry_bank_positive:-1,//入账银行正面
+    hand_id:-1,//手持照片
+    th_flag:1,//退货标识(0：不能退货，1：可以退货)
+    wx_busi_flag:0,//微信业务标识(0：微信一般类)
+    wx_flag:1,
+    wx_set_cd:"M0000",
+    ali_flag:1,
+    ali_set_cd:"M0000",
+    settle_tp_cd:"M0000",
+    qpay_flag:0,
+    jdpay_flag:0,
+    has_reserve_acnt:0
   };
   //证件类型
   identityType: Object = Dictionaries.IdentityType;
@@ -815,41 +785,149 @@ export default class FuYou extends AbpBase {
   bankInfo: Object = Dictionaries.BankInfo;
   liquidationType: Object = Dictionaries.LiquidationType;
   legalPersonMoneyType: Object = Dictionaries.LegalPersonMoneyType;
+  entryBankIdentityType:Object=Dictionaries.EntryBankIdentityType;
 
+  //选择银行的值改变事件
+  bankChange(info){
+    this.formValidate.iss_bank_nm=info.label;
+    this.getBankDictList();
+  }
+  bankDictChange(info){
+    if(info!=null )
+      this.formValidate.iss_bank_nm=info.label;
+  }
+  addressChange(value, selectedData){
+    if(value !=null && value.length>=0){
+      this.formValidate.city_cd=value[1];
+      this.formValidate.county_cd=value[2];
+    }
+    else{
+      this.formValidate.city_cd="";
+      this.formValidate.county_cd="";
+    }
+    //调用获取入账卡开户行名称
+    this.getBankDictList();
+  }
   //验证规则
   ruleValidate: any = {
+    acnt_certif_id: [
+      { required: true, message: "入账证件号不能为空", trigger: 'blur' },
+    ],
+    acnt_certif_expire_dt: [
+      { required: true, message: "入账证件到期日不能为空", trigger: 'blur' },
+    ],
+    artif_nm: [
+      { required: true, message: "法人名称不能为空", trigger: 'blur' },
+    ],
+    settle_tp: [
+      { required: true, message: "请选择清算类型", trigger: 'change' },
+    ],
+    inter_bank_no: [
+      { required: true, message: "请选择入账卡开户行名称", trigger: 'change' },
+    ],
+    bank_type: [
+      { required: true, message: "请选择行别", trigger: 'change' },
+    ],
+    acnt_no: [
+      { required: true, message: "入账卡号不能为空", trigger: 'blur' },
+    ],
+    door_face: [
+      { required: true, validator:(rule, value, cb)=>{
+        if(this.formValidate.door_face==-1||this.formValidate.door_face==null||this.formValidate.door_face!=value){
+          return cb(new Error('请上传门脸照片'));
+        }
+        else{
+          cb();
+        }
+      }, trigger: 'change' },
+    ],//门脸照片
+    door_head:[
+      { required: true, validator:(rule, value, cb)=>{
+        if(this.formValidate.door_head==-1||this.formValidate.door_head==null||this.formValidate.door_head!=value){
+          return cb(new Error('请上传门头照片'));
+        }
+        else{
+          cb();
+        }
+      }, trigger: 'change' },
+    ],//门头照片
+    legalperson_positive:[
+      { required: true, validator:(rule, value, cb)=>{
+        if(this.formValidate.legalperson_positive==-1||this.formValidate.legalperson_positive==null||this.formValidate.legalperson_positive!=value){
+          return cb(new Error('请上传法人身份证正面照片'));
+        }
+        else{
+          cb();
+        }
+      }, trigger: 'change' },
+    ],//法人正面照片
+    legalperson_back:[
+      { required: true, validator:(rule, value, cb)=>{
+        if(this.formValidate.legalperson_back==-1||this.formValidate.legalperson_back==null||this.formValidate.legalperson_back!=value){
+          return cb(new Error('请上传法人身份证反面照片'));
+        }
+        else{
+          cb();
+        }
+      }, trigger: 'change' },
+    ],//法人反面照片
+    entry_bank_positive:[
+      { required: true, validator:(rule, value, cb)=>{
+        if(this.formValidate.entry_bank_positive==-1||this.formValidate.entry_bank_positive==null||this.formValidate.entry_bank_positive!=value){
+          return cb(new Error('请上传入账银行卡正面照片'));
+        }
+        else{
+          cb();
+        }
+      }, trigger: 'change' },
+    ],//入账银行正面
+    hand_id:[
+      { required: true, validator:(rule, value, cb)=>{
+        if(this.formValidate.hand_id==-1||this.formValidate.hand_id==null||this.formValidate.hand_id!=value){
+          return cb(new Error('请上传手持证件照片'));
+        }
+        else{
+          cb();
+        }
+      }, trigger: 'change' },
+    ],//手持照片
+    
+    contact_email: [
+      { required: true, message: "联系邮箱不能为空", trigger: 'blur' },
+    ],
+    contact_mobile: [
+      { required: true, message: "联系电话不能为空", trigger: 'blur' },
+    ],
+    contact_addr: [
+      { required: true, message: "请选择商户经营地", trigger: 'change' },
+    ],
+    contact_phone: [
+      { required: true, message: "联系人姓名不能为空", trigger: 'blur' },
+    ],
+    contact_person: [
+      { required: true, message: "联系人姓名不能为空", trigger: 'blur' },
+    ],
+    certif_id_expire_dt: [
+      { required: true, message: "法人身份证到期日不能为空", trigger: 'blur' },
+    ],
     mchnt_name: [
-      { required: true, message: "商户全称不能为空" },
+      { required: true, message: "商户全称不能为空", trigger: 'blur' },
     ],
     mchnt_shortname: [
-      { required: true, message: "商户简称不能为空"},
+      { required: true, message: "商户简称不能为空", trigger: 'blur'},
     ],
     real_name: [
-      { required: true, message: "商户真实名称不能为空" },
+      { required: true, message: "商户真实名称不能为空", trigger: 'blur' },
     ],
-    // mail: [
-    //   { required: true, message: "Mailbox cannot be empty", trigger: "blur" },
-    //   { type: "email", message: "Incorrect email format", trigger: "blur" },
-    // ],
-    // city: [
-    //   { required: true, message: "Please select the city", trigger: "change" },
-    // ],
-    // gender: [
-    //   { required: true, message: "Please select gender", trigger: "change" },
-    // ],
-    // desc: [
-    //   {
-    //     required: true,
-    //     message: "Please enter a personal introduction",
-    //     trigger: "blur",
-    //   },
-    //   {
-    //     type: "string",
-    //     min: 20,
-    //     message: "Introduce no less than 20 words",
-    //     trigger: "blur",
-    //   },
-    // ],
+    license_no: [
+      { required: true, message: "证件号码不能为空", trigger: 'blur' },
+    ],
+    license_expire_dt: [
+      { required: true, message: "证件到期日不能为空", trigger: 'blur' },
+    ],
+    certif_id: [
+      { required: true, message: "法人身份证号不能为空", trigger: 'blur' },
+    ],
   };
 
   //图片名称
@@ -927,12 +1005,12 @@ export default class FuYou extends AbpBase {
     this.fileListAll = this.$refs.uploadDoorFace;
     const fileList = this.fileListAll.fileList;
     this.doorFaceUploadList.splice(fileList.indexOf(file), 1);
+    this.formValidate.door_face=-1;
   }
   //上传成功以后
   handleDoorFaceSuccess(res, file) {
     file.url = res.result.url;
     file.name = res.result.title;
-    console.log("上传完成回传的数据为",res);
     this.formValidate.door_face=res.result.id;
     this.doorFacePath = res.result.url;
   }
@@ -952,7 +1030,6 @@ export default class FuYou extends AbpBase {
   }
   //图片上传之前验证
   handleDoorFaceBeforeUpload(file) {
-    console.log("上传的文件为：", file);
     var check = this.doorFaceUploadList.length < 1;
     if (!check) {
       this.$Notice.warning({
@@ -976,6 +1053,7 @@ export default class FuYou extends AbpBase {
     this.fileListAll = this.$refs.uploadDoorHead;
     const fileList = this.fileListAll.fileList;
     this.doorHeadUploadList.splice(fileList.indexOf(file), 1);
+    this.formValidate.door_head=-1;
   }
   //上传成功以后
   handleDoorHeadSuccess(res, file) {
@@ -1000,7 +1078,6 @@ export default class FuYou extends AbpBase {
   }
   //图片上传之前验证
   handleDoorHeadBeforeUpload(file) {
-    console.log("上传的文件为：", file);
     var check = this.doorHeadUploadList.length < 1;
     if (!check) {
       this.$Notice.warning({
@@ -1023,6 +1100,7 @@ export default class FuYou extends AbpBase {
     this.fileListAll = this.$refs.uploadLegalPersonPositive;
     const fileList = this.fileListAll.fileList;
     this.legalPersonPositiveUploadList.splice(fileList.indexOf(file), 1);
+    this.formValidate.legalperson_positive=-1;
   }
   //上传成功以后
   handleLegalPersonPositiveSuccess(res, file) {
@@ -1068,6 +1146,7 @@ export default class FuYou extends AbpBase {
     this.fileListAll = this.$refs.uploadLegalPersonBack;
     const fileList = this.fileListAll.fileList;
     this.legalPersonBackUploadList.splice(fileList.indexOf(file), 1);
+    this.formValidate.legalperson_back=-1;
   }
   //上传成功以后
   handleLegalPersonBackSuccess(res, file) {
@@ -1114,6 +1193,7 @@ export default class FuYou extends AbpBase {
     this.fileListAll = this.$refs.uploadEntryBankPositive;
     const fileList = this.fileListAll.fileList;
     this.entryBankPositiveUploadList.splice(fileList.indexOf(file), 1);
+    this.formValidate.entry_bank_positive=-1;
   }
   //上传成功以后
   handleEntryBankPositiveSuccess(res, file) {
@@ -1138,7 +1218,6 @@ export default class FuYou extends AbpBase {
   }
   //图片上传之前验证
   handleEntryBankPositiveBeforeUpload(file) {
-    console.log("上传的文件为：", file);
     var check = this.entryBankPositiveUploadList.length < 1;
     if (!check) {
       this.$Notice.warning({
@@ -1161,6 +1240,7 @@ export default class FuYou extends AbpBase {
     this.fileListAll = this.$refs.uploadHoldID;
     const fileList = this.fileListAll.fileList;
     this.holdIDUploadList.splice(fileList.indexOf(file), 1);
+    this.formValidate.hand_id=-1;
   }
   //上传成功以后
   handleHoldIDSuccess(res, file) {
@@ -1185,7 +1265,6 @@ export default class FuYou extends AbpBase {
   }
   //图片上传之前验证
   handleHoldIDBeforeUpload(file) {
-    console.log("上传的文件为：", file);
     var check = this.holdIDUploadList.length < 1;
     if (!check) {
       this.$Notice.warning({
@@ -1224,46 +1303,82 @@ export default class FuYou extends AbpBase {
     this.fileListAll = this.$refs.uploadHoldID;
     this.holdIDUploadList = this.fileListAll.fileList;
   }
+  //格式化输出地址值
+  format (labels, selectedData) {
+    var text="";
+    var showText="";
+    if(labels.length>0&&labels!=null){
+      for (let index = 0; index < labels.length; index++) {
+        text += labels[index];
+        showText=showText+labels[index]+" / ";
+      }
+      this.formValidate.contact_addr=text;
+    }
+    return (showText!=""?showText.substring(0,showText.length-3):"");
+  }
+  //页面加载完成函数
   created() {
-    console.log("页面加载完成函数")
     this.formValidate.license_type="A";
     this.formValidate.business="570";
+    this.formValidate.acnt_certif_tp="0";
+    this.formValidate.acnt_type="2";
+    this.formValidate.acnt_artif_flag="1";
+    this.formValidate.settle_tp="3";
+    
   };
+
+  getBankDictList () {
+    this.bankDictList=[];
+    if(this.isNullOrEmpty(this.formValidate.bank_type)||this.isNullOrEmpty(this.formValidate.city_cd))return;
+    var requestParams={
+      BankType:this.formValidate.bank_type,
+      CityID:this.formValidate.city_cd
+    }
+    this.$store.dispatch({
+                type: 'fuyoupay/GetBankDictList',
+                data: requestParams
+            }).then((response)=>{
+              this.bankDictList=response;
+            })
+  };
+  isNullOrEmpty(value){
+    return value ==null || value == undefined || value == "" || value ==-1;
+  }
   //提交信息
   handleSubmit(name) {
-    if(this.address.length>=0){
-      this.formValidate.city_cd=this.address[1];
-      this.formValidate.county_cd=this.address[2];
-    }
     this.submitFormObject = this.$refs[name];
-    this.submitFormObject.validate((valid) => {
-      console.log("此时表单的值为",this.formValidate)
-      console.log("此时表单的值为",this.$store)
+    this.submitFormObject.validate((valid,text) => {
       if (valid) {
-        console.log("查询验证是否通过")
-        this.$store.dispatch({
+        //如果 acnt_type=2 且acnt_artif_flag=1，则 acnt_nm=artif_nm 即对私且法人入账，则入账卡户名和法人姓名一致
+        this.formValidate.acnt_nm=this.formValidate.artif_nm;
+        this.$Modal.confirm({
+        title: '确认',
+        content: '<p>信息一经提交则无法修改，请确认信息填写无误！</p>',
+        okText: '确定',
+        cancelText: '取消',
+        onOk: () => {
+          this.$store.dispatch({
                 type: 'fuyoupay/SaveFuYouPayInfo',
                 data: this.formValidate
+            }).then((saveResponse)=>{
+              localStorage.setItem("trace_no",saveResponse.data.result.trace_no);
+              localStorage.setItem("stepValue","1");
+              localStorage.setItem("elecContractGenerateId",saveResponse.data.result.id)
+              this.send(1);
             })
+        },
+       });
+        
       }
       else{
         this.formValidate.license_type="A";
-    this.formValidate.business="570";
+        this.formValidate.business="570";
+        this.formValidate.acnt_certif_tp="0";
+        this.formValidate.acnt_type="2";
+        this.formValidate.acnt_artif_flag="1";
+        this.formValidate.settle_tp="3";
       }
     });
-  }
-  //重置表单信息  暂时禁用
-  // handleReset(name) {
-  //   this.ruleValidate = this.$refs[name];
-  //   this.ruleValidate.resetFields();
-  // }
-  //下一步点击事件
-  nextStep() {
-    if (this.stepValue == 2) {
-      this.stepValue = 0;
-    } else {
-      this.stepValue += 1;
-    }
   }
 }
 </script>
@@ -1308,10 +1423,10 @@ export default class FuYou extends AbpBase {
 
 .ivu-cascader-rel {
   display: inline-block !important;
-  width: 65% !important;
+  width: 64.5% !important;
   position: relative !important;
 }
 .ivu-form-item-error-tip {
-  left: 120px !important;
+  left: 130px !important;
 }
 </style>

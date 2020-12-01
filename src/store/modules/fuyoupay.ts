@@ -16,26 +16,14 @@ class FuYouPayModule extends ListModule<FuYouPayState,any,FuYouPay>{
         currentPage:1,
         pageSize:10,
         list: new Array<FuYouPay>(), 
-        loading:false
+        loading:false,
     }
     actions={
         async SaveFuYouPayInfo(context:ActionContext<FuYouPayState,any>,payload:any){
             context.state.loading=true;
-            console.log("保存富友支付接口");
             let reponse=await api.FuYouPay.SaveFuYouPayInfo(payload.data);
             context.state.loading=false;
-
-            console.log("保存富有支付信息返回的内容为",reponse);
-            return;
-            console.log(reponse.data.result.result.length)
-            if(reponse.data.result.result.length==0){
-                context.state.totalCount=0;
-                context.state.list=[];
-                return
-            }
-            let page=reponse.data.result as MyPageResult<FuYouPay>; 
-            context.state.totalCount = page.totalCount;
-            context.state.list=page.result;
+            return reponse;
         },
         async UploadImage(context:ActionContext<FuYouPayState,any>,payload:any){
             context.state.loading=true;
@@ -45,7 +33,33 @@ class FuYouPayModule extends ListModule<FuYouPayState,any,FuYouPay>{
             console.log(reponse.data.result.result.length)
             
         },
-        
+        async LoadHtml(context:ActionContext<FuYouPayState,any>,payload:any){
+            let reponse=await api.FuYouPay.LoadHtml(payload.data);
+            if(reponse.data.result!=null){
+                return reponse.data.result;
+            }
+            else{
+                return {sign_url:""};
+            }
+        },
+        async GetBankDictList(context:ActionContext<FuYouPayState,any>,payload:any){
+            let reponse=await api.FuYouPay.GetBankDictList(payload.data);
+            if(reponse.data.result!=null){
+                return reponse.data.result;
+            }
+            else{
+                return [];
+            }
+        },
+        async ElecContractSign(context:ActionContext<FuYouPayState,any>,payload:any){
+            let reponse=await api.FuYouPay.ElecContractSign(payload.data);
+            if(reponse.data.result!=null){
+                return reponse.data.result;
+            }
+            else{
+                return null;
+            }
+        }
     };
     mutations={
         setCurrentPage(state:FuYouPayState,page:number){
@@ -53,9 +67,6 @@ class FuYouPayModule extends ListModule<FuYouPayState,any,FuYouPay>{
         },
         setPageSize(state:FuYouPayState,pagesize:number){
             state.pageSize=pagesize;
-        },
-        detail(state:FuYouPayState,chargeHistory:FuYouPay){
-            state.dataLists=chargeHistory;
         }
     }
 }
