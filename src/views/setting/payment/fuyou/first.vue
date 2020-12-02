@@ -457,7 +457,7 @@
             </Col>
             <Col span="12">
               <FormItem label="入账卡开户行名称" prop="inter_bank_no">
-                <Select v-model="formValidate.inter_bank_no" filterable clearable style="width: 60%" :label-in-value="true" @on-change="bankDictChange" not-found-text="请先选择商户经营地或行别">
+                <Select v-model="formValidate.inter_bank_no" placeholder="请选择  如没有对应的支行，请选择地区内的支行，先提交" filterable clearable style="width: 60%" :label-in-value="true" @on-change="bankDictChange" not-found-text="请先选择商户经营地或行别">
                   <Option
                     v-for="item in bankDictList"
                     :value="item.primaryID"
@@ -504,8 +504,8 @@
               <FormItem label="法人姓名" prop="artif_nm">
                 <Input
                   v-model="formValidate.artif_nm"
-                  title="对私结算入账户名和法人名称一致"
-                  placeholder="对私结算入账户名和法人名称一致"
+                  title="法人姓名"
+                  placeholder="法人姓名"
                   style="width: 60%"
                 ></Input>
               </FormItem>
