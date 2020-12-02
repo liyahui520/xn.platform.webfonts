@@ -59,6 +59,15 @@ class FuYouPayModule extends ListModule<FuYouPayState,any,FuYouPay>{
             else{
                 return null;
             }
+        },
+        async AttachConfirm(context:ActionContext<FuYouPayState,any>,payload:any){
+            let reponse=await api.FuYouPay.AttachConfirm(payload.data);
+            if(reponse.data.result!=null){
+                return reponse.data.result;
+            }
+            else{
+                return null;
+            }
         }
     };
     mutations={

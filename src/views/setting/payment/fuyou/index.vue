@@ -60,6 +60,9 @@ export default class FuYou extends AbpBase {
     if(localStorage.getItem("trace_no")!=null && localStorage.getItem("trace_no")!="" && localStorage.getItem("stepValue")!=null && localStorage.getItem("stepValue")!="" && localStorage.getItem("elecContractGenerateId") != null && localStorage.getItem("elecContractGenerateId") != "" ){
         this.stepValue=parseInt(localStorage.getItem("stepValue"));
     }
+    else if(localStorage.getItem("trace_no")!=null && localStorage.getItem("trace_no")!="" && localStorage.getItem("stepValue")!=null && localStorage.getItem("stepValue")!="" && (localStorage.getItem("elecContractGenerateId") == null || localStorage.getItem("elecContractGenerateId") ==undefined)){
+      this.stepValue=1;
+    }
     else{
       this.stepValue=0;
     }

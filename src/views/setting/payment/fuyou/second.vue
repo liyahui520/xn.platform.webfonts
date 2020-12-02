@@ -68,14 +68,10 @@ export default class FuYou extends AbpBase {
   created() {
     if (
       localStorage.getItem("trace_no") != null &&
-      localStorage.getItem("trace_no") != "" &&
-      localStorage.getItem("elecContractGenerateId") != null &&
-      localStorage.getItem("elecContractGenerateId") != "" 
+      localStorage.getItem("trace_no") != "" 
     ) {
-      var elecContractGenerateIdValue =parseInt(localStorage.getItem("elecContractGenerateId"));
       var trace_noValue = localStorage.getItem("trace_no");
       this.trace_no = trace_noValue;
-      this.elecContractGenerateId=elecContractGenerateIdValue;
       this.loadHtmlUrl();
     } else {
       this.trace_no = "";
@@ -94,6 +90,9 @@ export default class FuYou extends AbpBase {
                     duration: 5,
                     closable: true
                 });
+        console.log("加载HTML对象产生的id为",getResponse)
+        localStorage.setItem("elecContractGenerateId",getResponse.id);
+        this.elecContractGenerateId=getResponse.id;
         this.url = getResponse.sign_url;
       });
   }
@@ -123,7 +122,6 @@ export default class FuYou extends AbpBase {
         type: "fuyoupay/ElecContractSign",
         data: requestParams,
       }).then((response)=>{
-          console.log("签署协议接口返回的数据",response)
           localStorage.setItem("stepValue","2");
           this.send(2);
       })

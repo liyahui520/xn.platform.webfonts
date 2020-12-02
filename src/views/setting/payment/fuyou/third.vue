@@ -28,17 +28,100 @@
       <div class="box__description">
         <div class="box__description-container">
           <div class="box__description-title">审核中......</div>
-          <div class="box__description-text">资料已提交审核,请等待审核通过。</div>
+          <div class="box__description-text">
+            资料已提交审核,请等待审核通过。
+          </div>
         </div>
-
       </div>
     </div>
   </div>
 </template>
 
+<script lang="ts">
+import {
+  Component,
+  Vue,
+  Inject,
+  Prop,
+  Watch,
+  Emit,
+} from "vue-property-decorator";
+import Util from "@/lib/util";
+import AbpBase from "@/lib/abpbase";
+
+@Component({})
+export default class FuYou extends AbpBase {
+  @Emit("stepValueEmit") send(val: any) {}
+  trace_no: string = "";
+  spinShow: boolean = true;
+  created() {
+    (this.$Spin as any).show({
+      render: (h) => {
+        return h("div", [
+          h("Icon", {
+            class: "demo-spin-icon-load",
+            props: {
+              type: "ios-loading",
+              size: 32,
+            },
+          }),
+          h("div", "附件提交中，请稍后..."),
+        ]);
+      },
+    });
+    if (
+      localStorage.getItem("trace_no") != null &&
+      localStorage.getItem("trace_no") != "" &&
+      localStorage.getItem("stepValue") != null &&
+      localStorage.getItem("stepValue") != ""
+    ) {
+      this.trace_no = localStorage.getItem("trace_no");
+      this.uploadAttaInfo();
+    } else {
+      (this.$Spin as any).hide();
+      this.send(2);
+    }
+  }
+  uploadAttaInfo() {
+    this.$store
+      .dispatch({
+        type: "fuyoupay/AttachConfirm",
+        data: {trace_no:this.trace_no},
+      })
+      .then((getResponse) => {
+        if (getResponse.ret_code == "0000")
+        {
+          this.$Message.success({
+                    content: '附件已提交成功，请等待审核!',
+                    duration: 5,
+                    closable: true
+                });
+        }
+        else
+        {
+          this.$Message.error({
+                    content: '附件已提交失败，请稍后刷新页面重试!',
+                    duration: 5,
+                    closable: true
+                });
+        }
+        (this.$Spin as any).hide();
+      })
+      .then(() => {
+        (this.$Spin as any).hide();
+      });
+  }
+}
+</script>
+
+
+
 <style scoped>
-.contentClass{
-    background: #28254C;
+.demo-spin-icon-load {
+  animation: ani-demo-spin 1s linear infinite;
+}
+.contentClass {
+  background: #28254c;
 }
 .box {
   width: 70%;
@@ -61,11 +144,12 @@
   transform: translate(-50%, -30%);
 }
 .box .box__ghost .symbol:nth-child(1) {
-  opacity: .2;
+  opacity: 0.2;
   animation: shine 4s ease-in-out 3s infinite;
 }
-.box .box__ghost .symbol:nth-child(1):before, .box .box__ghost .symbol:nth-child(1):after {
-  content: '';
+.box .box__ghost .symbol:nth-child(1):before,
+.box .box__ghost .symbol:nth-child(1):after {
+  content: "";
   width: 12px;
   height: 4px;
   background: #fff;
@@ -89,15 +173,16 @@
   border: 4px solid;
   border-radius: 50%;
   border-color: #fff;
-  opacity: .2;
+  opacity: 0.2;
   animation: shine 4s ease-in-out 1.3s infinite;
 }
 .box .box__ghost .symbol:nth-child(3) {
-  opacity: .2;
-  animation: shine 3s ease-in-out .5s infinite;
+  opacity: 0.2;
+  animation: shine 3s ease-in-out 0.5s infinite;
 }
-.box .box__ghost .symbol:nth-child(3):before, .box .box__ghost .symbol:nth-child(3):after {
-  content: '';
+.box .box__ghost .symbol:nth-child(3):before,
+.box .box__ghost .symbol:nth-child(3):after {
+  content: "";
   width: 12px;
   height: 4px;
   background: #fff;
@@ -113,11 +198,12 @@
   transform: rotate(180deg);
 }
 .box .box__ghost .symbol:nth-child(4) {
-  opacity: .2;
+  opacity: 0.2;
   animation: shine 6s ease-in-out 1.6s infinite;
 }
-.box .box__ghost .symbol:nth-child(4):before, .box .box__ghost .symbol:nth-child(4):after {
-  content: '';
+.box .box__ghost .symbol:nth-child(4):before,
+.box .box__ghost .symbol:nth-child(4):after {
+  content: "";
   width: 15px;
   height: 4px;
   background: #fff;
@@ -141,15 +227,16 @@
   border: 3px solid;
   border-radius: 50%;
   border-color: #fff;
-  opacity: .2;
+  opacity: 0.2;
   animation: shine 1.7s ease-in-out 7s infinite;
 }
 .box .box__ghost .symbol:nth-child(6) {
-  opacity: .2;
+  opacity: 0.2;
   animation: shine 2s ease-in-out 6s infinite;
 }
-.box .box__ghost .symbol:nth-child(6):before, .box .box__ghost .symbol:nth-child(6):after {
-  content: '';
+.box .box__ghost .symbol:nth-child(6):before,
+.box .box__ghost .symbol:nth-child(6):after {
+  content: "";
   width: 15px;
   height: 4px;
   background: #fff;
@@ -183,7 +270,7 @@
 .box .box__ghost .box__ghost-container .box__ghost-eyes .box__eye-left {
   width: 12px;
   height: 12px;
-  background: #332F63;
+  background: #332f63;
   border-radius: 50%;
   margin: 0 10px;
   position: absolute;
@@ -192,7 +279,7 @@
 .box .box__ghost .box__ghost-container .box__ghost-eyes .box__eye-right {
   width: 12px;
   height: 12px;
-  background: #332F63;
+  background: #332f63;
   border-radius: 50%;
   margin: 0 10px;
   position: absolute;
@@ -216,12 +303,12 @@
 .box .box__ghost .box__ghost-container .box__ghost-bottom div:nth-child(2n) {
   top: -12px;
   margin: 0 -0px;
-  border-top: 15px solid #332F63;
+  border-top: 15px solid #332f63;
   background: transparent;
 }
 .box .box__ghost .box__ghost-shadow {
   height: 20px;
-  box-shadow: 0 50px 15px 5px #3B3769;
+  box-shadow: 0 50px 15px 5px #3b3769;
   border-radius: 50%;
   margin: 0 auto;
   animation: smallnbig 3s ease-in-out infinite;
@@ -241,7 +328,7 @@
 }
 .box .box__description .box__description-container .box__description-title {
   font-size: 24px;
-  letter-spacing: .5px;
+  letter-spacing: 0.5px;
 }
 .box .box__description .box__description-container .box__description-text {
   color: #e8e8ec;
@@ -251,7 +338,7 @@
 .box .box__description .box__button {
   display: block;
   position: relative;
-  background: #FF5E65;
+  background: #ff5e65;
   border: 1px solid transparent;
   border-radius: 50px;
   height: 50px;
@@ -263,11 +350,11 @@
   padding: 0 70px;
   white-space: nowrap;
   margin-top: 25px;
-  transition: background .5s ease;
+  transition: background 0.5s ease;
   overflow: hidden;
 }
 .box .box__description .box__button:before {
-  content: '';
+  content: "";
   position: absolute;
   width: 20px;
   height: 100px;
@@ -276,7 +363,7 @@
   left: 0;
   border: 2px solid #fff;
   transform: translateX(-50px) rotate(45deg);
-  transition: transform .5s ease;
+  transition: transform 0.5s ease;
 }
 .box .box__description .box__button:hover {
   background: transparent;
@@ -310,16 +397,16 @@
 }
 @keyframes shine {
   0% {
-    opacity: .2;
+    opacity: 0.2;
   }
   25% {
-    opacity: .1;
+    opacity: 0.1;
   }
   50% {
-    opacity: .2;
+    opacity: 0.2;
   }
   100% {
-    opacity: .2;
+    opacity: 0.2;
   }
 }
 </style>

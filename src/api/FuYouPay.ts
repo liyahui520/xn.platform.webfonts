@@ -30,6 +30,10 @@ const FuYouPayApi = {
   //签署电子协议
   async ElecContractSign(params: any) {
     return await Ajax.post('/api/services/app/FuYouService/ElecContractSign?elecContractGenerateId='+params.elecContractGenerateId+'&verifyNo='+params.verifyNo);
+  },
+  //提交附件接口
+  async AttachConfirm(params: any) {
+    return await Ajax.post('/api/services/app/FuYouService/AttachConfirm?fyNo='+params.trace_no);
   }
 }
 

@@ -733,20 +733,20 @@ export default class FuYou extends AbpBase {
     trace_no: "", //唯一流水号，机构自己定义，此字段可辅助拉取报文
     ins_cd: "", //机构号,接入机构在富友的唯一代码
     sub_ins_cd:"",
-    mchnt_name: "内蒙省正道品牌2132", //商户全称，不能有特殊字符，仅可包含汉字、数字、字母
-    mchnt_shortname: "汤伟杰4233", //商户简称，不能有特殊字符，仅可包含汉字、数字、字母
-    real_name: "内蒙省正道品牌4321432", //商户真实名称(与营业执照上相同)
+    mchnt_name: "", //商户全称，不能有特殊字符，仅可包含汉字、数字、字母
+    mchnt_shortname: "", //商户简称，不能有特殊字符，仅可包含汉字、数字、字母
+    real_name: "", //商户真实名称(与营业执照上相同)
     license_type: "", //证件类型
-    license_no: "222222222122222222", //证件号码
-    license_expire_dt: "20991231", //证件到期日  长期请填20991231，无有效期请填19000101  （格式yyyyMMdd）
-    certif_id: "222222222122222222", //法人身份证号
-    certif_id_expire_dt: "20991231", //法人身份证到期日
-    contact_person: "汤伟杰", //联系人姓名
-    contact_phone: "18518647153", //客服电话，必须纯数字。推荐 400开头电话或11位有效手机号
+    license_no: "", //证件号码
+    license_expire_dt: "", //证件到期日  长期请填20991231，无有效期请填19000101  （格式yyyyMMdd）
+    certif_id: "", //法人身份证号
+    certif_id_expire_dt: "", //法人身份证到期日
+    contact_person: "", //联系人姓名
+    contact_phone: "", //客服电话，必须纯数字。推荐 400开头电话或11位有效手机号
     contact_addr: "", //商户经营地联系地址
-    contact_mobile: "18518647153", //联系电话
-    contact_email: "1207159418123123@qq.com", //联系邮箱
-    business: "570", //经营范围代码   个体工商户	居民生活/商业服务	宠物医院/宠物店	宠物医院	570
+    contact_mobile: "", //联系电话
+    contact_email: "", //联系邮箱
+    business: "", //经营范围代码   个体工商户	居民生活/商业服务	宠物医院/宠物店	宠物医院	570
     city_cd: "", //商户经营地市代码
     county_cd: "", //商户经营地区县代码
     acnt_type: "", //入账卡类型
@@ -754,13 +754,13 @@ export default class FuYou extends AbpBase {
     inter_bank_no: "", //入账卡开户行联行号
     iss_bank_nm: "", //入账卡开户行名称
     acnt_nm: "", //入账卡户名
-    acnt_no: "6222600140021827110", //入账卡号
+    acnt_no: "", //入账卡号
     settle_tp: "", //清算类型
-    artif_nm: "汤伟杰", //法人姓名
+    artif_nm: "", //法人姓名
     acnt_artif_flag: "", //法人入账标识
     acnt_certif_tp: "", //入账证件类型
-    acnt_certif_id: "222222222122222222", //入账证件号
-    acnt_certif_expire_dt: "20991231", //入账证件到期日（格式 yyyyMMdd）
+    acnt_certif_id: "", //入账证件号
+    acnt_certif_expire_dt: "", //入账证件到期日（格式 yyyyMMdd）
     sign: "", //签名，详见签名算法
     door_face:-1,//门脸照片
     door_head:-1,//门头照片
@@ -1363,7 +1363,6 @@ export default class FuYou extends AbpBase {
             }).then((saveResponse)=>{
               localStorage.setItem("trace_no",saveResponse.data.result.trace_no);
               localStorage.setItem("stepValue","1");
-              localStorage.setItem("elecContractGenerateId",saveResponse.data.result.id)
               this.send(1);
             })
         },
