@@ -76,6 +76,7 @@ export default class FuYou extends AbpBase {
       localStorage.getItem("stepValue") != ""
     ) {
       this.trace_no = localStorage.getItem("trace_no");
+      if (localStorage.getItem("submitSuccessState") == "true") return;
       this.uploadAttaInfo();
     } else {
       (this.$Spin as any).hide();
@@ -86,24 +87,22 @@ export default class FuYou extends AbpBase {
     this.$store
       .dispatch({
         type: "fuyoupay/AttachConfirm",
-        data: {trace_no:this.trace_no},
+        data: { trace_no: this.trace_no },
       })
       .then((getResponse) => {
-        if (getResponse.ret_code == "0000")
-        {
+        if (getResponse.ret_code == "0000") {
           this.$Message.success({
-                    content: '附件已提交成功，请等待审核!',
-                    duration: 5,
-                    closable: true
-                });
-        }
-        else
-        {
+            content: "附件已提交成功，请等待审核!",
+            duration: 5,
+            closable: true,
+          });
+          localStorage.setItem("submitSuccessState", "true");
+        } else {
           this.$Message.error({
-                    content: '附件已提交失败，请稍后刷新页面重试!',
-                    duration: 5,
-                    closable: true
-                });
+            content: "附件已提交失败，请稍后刷新页面重试!",
+            duration: 5,
+            closable: true,
+          });
         }
         (this.$Spin as any).hide();
       })

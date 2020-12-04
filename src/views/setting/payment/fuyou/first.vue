@@ -28,6 +28,7 @@
                   title="需与营业执照一致，如遇提示重复，请在后面加数字1、2...，若为小微商户，请命名为 个体户 xxx。"
                   placeholder="需与营业执照一致，如遇提示重复，请在后面加数字1、2...，若为小微商户，请命名为 个体户 xxx。"
                   style="width: 60%"
+                  :maxlength="50"
                 ></Input>
               </FormItem>
             </Col>
@@ -38,6 +39,7 @@
                   title="建议和商户门头名称保持一致"
                   placeholder="建议和商户门头名称保持一致"
                   style="width: 60%"
+                  :maxlength="20"
                 ></Input>
               </FormItem>
             </Col>
@@ -53,6 +55,7 @@
                   title="需与营业执照上相同"
                   placeholder="需与营业执照上相同"
                   style="width: 60%"
+                  :maxlength="50"
                 ></Input>
               </FormItem>
             </Col>
@@ -62,6 +65,7 @@
                   v-model="formValidate.license_type"
                   disabled
                   style="width: 60%"
+
                 >
                   <Option
                     v-for="item in identityType"
@@ -107,7 +111,7 @@
                 </div>
                 <Upload
                   ref="uploadDoorFace"
-                  accept="['image/jpg']"
+                  accept=".jpg"
                   :show-upload-list="false"
                   :on-success="handleDoorFaceSuccess"
                   :format="['jpg']"
@@ -116,7 +120,7 @@
                   :on-exceeded-size="handleDoorFaceMaxSize"
                   :before-upload="handleDoorFaceBeforeUpload"
                   type="drag"
-                  action="http://localhost:21021/api/services/app/FuYouService/PostUpload?fileTypeValue=6"
+                  action="http://47.116.131.89:8088/api/services/app/FuYouService/PostUpload?fileTypeValue=6"
                   style="display: inline-block; width: 58px"
                 >
                   <div style="width: 58px; height: 58px; line-height: 58px">
@@ -162,7 +166,7 @@
                 </div>
                 <Upload
                   ref="uploadDoorHead"
-                  accept="['image/jpg']"
+                  accept=".jpg"
                   :show-upload-list="false"
                   :on-success="handleDoorHeadSuccess"
                   :format="['jpg']"
@@ -171,7 +175,7 @@
                   :on-exceeded-size="handleDoorHeadMaxSize"
                   :before-upload="handleDoorHeadBeforeUpload"
                   type="drag"
-                  action="http://localhost:21021/api/services/app/FuYouService/PostUpload?fileTypeValue=7"
+                  action="http://47.116.131.89:8088/api/services/app/FuYouService/PostUpload?fileTypeValue=7"
                   style="display: inline-block; width: 58px"
                 >
                   <div style="width: 58px; height: 58px; line-height: 58px">
@@ -199,6 +203,7 @@
                   title="证件号码"
                   placeholder="证件号码"
                   style="width: 60%"
+                  :maxlength="18"
                 ></Input>
               </FormItem>
             </Col>
@@ -224,6 +229,7 @@
                   title="法人身份证号"
                   placeholder="法人身份证号"
                   style="width: 60%"
+                  :maxlength="18"
                 ></Input>
               </FormItem>
             </Col>
@@ -274,7 +280,7 @@
                 <Upload
                   ref="uploadLegalPersonPositive"
                   :show-upload-list="false"
-                  accept="['image/jpg']"
+                  accept=".jpg"
                   :on-success="handleLegalPersonPositiveSuccess"
                   :format="['jpg']"
                   :max-size="1024"
@@ -282,7 +288,7 @@
                   :on-exceeded-size="handleLegalPersonPositiveMaxSize"
                   :before-upload="handleLegalPersonPositiveBeforeUpload"
                   type="drag"
-                  action="http://localhost:21021/api/services/app/FuYouService/PostUpload?fileTypeValue=4"
+                  action="http://47.116.131.89:8088/api/services/app/FuYouService/PostUpload?fileTypeValue=4"
                   style="display: inline-block; width: 58px"
                 >
                   <div style="width: 58px; height: 58px; line-height: 58px">
@@ -332,7 +338,7 @@
                 <Upload
                   ref="uploadLegalPersonBack"
                   :show-upload-list="false"
-                  accept="['image/jpg']"
+                  accept=".jpg"
                   :on-success="handleLegalPersonBackSuccess"
                   :format="['jpg']"
                   :max-size="1024"
@@ -340,7 +346,7 @@
                   :on-exceeded-size="handleLegalPersonBackMaxSize"
                   :before-upload="handleLegalPersonBackBeforeUpload"
                   type="drag"
-                  action="http://localhost:21021/api/services/app/FuYouService/PostUpload?fileTypeValue=5"
+                  action="http://47.116.131.89:8088/api/services/app/FuYouService/PostUpload?fileTypeValue=5"
                   style="display: inline-block; width: 58px"
                 >
                   <div style="width: 58px; height: 58px; line-height: 58px">
@@ -371,6 +377,7 @@
                   title="联系人姓名"
                   placeholder="联系人姓名"
                   style="width: 60%"
+                  :maxlength="10"
                 ></Input>
               </FormItem>
             </Col>
@@ -381,6 +388,7 @@
                   title="客服电话，必须纯数字。推荐 400开头电话或11位有效手机号"
                   placeholder="客服电话，必须纯数字。推荐 400开头电话或11位有效手机号"
                   style="width: 60%"
+                  :maxlength="15"
                 ></Input>
               </FormItem>
             </Col>
@@ -410,6 +418,7 @@
                   title="联系电话"
                   placeholder="联系电话"
                   style="width: 60%"
+                  :maxlength="11"
                 ></Input>
               </FormItem>
             </Col>
@@ -425,6 +434,7 @@
                   title="联系邮箱"
                   placeholder="联系邮箱"
                   style="width: 60%"
+                  :maxlength="60"
                 ></Input>
               </FormItem>
             </Col>
@@ -480,6 +490,7 @@
                   title="入账卡号"
                   placeholder="入账卡号"
                   style="width: 60%"
+                  :maxlength="18"
                 ></Input>
               </FormItem>
             </Col>
@@ -507,6 +518,7 @@
                   title="法人姓名"
                   placeholder="法人姓名"
                   style="width: 60%"
+                  :maxlength="15"
                 ></Input>
               </FormItem>
             </Col>
@@ -555,6 +567,7 @@
                   title="入账证件号"
                   placeholder="入账证件号"
                   style="width: 60%"
+                  :maxlength="18"
                 ></Input>
               </FormItem>
             </Col>
@@ -606,7 +619,7 @@
                 <Upload
                   ref="uploadEntryBankPositive"
                   :show-upload-list="false"
-                  accept="['image/jpg']"
+                  accept=".jpg"
                   :on-success="handleEntryBankPositiveSuccess"
                   :format="['jpg']"
                   :max-size="1024"
@@ -614,7 +627,7 @@
                   :on-exceeded-size="handleEntryBankPositiveMaxSize"
                   :before-upload="handleEntryBankPositiveBeforeUpload"
                   type="drag"
-                  action="http://localhost:21021/api/services/app/FuYouService/PostUpload?fileTypeValue=12"
+                  action="http://47.116.131.89:8088/api/services/app/FuYouService/PostUpload?fileTypeValue=12"
                   style="display: inline-block; width: 58px"
                 >
                   <div style="width: 58px; height: 58px; line-height: 58px">
@@ -670,7 +683,7 @@
                 <Upload
                   ref="uploadHoldID"
                   :show-upload-list="false"
-                  accept="['image/jpg']"
+                  accept=".jpg"
                   :on-success="handleHoldIDSuccess"
                   :format="['jpg']"
                   :max-size="1024"
@@ -678,7 +691,7 @@
                   :on-exceeded-size="handleHoldIDMaxSize"
                   :before-upload="handleHoldIDBeforeUpload"
                   type="drag"
-                  action="http://localhost:21021/api/services/app/FuYouService/PostUpload?fileTypeValue=16"
+                  action="http://47.116.131.89:8088/api/services/app/FuYouService/PostUpload?fileTypeValue=16"
                   style="display: inline-block; width: 58px"
                 >
                   <div style="width: 58px; height: 58px; line-height: 58px">
@@ -812,9 +825,11 @@ export default class FuYou extends AbpBase {
   ruleValidate: any = {
     acnt_certif_id: [
       { required: true, message: "入账证件号不能为空", trigger: 'blur' },
+      { type: 'string', min: 18, message: '入账证件号长度不能小于18', trigger: 'blur' }
     ],
     acnt_certif_expire_dt: [
       { required: true, message: "入账证件到期日不能为空", trigger: 'blur' },
+      { type: 'string', min: 8, message: '入账证件到期日长度不能小于8', trigger: 'blur' }
     ],
     artif_nm: [
       { required: true, message: "法人名称不能为空", trigger: 'blur' },
@@ -830,6 +845,8 @@ export default class FuYou extends AbpBase {
     ],
     acnt_no: [
       { required: true, message: "入账卡号不能为空", trigger: 'blur' },
+      { type: 'string', min: 18, message: '入账卡号长度不能小于18', trigger: 'blur' }
+      
     ],
     door_face: [
       { required: true, validator:(rule, value, cb)=>{
@@ -909,6 +926,7 @@ export default class FuYou extends AbpBase {
     ],
     certif_id_expire_dt: [
       { required: true, message: "法人身份证到期日不能为空", trigger: 'blur' },
+      
     ],
     mchnt_name: [
       { required: true, message: "商户全称不能为空", trigger: 'blur' },
@@ -921,12 +939,14 @@ export default class FuYou extends AbpBase {
     ],
     license_no: [
       { required: true, message: "证件号码不能为空", trigger: 'blur' },
+      { type: 'string', min: 18, message: '证件号码长度不能小于18', trigger: 'blur' }
     ],
     license_expire_dt: [
       { required: true, message: "证件到期日不能为空", trigger: 'blur' },
     ],
     certif_id: [
       { required: true, message: "法人身份证号不能为空", trigger: 'blur' },
+      { type: 'string', min: 18, message: '法人身份证号长度不能小于18', trigger: 'blur' }
     ],
   };
 
@@ -1018,7 +1038,7 @@ export default class FuYou extends AbpBase {
   handleDoorFaceFormatError(file) {
     this.$Notice.warning({
       title: "文件格式错误",
-      desc: "请选择pdf文件上传",
+      desc: "请选择jpg文件上传",
     });
   }
   //图片上传最大值
@@ -1206,7 +1226,7 @@ export default class FuYou extends AbpBase {
   handleEntryBankPositiveFormatError(file) {
     this.$Notice.warning({
       title: "文件格式错误",
-      desc: "请选择pdf文件上传",
+      desc: "请选择jpg文件上传",
     });
   }
   //图片上传最大值
@@ -1253,7 +1273,7 @@ export default class FuYou extends AbpBase {
   handleHoldIDFormatError(file) {
     this.$Notice.warning({
       title: "文件格式错误",
-      desc: "请选择pdf文件上传",
+      desc: "请选择jpg文件上传",
     });
   }
   //图片上传最大值
