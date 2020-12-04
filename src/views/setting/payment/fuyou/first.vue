@@ -926,7 +926,7 @@ export default class FuYou extends AbpBase {
     ],
     certif_id_expire_dt: [
       { required: true, message: "法人身份证到期日不能为空", trigger: 'blur' },
-      
+      { type: 'string', min: 8, message: '法人身份证到期日长度不能小于8', trigger: 'blur' }
     ],
     mchnt_name: [
       { required: true, message: "商户全称不能为空", trigger: 'blur' },
@@ -943,6 +943,7 @@ export default class FuYou extends AbpBase {
     ],
     license_expire_dt: [
       { required: true, message: "证件到期日不能为空", trigger: 'blur' },
+      { type: 'string', min: 8, message: '证件到期日长度不能小于8', trigger: 'blur' }
     ],
     certif_id: [
       { required: true, message: "法人身份证号不能为空", trigger: 'blur' },
