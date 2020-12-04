@@ -31,6 +31,7 @@
           <div class="box__description-text">
             资料已提交审核,请等待审核通过。
           </div>
+          <Button :disabled="subState" @click="againSubmit" class="btnClass" style="margin-top: 25px;font-size: 18px;line-height: 40px;" :size="large" type="success">重新提交</Button>
         </div>
       </div>
     </div>
@@ -54,7 +55,13 @@ export default class FuYou extends AbpBase {
   @Emit("stepValueEmit") send(val: any) {}
   trace_no: string = "";
   spinShow: boolean = true;
+  subState:boolean=false;
   created() {
+    this.againSubmit();
+  }
+  //重新提交
+  againSubmit(){
+    this.subState=true;
     (this.$Spin as any).show({
       render: (h) => {
         return h("div", [
@@ -70,18 +77,22 @@ export default class FuYou extends AbpBase {
       },
     });
     if (
-      localStorage.getItem("trace_no") != null &&
-      localStorage.getItem("trace_no") != "" &&
-      localStorage.getItem("stepValue") != null &&
-      localStorage.getItem("stepValue") != ""
-    ) {
-      this.trace_no = localStorage.getItem("trace_no");
-      if (localStorage.getItem("submitSuccessState") == "true") return;
-      this.uploadAttaInfo();
-    } else {
-      (this.$Spin as any).hide();
-      this.send(2);
-    }
+          localStorage.getItem("trace_no") != null &&
+          localStorage.getItem("trace_no") != "" &&
+          localStorage.getItem("stepValue") != null &&
+          localStorage.getItem("stepValue") != ""
+        ) {
+          this.trace_no = localStorage.getItem("trace_no");
+          if (localStorage.getItem("submitSuccessState") == "true") {
+            (this.$Spin as any).hide();
+            return;
+          }
+          this.uploadAttaInfo();
+        } else {
+          this.subState=true;
+          (this.$Spin as any).hide();
+          this.send(2);
+        }
   }
   uploadAttaInfo() {
     this.$store
@@ -104,9 +115,11 @@ export default class FuYou extends AbpBase {
             closable: true,
           });
         }
+        this.subState=true;
         (this.$Spin as any).hide();
       })
       .then(() => {
+        this.subState=false;
         (this.$Spin as any).hide();
       });
   }
@@ -116,6 +129,13 @@ export default class FuYou extends AbpBase {
 
 
 <style scoped>
+
+.contentClass .btnClass{
+    border-radius: 50px;
+    width: 200px;
+    height: 50px;
+
+}
 .demo-spin-icon-load {
   animation: ani-demo-spin 1s linear infinite;
 }
@@ -321,7 +341,7 @@ export default class FuYou extends AbpBase {
 .box .box__description .box__description-container {
   color: #fff;
   text-align: center;
-  width: 200px;
+  width: 250px;
   font-size: 16px;
   margin: 0 auto;
 }
@@ -334,43 +354,7 @@ export default class FuYou extends AbpBase {
   line-height: 20px;
   margin-top: 20px;
 }
-.box .box__description .box__button {
-  display: block;
-  position: relative;
-  background: #ff5e65;
-  border: 1px solid transparent;
-  border-radius: 50px;
-  height: 50px;
-  text-align: center;
-  text-decoration: none;
-  color: #fff;
-  line-height: 50px;
-  font-size: 18px;
-  padding: 0 70px;
-  white-space: nowrap;
-  margin-top: 25px;
-  transition: background 0.5s ease;
-  overflow: hidden;
-}
-.box .box__description .box__button:before {
-  content: "";
-  position: absolute;
-  width: 20px;
-  height: 100px;
-  background: #fff;
-  bottom: -25px;
-  left: 0;
-  border: 2px solid #fff;
-  transform: translateX(-50px) rotate(45deg);
-  transition: transform 0.5s ease;
-}
-.box .box__description .box__button:hover {
-  background: transparent;
-  border-color: #fff;
-}
-.box .box__description .box__button:hover:before {
-  transform: translateX(250px) rotate(45deg);
-}
+
 
 @keyframes upndown {
   0% {
