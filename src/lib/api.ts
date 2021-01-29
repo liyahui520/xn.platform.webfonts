@@ -3,7 +3,7 @@
  * @Email: liyahui360@163.com
  * @Date: 2019-11-24 21:29:44
  * @Last Modified by: yhli
- * @Last Modified time: 2020-09-27 16:40:23
+ * @Last Modified time: 2021-01-28 14:55:44
  * @Description: 接口统一出口
  * api接口的出口，这样就可以把api接口根据功能划分为多个模块，利于多人协作开发，比如一个人只负责一个模块的开发等，还能方便每个模块中接口的命名
  */
@@ -23,9 +23,13 @@ import OrgList from '@/api/OrgList'
 import ChargeHistory from '@/api/ChargeHistory' 
 
 import CmembersCard from '@/api/CmembersCardApi'
+
+import DrugsApi from '@/api/generalControlModule/drugs'
  
 //富友支付相关
 import FuYouPay from '@/api/FuYouPay' 
+
+import ZKBase from '@/api/generalControlModule/zkBase'
 
 export default {
     BaseApi,
@@ -36,5 +40,7 @@ export default {
     OrgList,
     CmembersCard,
     ChargeHistory,
-    FuYouPay
+    FuYouPay,
+    DrugsApi,
+    ZKBase
 }

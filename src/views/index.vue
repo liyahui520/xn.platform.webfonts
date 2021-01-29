@@ -6,11 +6,11 @@
        
         <div class="main-header-con">
             <div class="main-header">
-                <div class="header-middle-con">
+                <!-- <div class="header-middle-con">
                     <div class="main-breadcrumb">
                         <breadcrumb-nav :currentPath="currentPath"></breadcrumb-nav>
                     </div>
-                </div>
+                </div> -->
                 <div class="header-avator-con">
                     <full-screen v-model="isFullScreen" @on-change="fullscreenChange"></full-screen>
                     <lock-screen></lock-screen>  
@@ -36,9 +36,33 @@
         </div>
         <div class="single-page-con" :style="{left: shrink?'0':'0'}">
             <div class="single-page">
-                <keep-alive :include="cachePage">
-                    <router-view></router-view>
-                </keep-alive>                
+              
+                <Row type="flex" justify="space-around"  style="height:120px" class="code-row-bg">
+                  <Col span="4"><Card>
+                <div style="text-align:center">
+                  <img src="../images/usericon.jpg" />
+                  <h3>数据中心平台</h3>
+                </div>
+              </Card></Col>
+                  <Col span="4"><Card>
+                <div style="text-align:center">
+                  <img src="../images/usericon.jpg" />
+                  <h3>数据中心平台</h3>
+                </div>
+              </Card></Col>
+                  <Col span="4"><Card>
+                <div style="text-align:center">
+                  <img src="../images/usericon.jpg" />
+                  <h3>数据中心平台</h3>
+                </div>
+              </Card></Col>
+                  <Col span="4"><Card>
+                <div style="text-align:center">
+                  <img src="../images/usericon.jpg" />
+                  <h3>数据中心平台</h3>
+                </div>
+              </Card></Col>
+              </Row>
             </div>
             <copyfooter :copyright="L('CopyRight')"></copyfooter>
         </div>
@@ -165,3 +189,12 @@
         }
     }
 </script>
+<style scoped>
+.home .single-page-con{
+  top: 60px;
+  background-color:initial;
+}
+.main-header-con{
+  height: 60px;
+}
+</style>

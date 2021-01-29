@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Card dis-hover></Card>
+        <Card dis-hover>12311111111</Card>
     </div>
 </template>
 <script lang="ts">

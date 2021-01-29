@@ -12,6 +12,8 @@ import orglist from './modules/orglist'
 import cmemberscard from './modules/cmemberscard'
 import chargehistory from './modules/chargehistory'
 import fuyoupay from './modules/fuyoupay'
+import drugs from './modules/generalControlModule/drugs'
+import zkBase from './modules/generalControlModule/zkBase'
 
 const store = new Vuex.Store({
     state: {
@@ -34,7 +36,9 @@ const store = new Vuex.Store({
         orglist,
         cmemberscard,
         chargehistory,
-        fuyoupay
+        fuyoupay,
+        drugs,
+        zkBase
     }
 });
 

@@ -3,4 +3,6 @@ export default class  PagedFilterAndSortedRequest{
     skipCount:number;
     sorting:string;
     where:string;
+    pageIndex:number;
+    pageSize:number;
 }
