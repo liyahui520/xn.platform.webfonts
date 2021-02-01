@@ -49,6 +49,14 @@ export const paymentRouter: Router = {
     },
     component: () => import('@/views/setting/payment/fuyou/index.vue')
 };
+export const aibokeRouter: Router = {
+    path: '/aiboke',
+    name: 'aiboke',
+    meta: {
+        title: 'Aiboke'
+    },
+    component: () => import('@/views/setting/activity/aiboke/index.vue')
+};
 export const otherRouters: Router = {
     path: '/main',
     name: 'main',
@@ -105,12 +113,27 @@ export const appRouters: Array<Router> = [{
     children: [
         { path: 'drugs', permission: 'Pages.ZK_Pmedicines_Drugs', meta: { title: 'ZK_Pmedicines_Drugs' }, name: 'ZK_Pmedicines_Drugs', component: () => import('@/views/generalControlModule/drugs/drugs.vue') }
     ]
-}]
+}
+,{
+    path: '/zkjc',
+    name: 'zkjc',
+    permission: '',
+    meta: { title: 'ZK_JC' },
+    icon: '&#xe68a;',
+    component: main,
+    children: [
+        { path: 'manufacturer', permission: 'Pages.ZK_JC_Manufacturer', meta: { title: 'ZK_JC_Manufacturer' }, name: 'ZK_JC_Manufacturer', component: () => import('@/views/generalControlModule/basedata/manufacturer/manufacturer.vue') },
+        { path: 'pprovider', permission: 'Pages.ZK_JC_PProvider', meta: { title: 'ZK_JC_PProvider' }, name: 'ZK_JC_PProvider', component: () => import('@/views/generalControlModule/basedata/pprovider/pprovider.vue') },
+        { path: 'unit', permission: 'Pages.ZK_JC_Unit', meta: { title: 'ZK_JC_Unit' }, name: 'ZK_JC_Unit', component: () => import('@/views/generalControlModule/basedata/unit/unit.vue') },
+    ]
+}
+]
 export const routers = [
     loginRouter,
     locking,
     ...appRouters,
     otherRouters, 
     homeRouter,
-    paymentRouter 
+    paymentRouter ,
+    aibokeRouter
 ];

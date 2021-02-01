@@ -31,6 +31,8 @@ import FuYouPay from '@/api/FuYouPay'
 
 import ZKBase from '@/api/generalControlModule/zkBase'
 
+import ManfacturerApi from '@/api/generalControlModule/manufacturer'
+
 export default {
     BaseApi,
     RoleApi,
@@ -42,5 +44,6 @@ export default {
     ChargeHistory,
     FuYouPay,
     DrugsApi,
-    ZKBase
+    ZKBase,
+    ManfacturerApi
 }
