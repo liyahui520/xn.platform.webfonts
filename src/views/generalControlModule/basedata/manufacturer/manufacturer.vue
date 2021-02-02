@@ -100,7 +100,6 @@ export default class Manufacturer extends AbpBase {
     size: 'small',
   }
   pagerequest: PageManufacturerRequest = new PageManufacturerRequest()
-
   createModalShow: boolean = false
   editModalShow: boolean = false
   permissions = {
@@ -143,7 +142,6 @@ export default class Manufacturer extends AbpBase {
     })
   }
   get list() {
-    console.log("此时store里面的值为",this.$store.state)
     return this.$store.state.manufacturer.list
   }
   get pageSize() {

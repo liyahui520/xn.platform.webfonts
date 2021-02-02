@@ -11,7 +11,7 @@ class ManufacturerModule extends ListModule<ManufacturerState,any,Manufacturer>{
         totalCount:0,
         currentPage:1,
         pageSize:10,
-        list: new Array<Manufacturer>(),
+        list: new Array(),
         loading:false,
     }
     actions={
@@ -22,6 +22,7 @@ class ManufacturerModule extends ListModule<ManufacturerState,any,Manufacturer>{
        */
         async GetAllByOrgId(context:ActionContext<ManufacturerState,any>,payload:any) {
             let respose = await api.ManfacturerApi.GetAllByOrgId(payload); 
+            console.log("返回的列表数据为",(respose as any).data.result.result)
             context.state.list=(respose as any).data.result.result;
             context.state.totalCount=(respose as any).data.result.totalCount;
 

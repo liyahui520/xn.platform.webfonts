@@ -13,6 +13,7 @@ const ManufacturerApi = {
     //获取生产商
     async GetAllByOrgId (params: any) {
         return await Ajax.post('/api/services/app/LessueManufacturerService/GetAllByOrgId',params.data);
+        
     }
    
 }
