@@ -1,6 +1,6 @@
 import Entity from '../entity'
 
-export default class Pmedicines extends Entity<number>{
+export default class Manufacturer extends Entity<number>{
     orgId:number=0;//机构id
     companyName: String;//生产商名称
     leader: String;//负责人

@@ -4,148 +4,149 @@
       :title="L('AddManufacturer')"
       :value="value"
       @on-ok="save"
-      @on-visible-change="visibleChange"
       draggable
       :width="70"
-      :createDrugsData="createDrugsData"
       :mask-closable="false"
     >
       <Form
-        ref="drugsForm"
-        :rules="drugsRule"
+        ref="manufacturerForm"
+        :rules="manufacturerRule"
         :model="createData"
         :label-width="110"
       >
         <Divider orientation="left" size="small">生产商信息</Divider>
         <Row>
           <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('Manufacturer_EnterpriseName')" prop="categoryName">
+            <FormItem :label="L('Manufacturer_EnterpriseName')" prop="companyName">
               <Input
-                v-model="createData.categoryName"
+                v-model="createData.companyName"
                 :maxlength="32"
                 show-word-limit
-                disabled
               ></Input>
             </FormItem>
           </Col>
           <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('Manufacturer_EnterpriseNumber')" prop="categoryName">
+            <FormItem :label="L('Manufacturer_EnterpriseNumber')" prop="licenseNo">
               <Input
-                v-model="createData.categoryName"
+                v-model="createData.licenseNo"
                 :maxlength="32"
                 show-word-limit
-                disabled
               ></Input>
             </FormItem>
           </Col>
           <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('Manufacturer_Contacts')" prop="categoryName">
+            <FormItem :label="L('Manufacturer_PersonInCharge')" prop="leader">
               <Input
-                v-model="createData.categoryName"
+                v-model="createData.leader"
                 :maxlength="32"
                 show-word-limit
-                disabled
               ></Input>
             </FormItem>
           </Col>
+
         </Row>
         <Row>
           <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('Manufacturer_ContactPhone')" prop="categoryName">
+            <FormItem :label="L('Manufacturer_Contacts')" prop="contacter">
               <Input
-                v-model="createData.categoryName"
+                v-model="createData.contacter"
                 :maxlength="32"
                 show-word-limit
-                disabled
               ></Input>
             </FormItem>
           </Col>
           <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('Manufacturer_ContactsOne')" prop="categoryName">
+            <FormItem :label="L('Manufacturer_ContactPhone')" prop="telephone">
               <Input
-                v-model="createData.categoryName"
+                v-model="createData.telephone"
                 :maxlength="32"
                 show-word-limit
-                disabled
               ></Input>
             </FormItem>
           </Col>
-          <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('Manufacturer_ContactsPhoneOne')" prop="categoryName">
+                    <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
+            <FormItem :label="L('Manufacturer_FaxNumber')" prop="faxNumber">
               <Input
-                v-model="createData.categoryName"
+                v-model="createData.faxNumber"
                 :maxlength="32"
                 show-word-limit
-                disabled
               ></Input>
             </FormItem>
           </Col>
+          
+
         </Row>
         <Row>
-          <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('Manufacturer_FaxNumber')" prop="categoryName">
+            <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
+            <FormItem :label="L('Manufacturer_ContactsOne')" prop="contacter1">
               <Input
-                v-model="createData.categoryName"
+                v-model="createData.contacter1"
                 :maxlength="32"
                 show-word-limit
-                disabled
               ></Input>
             </FormItem>
           </Col>
-          <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('Manufacturer_ContactAddress')" prop="categoryName">
+                      <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
+            <FormItem :label="L('Manufacturer_ContactsPhoneOne')" prop="telephone1">
               <Input
-                v-model="createData.categoryName"
+                v-model="createData.telephone1"
                 :maxlength="32"
                 show-word-limit
-                disabled
               ></Input>
             </FormItem>
           </Col>
+
           <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('Manufacturer_PostalCode')" prop="categoryName">
+            <FormItem :label="L('Manufacturer_ContactAddress')" prop="address">
               <Input
-                v-model="createData.categoryName"
+                v-model="createData.address"
                 :maxlength="32"
                 show-word-limit
-                disabled
               ></Input>
             </FormItem>
           </Col>
+
         </Row>
         <Row>
-          <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('Manufacturer_EnterpriseLegalPerson')" prop="categoryName">
+                      <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
+            <FormItem :label="L('Manufacturer_PostalCode')" prop="postalCode">
               <Input
-                v-model="createData.categoryName"
+                v-model="createData.postalCode"
                 :maxlength="32"
                 show-word-limit
-                disabled
               ></Input>
             </FormItem>
           </Col>
           <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('Manufacturer_BusinessLicenseNo')" prop="categoryName">
+            <FormItem :label="L('Manufacturer_EnterpriseLegalPerson')" prop="enterpriser">
               <Input
-                v-model="createData.categoryName"
+                v-model="createData.enterpriser"
                 :maxlength="32"
                 show-word-limit
-                disabled
               ></Input>
             </FormItem>
           </Col>
           <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('Manufacturer_BusinessScope')" prop="categoryName">
+            <FormItem :label="L('Manufacturer_BusinessLicenseNo')" prop="legalerNo">
               <Input
-                v-model="createData.categoryName"
+                v-model="createData.legalerNo"
                 :maxlength="32"
                 show-word-limit
-                disabled
               ></Input>
             </FormItem>
           </Col>
         </Row>
-        
+        <Row> 
+          <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
+            <FormItem :label="L('Manufacturer_BusinessScope')" prop="scopeBusiness">
+              <Input
+                v-model="createData.scopeBusiness"
+                :maxlength="32"
+                show-word-limit
+              ></Input>
+            </FormItem>
+          </Col>
+        </Row>
       </Form>
       <div slot="footer">
         <Button @click="cancel">{{ L('Cancel') }}</Button>
@@ -160,205 +161,64 @@
 import { Component, Vue, Inject, Prop, Watch } from 'vue-property-decorator'
 import Util from '../../../../lib/util'
 import AbpBase from '../../../../lib/abpbase'
-import Drugs from '@/store/entities/generalControlModule/pmedicines'
-import Pmedicines from '@/store/entities/generalControlModule/pmedicines'
+import Manufacturer from '@/store/entities/generalControlModule/manufacturer'
+
 @Component
-export default class CreateDrugs extends AbpBase {
+export default class AddManufacturer extends AbpBase {
   @Prop({ type: Boolean, default: false }) value: boolean
-  createData: Drugs = new Drugs()
+  createData: Manufacturer = new Manufacturer()
   canOrder = true
   canSell = true
   deleted = false
   save() {
-    ;(this.$refs.drugsForm as any).validate(async (valid: boolean) => {
+    (this.$refs.manufacturerForm as any).validate(async (valid: boolean) => {
       if (valid) {
-        this.createData.drugType = 1046
         await this.$store.dispatch({
-          type: 'drugs/create',
+          type: 'manufacturer/AddManufacturerInfo',
           data: this.createData,
         })
-        ;(this.$refs.drugsForm as any).resetFields()
+        ;(this.$refs.manufacturerForm as any).resetFields()
         this.$emit('save-success')
         this.$emit('input', false)
       }
     })
   }
   cancel() {
-    ;(this.$refs.drugsForm as any).resetFields()
+    ;(this.$refs.manufacturerForm as any).resetFields()
     this.$emit('input', false)
-  }
-  visibleChange(value: boolean) {
-    if (!value) {
-      this.$emit('input', value)
-    } else {
-      this.createData = Util.extend(true, {}, this.$store.state.drugs.editDrugs)
-    }
-  }
-  canOrderChange(item) {
-    this.canOrder = item
-    if (item) this.createData.canOrder == 1
-    else this.createData.canOrder = 0
-    if (item || this.createData.canSell == 1) {
-      this.createData.deleted = 0
-      this.deleted = false
-    }
-    if (!item && this.createData.canSell == 0) {
-      this.deleted = true
-      this.createData.deleted = 1
-    }
-  }
-
-  canSellChange(item) {
-    this.canSell = item
-    if (item) this.createData.canSell = 1
-    else this.createData.canSell = 0
-    if (item || this.createData.canOrder == 1) {
-      this.createData.deleted = 0
-      this.deleted = false
-    }
-    if (!item && this.createData.canOrder == 0) {
-      this.createData.deleted = 1
-      this.deleted = true
-    }
-  }
-
-  deletedChange(item) {
-    this.deleted = item
-    if (item) {
-      this.createData.canOrder = 0
-      this.createData.canSell = 0
-      this.createData.deleted = 1
-      this.canOrder = false
-      this.canSell = false
-    } else {
-      this.createData.canOrder = 1
-      this.createData.deleted = 0
-      this.createData.canSell = 1
-      this.canOrder = true
-      this.canSell = true
-    }
-  }
-
-  /**
-   * 获取生产商
-   */
-  async getManufacturerListById() {
-    await this.$store.dispatch({
-      type: 'zkBase/GetManufacturerListById',
-      data: { orgId: 7990 },
-    })
-  }
-
-  /**
-   * 获取供应商
-   */
-  async GetPProviderById() {
-    await this.$store.dispatch({
-      type: 'zkBase/GetPProviderById',
-      data: { orgId: 7990 },
-    })
-  }
-
-  /**
-   * 获取使用方式
-   */
-  async GetSysCategoryByParentId() {
-    await this.$store.dispatch({
-      type: 'zkBase/GetSysCategoryByParentId',
-      data: { orgId: 7990 },
-    })
-  }
-
-  instoreUnitChange(item, value) {
-    if (item != undefined) this.createData.outStoreUnitName = item.label
-    console.log('出入口单位：', item)
-  }
-
-  unitChange(item, value) {
-    if (item != undefined) this.createData.unitName = item.label
-    console.log('投药单位', item)
-  }
-
-  get dosingWays() {
-    return this.$store.state.drugs.dosingWay
-  }
-
-  get createDrugsData() {
-    this.createData = this.$store.state.drugs.createDrugsData
-    return this.$store.state.drugs.createDrugsData
-  }
-
-  get units() {
-    return this.$store.state.drugs.units
-  }
-
-  get pproviderDatas() {
-    return this.$store.state.zkBase.pproviderData
-  }
-
-  get manufacturerDatas() {
-    return this.$store.state.zkBase.manufacturerData
-  }
-
-  get sysCategoryDatas() {
-    return this.$store.state.zkBase.sysCategoryData
   }
 
   async created() {
-    await this.$store.dispatch({
-      type: 'drugs/GetDosingWay',
-      data: { orgId: 7990, parentId: 1040 },
-    })
 
-    await this.$store.dispatch({
-      type: 'drugs/GetUnit',
-      data: { orgId: 7990, parentId: 4355 },
-    })
-
-    await this.getManufacturerListById()
-
-    await this.GetPProviderById()
-
-    await this.GetSysCategoryByParentId()
   }
 
-  drugsRule = {
-    drugsName: [
+  manufacturerRule = {
+    companyName: [
       {
         required: true,
-        message: this.L('FieldIsRequired', undefined, this.L('drugsName')),
+        message: this.L('Manufacturer_EnterpriseNameRequiredField', undefined, this.L('Manufacturer_EnterpriseName')),
         trigger: 'blur',
       },
     ],
-    barCode: [
+    licenseNo: [
       {
         required: true,
-        message: this.L('FieldIsRequired', undefined, this.L('barCode')),
+        message: this.L('Manufacturer_EnterpriseNumberRequiredField', undefined, this.L('Manufacturer_EnterpriseNumber')),
         trigger: 'blur',
       },
     ],
-    brandId: [
+    leader: [
       {
         required: true,
-        type: 'number',
-        message: this.L('FieldIsRequired', undefined, this.L('brand')),
+        message: this.L('Manufacturer_PersonInChargeRequiredField', undefined, this.L('Manufacturer_PersonInCharge')),
         trigger: 'change',
       },
     ],
-    providerId: [
+    telephone: [
       {
         required: true,
-        pattern: /.+/,
-        type: 'number',
-        message: this.L('FieldIsRequired', undefined, this.L('provider')),
+        message: this.L('Manufacturer_ContactPhoneRequiredField', undefined, this.L('Manufacturer_ContactPhone')),
         trigger: 'change',
-      },
-    ],
-    ingredient: [
-      {
-        required: true,
-        message: this.L('FieldIsRequired', undefined, this.L('ingredient')),
-        trigger: 'blur',
       },
     ],
   }

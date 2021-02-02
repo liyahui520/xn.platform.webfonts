@@ -4,7 +4,8 @@ import ListState from '../list-state'
 import Manufacturer from '../../entities/generalControlModule/manufacturer'
 import api from '@/lib/api'
 interface ManufacturerState extends ListState<Manufacturer>{ 
-    ManufacturerData:any
+    ManufacturerData:any,
+    manufacturerInfo:Manufacturer
 }
 class ManufacturerModule extends ListModule<ManufacturerState,any,Manufacturer>{
     state={
@@ -13,6 +14,7 @@ class ManufacturerModule extends ListModule<ManufacturerState,any,Manufacturer>{
         pageSize:10,
         list: new Array(),
         loading:false,
+        manufacturerInfo:new Manufacturer()
     }
     actions={
        /**
@@ -22,11 +24,35 @@ class ManufacturerModule extends ListModule<ManufacturerState,any,Manufacturer>{
        */
         async GetAllByOrgId(context:ActionContext<ManufacturerState,any>,payload:any) {
             let respose = await api.ManfacturerApi.GetAllByOrgId(payload); 
-            console.log("返回的列表数据为",(respose as any).data.result.result)
             context.state.list=(respose as any).data.result.result;
             context.state.totalCount=(respose as any).data.result.totalCount;
-
-        }
+        },
+        /**
+       * 添加生产商信息
+       * @param context 
+       * @param payload 
+       */
+        async AddManufacturerInfo(context:ActionContext<ManufacturerState,any>,payload:any) {
+            await api.ManfacturerApi.AddManufacturerInfo(payload); 
+        },
+        /**
+       * 通过生产商id获取生产商信息
+       * @param context 
+       * @param payload 
+       */
+      async GetManufacturerInfoById(context:ActionContext<ManufacturerState,any>,payload:any) {
+        let respose = await api.ManfacturerApi.GetManufacturerInfoById(payload); 
+        var info= (respose as any).data.result;
+        return info;
+      },
+      /**
+       * 更新供应商基本信息
+       * @param context 
+       * @param payload 
+       */
+      async UpdateManufacturerInfo(context:ActionContext<ManufacturerState,any>,payload:any) {
+          await api.ManfacturerApi.UpdateManufacturerInfo(payload); 
+      }
     };
     mutations={
         //设置当前页

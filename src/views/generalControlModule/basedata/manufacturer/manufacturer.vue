@@ -74,6 +74,8 @@
             </div>
           </div>
       </Row>
+      <createmanufacturer v-model="createModalShow" @save-success="getpage" :data="createManufacturer"></createmanufacturer>
+      <editmanufacturer v-model="editModalShow" @save-success="getpage" :manufacturerId="manufacturerId"></editmanufacturer>
     </Card>
   </div>
 </template>
@@ -84,17 +86,27 @@ import AbpBase from '@/lib/abpbase'
 import PageRequest from '@/store/entities/page-request'
 import ManufacturerEntity from '@/store/entities/generalControlModule/manufacturer'
 
+//新增生产商组件
+const createmanufacturer =() => import('./create-manufacturer.vue')
+//编辑生产商组件
+const editmanufacturer =() => import('./edit-manufacturer.vue')
 
 class PageManufacturerRequest extends PageRequest {
   orgId: 7990
   paramsName: ''
 }
-@Component({})
+@Component({
+   components: { 'createmanufacturer': createmanufacturer
+   , 'editmanufacturer': editmanufacturer 
+   },
+})
 export default class Manufacturer extends AbpBase {
-  edit() {
+  editClick(id) {
     this.editModalShow = true
+    this.manufacturerId=id;
   }
-  createDrugs: ManufacturerEntity = new ManufacturerEntity()
+  manufacturerId:Number=0
+  createManufacturer: ManufacturerEntity = new ManufacturerEntity()
   buttonProps = {
     type: 'default',
     size: 'small',
@@ -166,85 +178,85 @@ export default class Manufacturer extends AbpBase {
       key: 'serialNumber',
       fixed: 'left',
       resizable: true,
-      width: 100,
+      // width: 100,
     },
     {
       title: this.L('Manufacturer_EnterpriseName'),
       key: 'companyName',
       fixed: 'left',
-      width: '100',
+      // width: '100',
       resizable: true,
     },
     {
       title: this.L('Manufacturer_EnterpriseNumber'),
       key: 'licenseNo',
-      width: '100',
+      // width: '100',
       resizable: true,
     },
     {
       title: this.L('Manufacturer_PersonInCharge'),
       key: 'leader',
-      width: '100',
+      // width: '100',
       resizable: true,
     },
     {
       title: this.L('Manufacturer_Contacts'),
       key: 'contacter',
-      width: '100',
+      // width: '100',
       resizable: true,
     },
     {
       title: this.L('Manufacturer_ContactPhone'),
       key: 'telephone',
-      width: '100',
+      // width: '100',
       resizable: true,
     },
     {
       title: this.L('Manufacturer_ContactsOne'),
       key: 'contacter1',
-      width: '100',
+      // width: '100',
       resizable: true,
     },
     {
       title: this.L('Manufacturer_ContactsPhoneOne'),
       key: 'telephone1',
-      width: '100',
+      // width: '100',
       resizable: true,
     },
     {
       title: this.L('Manufacturer_FaxNumber'),
-      key: 'FaxNumber',
-      width: '100',
+      key: 'faxNumber',
+      // width: '100',
       resizable: true,
     },
     {
       title: this.L('Manufacturer_ContactAddress'),
-      key: 'faxNumber',
-      width: '100',
+      key: 'address',
+      // width: '100',
       resizable: true,
     },
     {
       title: this.L('Manufacturer_PostalCode'),
       key: 'postalCode',
-      width: '100',
+      // width: '100',
       resizable: true,
     },
     {
       title: this.L('Manufacturer_EnterpriseLegalPerson'),
       key: 'enterpriser',
-      width: '100',
+      // width: '100',
       resizable: true,
     },
     {
       title: this.L('Manufacturer_BusinessLicenseNo'),
       key: 'legalerNo',
-      width: '100',
+      // width: '100',
       resizable: true,
     },
     {
       title: this.L('Manufacturer_BusinessScope'),
       key: 'scopeBusiness',
-      width: '100',
+      // width: '100',
       resizable: true,
     },
     {
@@ -268,8 +280,8 @@ export default class Manufacturer extends AbpBase {
               on: {
                 click: () => {
                   let row = params.row
-                  this.$store.commit('drugs/edit', row)
-                  this.edit()
+                  this.manufacturerId=row.id;
+                  this.editClick(this.manufacturerId)
                 },
               },
             },
@@ -294,8 +306,8 @@ export default class Manufacturer extends AbpBase {
                     cancelText: this.L('No'),
                     onOk: async () => {
                       await this.$store.dispatch({
-                        type: 'drugs/delete',
-                        data: params.row,
+                        type: 'manufacturer/DeleteManufacturerInfo',
+                        data: params.row.id,
                       })
                       await this.getpage()
                     },
@@ -309,6 +321,7 @@ export default class Manufacturer extends AbpBase {
       },
     },
   ]
+
   async created() {
     this.pagerequest.pageSize = this.pageSize
     this.pagerequest.pageIndex = this.currentPage
