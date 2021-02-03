@@ -15,13 +15,13 @@ export default class Pmedicines extends Entity<number>{
     instorePrice:number=0.00;
     outstorePrice:number=0.00;
     minCount:number=0;
-    unit:number=0;
+    unit:number;
     specific:String='';
     totalCount:number=0;
     notFor:String='';
     count:number=0;
-    usingMethod:number=0;
-    vaccinateTimes:number=0;
+    usingMethod:number;
+    vaccinateTimes:number;
     vaccinateInterval:number=0;
     englishName:String='';
     drugsNameLetter:String='';
@@ -29,8 +29,8 @@ export default class Pmedicines extends Entity<number>{
     manufacturer:number=0;
     instoreUnit:number=0;
     drugId:String='';
-    discountRate:number=0;
-    deleted:number=0;
+    discountRate:number;
+    deleted:number;
     memberPrice:number=0;
     minStore:number=0;
     insertDate:Date;
@@ -42,7 +42,7 @@ export default class Pmedicines extends Entity<number>{
     kindOf:number=0;
     allowSaleForNoneStock:boolean=false;
     validDate:Date;
-    dosingWay:number=0;
+    dosingWay:number;
     indication:String='';
     forr:String='';
     taboo:String='';
@@ -56,7 +56,7 @@ export default class Pmedicines extends Entity<number>{
     fId:number=0;
     sourceFlag:number=0;
     costPrice:number=0;
-    saveMethod:number=0;
+    saveMethod:number;
     commonName:String='';
     writer:String='';
     handedBrand:String='';

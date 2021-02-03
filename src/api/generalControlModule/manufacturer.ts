@@ -12,7 +12,7 @@ import Ajax from '@/lib/ajax'
 const ManufacturerApi = {
     //获取生产商
     async GetAllByOrgId (params: any) {
-        return await Ajax.post('/api/services/app/LessueManufacturerService/GetAllByOrgId',params.data);
+        return await Ajax.post('/api/services/app/LessueManufacturerService/GetAllPageByOrgId',params.data);
 
     },
     //新增生产商信息

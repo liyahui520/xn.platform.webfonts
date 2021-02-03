@@ -78,9 +78,9 @@
             <FormItem :label="L('brand')" prop="brand">
               <Select v-model="drugs.brandId" filterable>
                 <Option
-                  v-for="item in manufacturerDatas"
+                  v-for="(item, index) in manufacturerDatas"
                   :value="item.id"
-                  :key="item.id"
+                  :key="index"
                   >{{ item.companyName }}</Option
                 >
               </Select>
@@ -90,9 +90,9 @@
             <FormItem :label="L('provider')" prop="provider">
               <Select v-model="drugs.providerId" filterable>
                 <Option
-                  v-for="item in pproviderDatas"
+                  v-for="(item, index) in pproviderDatas"
                   :value="item.id"
-                  :key="item.id"
+                  :key="index"
                   >{{ item.companyName }}</Option
                 >
               </Select>
@@ -104,9 +104,9 @@
             <FormItem :label="L('dosingWay')" prop="dosingWay">
               <Select v-model="drugs.dosingWay" filterable>
                 <Option
-                  v-for="item in dosingWays"
+                  v-for="(item, index) in dosingWays"
                   :value="item.id"
-                  :key="item.id"
+                  :key="index"
                   >{{ item.name }}</Option
                 >
               </Select>
@@ -116,9 +116,9 @@
             <FormItem :label="L('usingMethod')" prop="usingMethod">
               <Select v-model="drugs.usingMethod" filterable>
                 <Option
-                  v-for="item in sysCategoryDatas"
+                  v-for="(item, index) in sysCategoryDatas"
                   :value="item.id"
-                  :key="item.id"
+                  :key="index"
                   >{{ item.name }}</Option
                 >
               </Select>
@@ -213,16 +213,19 @@
         </Row>
         <Row>
           <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('OutinstoreUnit')" prop="OutinstoreUnit">
+            <FormItem :label="L('OutinstoreUnit')" prop="instoreUnit">
               <Select
                 v-model="drugs.instoreUnit"
                 filterable
                 label-in-value
                 @on-change="instoreUnitChange"
               >
-                <Option v-for="item in units" :value="item.id" :key="item.id">{{
-                  item.name
-                }}</Option>
+                <Option
+                  v-for="(item, index) in units"
+                  :value="item.id"
+                  :key="index"
+                  >{{ item.name }}</Option
+                >
               </Select>
             </FormItem>
           </Col>
@@ -234,9 +237,12 @@
                 label-in-value
                 @on-change="unitChange"
               >
-                <Option v-for="item in units" :value="item.id" :key="item.id">{{
-                  item.name
-                }}</Option>
+                <Option
+                  v-for="(item, index) in units"
+                  :value="item.id"
+                  :key="index"
+                  >{{ item.name }}</Option
+                >
               </Select>
             </FormItem>
           </Col>
@@ -522,6 +528,38 @@ export default class EditDrugs extends AbpBase {
         required: true,
         message: this.L('FieldIsRequired', undefined, this.L('ingredient')),
         trigger: 'blur',
+      },
+    ],
+    dosingWay: [
+      {
+        required: true,
+        type: 'number',
+        message: this.L('FieldIsRequired', undefined, this.L('dosingWay')),
+        trigger: 'change',
+      },
+    ],
+    usingMethod: [
+      {
+        required: true,
+        type: 'number',
+        message: this.L('FieldIsRequired', undefined, this.L('usingMethod')),
+        trigger: 'change',
+      },
+    ],
+    instoreUnit: [
+      {
+        required: true,
+        type: 'number',
+        message: this.L('FieldIsRequired', undefined, this.L('OutinstoreUnit')),
+        trigger: 'change',
+      },
+    ],
+    unit: [
+      {
+        required: true,
+        type: 'number',
+        message: this.L('FieldIsRequired', undefined, this.L('unit')),
+        trigger: 'change',
       },
     ],
   }
