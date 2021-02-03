@@ -1,4 +1,4 @@
-declare module 'iview' {
+declare module 'view-design' {
   const iView: any;
   export default iView;
 }

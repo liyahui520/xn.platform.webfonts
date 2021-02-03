@@ -2,14 +2,17 @@
 import '@babel/polyfill'
 import Vue from 'vue';
 import App from './app.vue';
-import iView from 'iview';
+// import iView from 'iview';
+import ViewUI from 'view-design';
+import 'view-design/dist/styles/iview.css';
 import {router} from './router/index';
 import 'famfamfam-flags/dist/sprite/famfamfam-flags.css';
 import './theme.less';
 import Ajax from './lib/ajax';
 import Util from './lib/util';
+
 import SignalRAspNetCoreHelper from './lib/SignalRAspNetCoreHelper';
-Vue.use(iView);
+Vue.use(ViewUI);
 import store from './store/index';
 import 'lib-flexible';
 import api from '@/lib/api';

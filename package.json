@@ -13,7 +13,7 @@
     "axios": "^0.18.0",
     "famfamfam-flags": "^1.0.0",
     "font-awesome": "^4.7.0",
-    "iview": "~3.4.1",
+    "view-design": "^4.0.0",
     "js-beautify": "^1.10.2",
     "js-cookie": "^2.2.0",
     "lib-flexible": "^0.3.2",
