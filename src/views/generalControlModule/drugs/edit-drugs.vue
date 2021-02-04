@@ -75,7 +75,7 @@
             </FormItem>
           </Col>
           <Col :xs="{ span: 11, offset: 1 }" :lg="{ span: 6, offset: 2 }">
-            <FormItem :label="L('brand')" prop="brand">
+            <FormItem :label="L('brand')" prop="brandId">
               <Select v-model="drugs.brandId" filterable>
                 <Option
                   v-for="(item, index) in manufacturerDatas"
@@ -87,7 +87,7 @@
             </FormItem>
           </Col>
           <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 2 }">
-            <FormItem :label="L('provider')" prop="provider">
+            <FormItem :label="L('provider')" prop="providerId">
               <Select v-model="drugs.providerId" filterable>
                 <Option
                   v-for="(item, index) in pproviderDatas"
@@ -127,7 +127,7 @@
           <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 2 }">
             <FormItem :label="L('showAll')" prop="showAll">
               <template>
-                <i-switch>
+                <i-switch v-model="drugs.showAll">
                   <span slot="open">是</span>
                   <span slot="close">否</span>
                 </i-switch>
@@ -151,7 +151,7 @@
           <Col :xs="{ span: 11, offset: 1 }" :lg="{ span: 6, offset: 2 }">
             <FormItem :label="L('memberPrice')" prop="memberPrice">
               <Input
-                v-model="drugs.outstorePrice"
+                v-model="drugs.memberPrice"
                 prefix="logo-usd"
                 :placeholder="L('memberPrice')"
                 type="number"
@@ -185,7 +185,7 @@
           <Col :xs="{ span: 11, offset: 2 }" :lg="{ span: 2, offset: 2 }">
             <FormItem :label="L('doNotDiscount')" prop="doNotDiscount">
               <template>
-                <i-switch v-model="drugs.doNotDiscount">
+                <i-switch v-model="!drugs.doNotDiscount">
                   <span slot="open">是</span>
                   <span slot="close">否</span>
                 </i-switch>
@@ -509,18 +509,20 @@ export default class EditDrugs extends AbpBase {
         trigger: 'blur',
       },
     ],
-    brand: [
+    brandId: [
       {
         required: true,
+        type: 'number',
         message: this.L('FieldIsRequired', undefined, this.L('brand')),
-        trigger: 'blur',
+        trigger: 'change',
       },
     ],
-    provider: [
+    providerId: [
       {
         required: true,
+        type: 'number',
         message: this.L('FieldIsRequired', undefined, this.L('provider')),
-        trigger: 'blur',
+        trigger: 'change',
       },
     ],
     ingredient: [

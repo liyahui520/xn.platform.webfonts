@@ -3,7 +3,7 @@
  * @Email: tongchuanchuan@yeah.net
  * @Date: 2020-09-23 
  * @Last Modified by: yhli
- * @Last Modified time: 2021-01-29 10:01:40
+ * @Last Modified time: 2021-02-04 13:55:27
  * @Description: 接口提供
  */
 
@@ -28,16 +28,16 @@ const DrugsApi = {
     },
     //新增产品
     async Create (params:any) {
-      return await Ajax.post('/api/services/app/LssuePmedicinesService/LssueAdd',params);
+        return await Ajax.post('/api/services/app/LssuePmedicinesService/LssueAdd',params);
     },
     /**
      * 获取投药单位
      * @param params 
      */
     async GetDosingWay(params:any) {
-      return await Ajax.post('/api/services/app/LssueCategoryService/GetPsyslistDowingByParentId',params);
+        return await Ajax.post('/api/services/app/LssueCategoryService/GetPsyslistDowingByParentId',params);
     }
-   
+
 }
 
 export default DrugsApi;

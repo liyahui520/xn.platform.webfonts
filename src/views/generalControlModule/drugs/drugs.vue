@@ -6,7 +6,10 @@
           <Tree
             :data="tree"
             class="demo-tree-render"
+            ref="table"
+            size="small"
             @on-select-change="treeselect"
+            :draggable="true"
           ></Tree>
         </Col>
         <Col span="20">
@@ -99,6 +102,7 @@ import AbpBase from '@/lib/abpbase'
 import PageRequest from '@/store/entities/page-request'
 // import CreateDrugs from './create-drugs.vue'
 // import EditDrugs from './edit-drugs.vue'
+import ViewUI from 'view-design'
 import Pmedicines from '@/store/entities/generalControlModule/pmedicines'
 
 const EditDrugs = () => import('./edit-drugs.vue')
@@ -223,203 +227,203 @@ export default class Drugs extends AbpBase {
       tooltip: true,
       fixed: 'left',
       resizable: true,
-      width: 80,
+      width: 120,
     },
     {
       title: this.L('drugsName'),
       key: 'drugsName',
       tooltip: true,
       fixed: 'left',
-      width: '80',
+      width: '120',
       resizable: true,
     },
     {
       title: this.L('categoryName'),
       key: 'categoryName',
       tooltip: true,
-      width: '80',
+      width: '90',
       resizable: true,
     },
     {
       title: this.L('barCode'),
       key: 'barCode',
       tooltip: true,
-      width: '80',
+      width: '90',
       resizable: true,
     },
     {
       title: this.L('drugsNameLetter'),
       key: 'drugsNameLetter',
       tooltip: true,
-      width: '80',
+      width: '90',
       resizable: true,
     },
     {
       title: this.L('englishName'),
       key: 'englishName',
       tooltip: true,
-      width: '80',
+      width: '90',
       resizable: true,
     },
     {
       title: this.L('commonName'),
       key: 'commonName',
       tooltip: true,
-      width: '80',
+      width: '90',
       resizable: true,
     },
     {
       title: this.L('ingredient'),
       key: 'ingredient',
       tooltip: true,
-      width: '80',
+      width: '90',
       resizable: true,
     },
-    {
-      title: this.L('categoryName'),
-      key: 'categoryName',
-      tooltip: true,
-      width: '80',
-      resizable: true,
-    },
+    // {
+    //   title: this.L('categoryName'),
+    //   key: 'categoryName',
+    //   tooltip: true,
+    //   width: '90',
+    //   resizable: true,
+    // },
     {
       title: this.L('brand'),
       key: 'brand',
       tooltip: true,
-      width: '80',
+      width: '90',
       resizable: true,
     },
     {
       title: this.L('provider'),
       key: 'provider',
       tooltip: true,
-      width: '80',
+      width: '90',
       resizable: true,
     },
     {
       title: this.L('usingMethodName'),
       key: 'usingMethodName',
       tooltip: true,
-      width: '80',
+      width: '90',
       resizable: true,
     },
     {
       title: this.L('dosingWayName'),
       key: 'dosingWayName',
       tooltip: true,
-      width: '80',
+      width: '90',
       resizable: true,
     },
     {
       title: this.L('showAllString'),
       key: 'showAllString',
       tooltip: true,
-      width: '80',
+      width: '90',
       resizable: true,
     },
     {
       title: this.L('isAnaesthesiaString'),
       key: 'isAnaesthesiaString',
       tooltip: true,
-      width: '80',
+      width: '90',
       resizable: true,
     },
     {
       title: this.L('outstorePrice'),
       key: 'outstorePrice',
       tooltip: true,
-      width: '80',
+      width: '90',
       resizable: true,
     },
     {
       title: this.L('memberPrice'),
       key: 'memberPrice',
       tooltip: true,
-      width: '80',
+      width: '90',
       resizable: true,
     },
     {
       title: this.L('doNotDiscountString'),
       key: 'doNotDiscountString',
       tooltip: true,
-      width: '80',
+      width: '90',
       resizable: true,
     },
     {
       title: this.L('instorePrice'),
       key: 'instorePrice',
       tooltip: true,
-      width: '80',
+      width: '90',
       resizable: true,
     },
     {
       title: this.L('costPrice'),
       key: 'costPrice',
       tooltip: true,
-      width: '80',
+      width: '90',
       resizable: true,
     },
     {
       title: this.L('outStoreUnitName'),
       key: 'outStoreUnitName',
       tooltip: true,
-      width: '80',
+      width: '90',
       resizable: true,
     },
     {
       title: this.L('instoreUnitName'),
       key: 'instoreUnitName',
       tooltip: true,
-      width: '80',
+      width: '90',
       resizable: true,
     },
     {
       title: this.L('unitName'),
       key: 'unitName',
       tooltip: true,
-      width: '80',
+      width: '90',
       resizable: true,
     },
     {
       title: this.L('specific'),
       key: 'specific',
       tooltip: true,
-      width: '80',
+      width: '90',
       resizable: true,
     },
     {
       title: this.L('allowSaleForNoneStockString'),
       key: 'allowSaleForNoneStockString',
       tooltip: true,
-      width: '80',
+      width: '120',
       resizable: true,
     },
     {
       title: this.L('count'),
       key: 'count',
       tooltip: true,
-      width: '80',
+      width: '90',
       resizable: true,
     },
     {
       title: this.L('specificRateUnitString'),
       key: 'specificRateUnitString',
       tooltip: true,
-      width: '80',
+      width: '90',
       resizable: true,
     },
     {
       title: this.L('canOrderString'),
       key: 'canOrderString',
       tooltip: true,
-      width: '80',
+      width: '90',
       resizable: true,
     },
     {
       title: this.L('canSellString'),
       key: 'canSellString',
       tooltip: true,
-      width: '80',
+      width: '90',
       resizable: true,
     },
     // {
@@ -432,7 +436,7 @@ export default class Drugs extends AbpBase {
       title: this.L('Actions'),
       key: 'Actions',
       fixed: 'right',
-      width: 150,
+      width: 120,
       render: (h: any, params: any) => {
         return h('div', [
           h(

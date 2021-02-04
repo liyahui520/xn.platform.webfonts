@@ -30,7 +30,7 @@ export default class Pmedicines extends Entity<number>{
     instoreUnit:number=0;
     drugId:String='';
     discountRate:number;
-    deleted:number;
+    deleted:number=0;
     memberPrice:number=0;
     minStore:number=0;
     insertDate:Date;
@@ -62,8 +62,8 @@ export default class Pmedicines extends Entity<number>{
     handedBrand:String='';
     handedProductname:String='';
     specificMath:number=0;
-    specificInMath:number=0;
-    specificOutMath:number=0;
+    specificInMath:number=1;
+    specificOutMath:number=1;
     outStoreUnit:number=0;
     lastInstoreCount:number=0;
     canOrder:number=1;

@@ -80,7 +80,12 @@
           </Col>
           <Col :xs="{ span: 11, offset: 1 }" :lg="{ span: 6, offset: 2 }">
             <FormItem :label="L('brand')" prop="brandId">
-              <Select v-model="createData.brandId" filterable>
+              <Select
+                v-model="createData.brandId"
+                filterable
+                @on-change="brandChange"
+                :label-in-value="true"
+              >
                 <Option
                   v-for="(item, index) in manufacturerDatas"
                   :value="item.id"
@@ -131,7 +136,7 @@
           <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 2 }">
             <FormItem :label="L('showAll')" prop="showAll">
               <template>
-                <i-switch>
+                <i-switch v-model="createData.showAll">
                   <span slot="open">是</span>
                   <span slot="close">否</span>
                 </i-switch>
@@ -155,7 +160,7 @@
           <Col :xs="{ span: 11, offset: 1 }" :lg="{ span: 6, offset: 2 }">
             <FormItem :label="L('memberPrice')" prop="memberPrice">
               <Input
-                v-model="createData.outstorePrice"
+                v-model="createData.memberPrice"
                 prefix="logo-usd"
                 :placeholder="L('memberPrice')"
                 type="number"
@@ -217,8 +222,8 @@
         </Row>
         <Row>
           <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('OutinstoreUnit')" prop="OutinstoreUnit">
-              <Select v-model="createData.OutinstoreUnit" filterable>
+            <FormItem :label="L('OutinstoreUnit')" prop="instoreUnit">
+              <Select v-model="createData.instoreUnit" filterable>
                 <Option
                   v-for="(item, index) in units"
                   :value="item.id"
@@ -339,6 +344,10 @@ export default class CreateDrugs extends AbpBase {
   cancel() {
     ;(this.$refs.drugsForm as any).resetFields()
     this.$emit('input', false)
+  }
+
+  brandChange(item) {
+    this.createData.brand = item.label
   }
   visibleChange(value: boolean) {
     if (!value) {
@@ -530,7 +539,7 @@ export default class CreateDrugs extends AbpBase {
         trigger: 'change',
       },
     ],
-    OutinstoreUnit: [
+    instoreUnit: [
       {
         required: true,
         type: 'number',
