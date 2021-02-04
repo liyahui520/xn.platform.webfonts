@@ -52,7 +52,15 @@ class ManufacturerModule extends ListModule<ManufacturerState,any,Manufacturer>{
        */
       async UpdateManufacturerInfo(context:ActionContext<ManufacturerState,any>,payload:any) {
           await api.ManfacturerApi.UpdateManufacturerInfo(payload); 
-      }
+      },
+      /**
+       * 删除供应商基本信息
+       * @param context 
+       * @param payload 
+       */
+      async DeleteManufacturerInfo(context:ActionContext<ManufacturerState,any>,payload:any) {
+        await api.ManfacturerApi.DeleteManufacturerInfo(payload); 
+    }
     };
     mutations={
         //设置当前页

@@ -33,6 +33,8 @@ import ZKBase from '@/api/generalControlModule/zkBase'
 
 import ManfacturerApi from '@/api/generalControlModule/manufacturer'
 
+import AiBoKe from '@/api/activity/aiboke'
+
 export default {
     BaseApi,
     RoleApi,
@@ -45,5 +47,6 @@ export default {
     FuYouPay,
     DrugsApi,
     ZKBase,
-    ManfacturerApi
+    ManfacturerApi,
+    AiBoKe
 }

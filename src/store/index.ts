@@ -15,6 +15,7 @@ import fuyoupay from './modules/fuyoupay'
 import drugs from './modules/generalControlModule/drugs'
 import zkBase from './modules/generalControlModule/zkBase'
 import manufacturer from './modules/generalControlModule/manufacturer'
+import aiboke from './modules/activity/aiboke'
 
 const store = new Vuex.Store({
     state: {
@@ -40,7 +41,8 @@ const store = new Vuex.Store({
         fuyoupay,
         drugs,
         zkBase,
-        manufacturer
+        manufacturer,
+        aiboke
     }
 });
 
