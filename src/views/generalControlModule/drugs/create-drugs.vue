@@ -6,7 +6,7 @@
       @on-ok="save"
       @on-visible-change="visibleChange"
       draggable
-      :width="70"
+      width="70"
       :createDrugsData="createDrugsData"
       :mask-closable="false"
     >
@@ -80,11 +80,16 @@
           </Col>
           <Col :xs="{ span: 11, offset: 1 }" :lg="{ span: 6, offset: 2 }">
             <FormItem :label="L('brand')" prop="brandId">
-              <Select v-model="createData.brandId" filterable>
+              <Select
+                v-model="createData.brandId"
+                filterable
+                @on-change="brandChange"
+                :label-in-value="true"
+              >
                 <Option
-                  v-for="item in manufacturerDatas"
+                  v-for="(item, index) in manufacturerDatas"
                   :value="item.id"
-                  :key="item.id"
+                  :key="index"
                   >{{ item.companyName }}</Option
                 >
               </Select>
@@ -94,9 +99,9 @@
             <FormItem :label="L('provider')" prop="providerId">
               <Select v-model="createData.providerId" filterable>
                 <Option
-                  v-for="item in pproviderDatas"
+                  v-for="(item, index) in pproviderDatas"
                   :value="item.id"
-                  :key="item.id"
+                  :key="index"
                   >{{ item.companyName }}</Option
                 >
               </Select>
@@ -108,9 +113,9 @@
             <FormItem :label="L('dosingWay')" prop="dosingWay">
               <Select v-model="createData.dosingWay" filterable>
                 <Option
-                  v-for="item in dosingWays"
+                  v-for="(item, index) in dosingWays"
                   :value="item.id"
-                  :key="item.id"
+                  :key="index"
                   >{{ item.name }}</Option
                 >
               </Select>
@@ -131,7 +136,7 @@
           <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 2 }">
             <FormItem :label="L('showAll')" prop="showAll">
               <template>
-                <i-switch>
+                <i-switch v-model="createData.showAll">
                   <span slot="open">是</span>
                   <span slot="close">否</span>
                 </i-switch>
@@ -155,7 +160,7 @@
           <Col :xs="{ span: 11, offset: 1 }" :lg="{ span: 6, offset: 2 }">
             <FormItem :label="L('memberPrice')" prop="memberPrice">
               <Input
-                v-model="createData.outstorePrice"
+                v-model="createData.memberPrice"
                 prefix="logo-usd"
                 :placeholder="L('memberPrice')"
                 type="number"
@@ -217,20 +222,26 @@
         </Row>
         <Row>
           <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('OutinstoreUnit')" prop="OutinstoreUnit">
-              <Select v-model="createData.OutinstoreUnit" filterable>
-                <Option v-for="item in units" :value="item.id" :key="item.id">{{
-                  item.name
-                }}</Option>
+            <FormItem :label="L('OutinstoreUnit')" prop="instoreUnit">
+              <Select v-model="createData.instoreUnit" filterable>
+                <Option
+                  v-for="(item, index) in units"
+                  :value="item.id"
+                  :key="index"
+                  >{{ item.name }}</Option
+                >
               </Select>
             </FormItem>
           </Col>
           <Col :xs="{ span: 11, offset: 1 }" :lg="{ span: 6, offset: 2 }">
             <FormItem :label="L('unit')" prop="unit">
               <Select v-model="createData.unit" filterable>
-                <Option v-for="item in units" :value="item.id" :key="item.id">{{
-                  item.name
-                }}</Option>
+                <Option
+                  v-for="(item, index) in units"
+                  :value="item.id"
+                  :key="index"
+                  >{{ item.name }}</Option
+                >
               </Select>
             </FormItem>
           </Col>
@@ -309,7 +320,6 @@ import { Component, Vue, Inject, Prop, Watch } from 'vue-property-decorator'
 import Util from '../../../lib/util'
 import AbpBase from '../../../lib/abpbase'
 import Drugs from '@/store/entities/generalControlModule/pmedicines'
-import Pmedicines from '@/store/entities/generalControlModule/pmedicines'
 @Component
 export default class CreateDrugs extends AbpBase {
   @Prop({ type: Boolean, default: false }) value: boolean
@@ -334,6 +344,10 @@ export default class CreateDrugs extends AbpBase {
   cancel() {
     ;(this.$refs.drugsForm as any).resetFields()
     this.$emit('input', false)
+  }
+
+  brandChange(item) {
+    this.createData.brand = item.label
   }
   visibleChange(value: boolean) {
     if (!value) {
@@ -497,7 +511,6 @@ export default class CreateDrugs extends AbpBase {
     providerId: [
       {
         required: true,
-        pattern: /.+/,
         type: 'number',
         message: this.L('FieldIsRequired', undefined, this.L('provider')),
         trigger: 'change',
@@ -508,6 +521,38 @@ export default class CreateDrugs extends AbpBase {
         required: true,
         message: this.L('FieldIsRequired', undefined, this.L('ingredient')),
         trigger: 'blur',
+      },
+    ],
+    dosingWay: [
+      {
+        required: true,
+        type: 'number',
+        message: this.L('FieldIsRequired', undefined, this.L('dosingWay')),
+        trigger: 'change',
+      },
+    ],
+    usingMethod: [
+      {
+        required: true,
+        type: 'number',
+        message: this.L('FieldIsRequired', undefined, this.L('usingMethod')),
+        trigger: 'change',
+      },
+    ],
+    instoreUnit: [
+      {
+        required: true,
+        type: 'number',
+        message: this.L('FieldIsRequired', undefined, this.L('OutinstoreUnit')),
+        trigger: 'change',
+      },
+    ],
+    unit: [
+      {
+        required: true,
+        type: 'number',
+        message: this.L('FieldIsRequired', undefined, this.L('unit')),
+        trigger: 'change',
       },
     ],
   }

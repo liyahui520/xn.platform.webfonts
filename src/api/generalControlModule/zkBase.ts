@@ -13,7 +13,7 @@ const ZKBase = {
     //获取生产商
     async GetManufacturerListById (params: any) {
         return await Ajax.post('/api/services/app/LessueManufacturerService/GetAllByOrgId',params.data);
-    },
+    }, 
     //获取供应商
     async GetPProviderById (params: any) {
         return await Ajax.post('/api/services/app/LessuePProviderService/GetAllByOrgId',params.data);
