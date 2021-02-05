@@ -111,7 +111,8 @@ export const appRouters: Array<Router> = [{
     icon: '&#xe68a;',
     component: main,
     children: [
-        { path: 'drugs', permission: 'Pages.ZK_Pmedicines_Drugs', meta: { title: 'ZK_Pmedicines_Drugs' }, name: 'ZK_Pmedicines_Drugs', component: () => import('@/views/generalControlModule/drugs/drugs.vue') }
+        { path: 'drugs', permission: 'Pages.ZK_Pmedicines_Drugs', meta: { title: 'ZK_Pmedicines_Drugs' }, name: 'ZK_Pmedicines_Drugs', component: () => import('@/views/generalControlModule/drugs/drugs.vue') },
+        { path: 'consumables', permission: 'Pages.ZK_Pmedicines_Consumables', meta: { title: 'ZK_Pmedicines_Consumables' }, name: 'ZK_Pmedicines_Consumables', component: () => import('@/views/generalControlModule/consumables/consumables.vue') }
     ]
 }
 ,{
