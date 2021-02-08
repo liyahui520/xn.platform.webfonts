@@ -111,7 +111,10 @@ export const appRouters: Array<Router> = [{
     icon: '&#xe68a;',
     component: main,
     children: [
-        { path: 'drugs', permission: 'Pages.ZK_Pmedicines_Drugs', meta: { title: 'ZK_Pmedicines_Drugs' }, name: 'ZK_Pmedicines_Drugs', component: () => import('@/views/generalControlModule/drugs/drugs.vue') }
+        { path: 'drugs', permission: 'Pages.ZK_Pmedicines_Drugs', meta: { title: 'ZK_Pmedicines_Drugs' }, name: 'ZK_Pmedicines_Drugs', component: () => import('@/views/generalControlModule/drugs/drugs.vue') },
+        { path: 'consumables', permission: 'Pages.ZK_Pmedicines_Consumables', meta: { title: 'ZK_Pmedicines_Consumables' }, name: 'ZK_Pmedicines_Consumables', component: () => import('@/views/generalControlModule/consumables/consumables.vue') },
+        { path: 'beauty', permission: 'Pages_ZK_Pmedicines_Beauty', meta: { title: 'ZK_Pmedicines_Beauty' }, name: 'ZK_Pmedicines_Beauty', component: () => import('@/views/generalControlModule/beauty/beauty.vue') },
+        { path: 'clean', permission: 'Pages_ZK_Pmedicines_Clean', meta: { title: 'ZK_Pmedicines_Clean' }, name: 'ZK_Pmedicines_Clean', component: () => import('@/views/generalControlModule/clean/clean.vue') }
     ]
 }
 ,{
