@@ -4,7 +4,6 @@
       :title="L('UpdateManufacturer')"
       :value="value"
       @on-ok="save"
-      draggable
       @on-visible-change="visibleChange"
       :width="70"
       :mask-closable="false"

@@ -2,7 +2,7 @@
       <div>
     <Card dis-hover>
       <Row>
-          <div class="page-body">
+          <div class="page-body" style="width:100%">
             <Form
               ref="queryForm"
               :label-width="100"
@@ -74,9 +74,10 @@
             </div>
           </div>
       </Row>
+
+    </Card>
       <createmanufacturer v-model="createModalShow" @save-success="getpage" :data="createManufacturer"></createmanufacturer>
       <editmanufacturer v-model="editModalShow" @save-success="getpage" :manufacturerId="manufacturerId"></editmanufacturer>
-    </Card>
   </div>
 </template>
 <script lang="ts">

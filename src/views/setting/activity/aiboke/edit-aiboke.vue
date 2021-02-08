@@ -4,9 +4,7 @@
       :title="L('UpdateAiBoKeInfo')"
       :value="value"
       @on-ok="save"
-      draggable
       @on-visible-change="visibleChange"
-      :width="90"
       :mask-closable="false"
       :aibokeId="aibokeId"
     >
@@ -152,3 +150,19 @@ export default class UpdateAiBoKe extends AbpBase {
 //   }
 }
 </script>
+<style lang="less">
+.ivu-modal-wrap {
+  .ivu-modal{
+            top: 100;
+            width: auto !important;
+            
+            .ivu-modal-content {
+              width: 70% !important;
+        margin-left: 15% !important;
+    }
+        }
+
+}
+
+
+</style>
