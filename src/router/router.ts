@@ -112,20 +112,20 @@ export const appRouters: Array<Router> = [{
     component: main,
     children: [
         { path: 'drugs', permission: 'Pages.ZK_Pmedicines_Drugs', meta: { title: 'ZK_Pmedicines_Drugs' }, name: 'ZK_Pmedicines_Drugs', component: () => import('@/views/generalControlModule/drugs/drugs.vue') },
-        { path: 'consumables', permission: 'Pages.ZK_Pmedicines_Consumables', meta: { title: 'ZK_Pmedicines_Consumables' }, name: 'ZK_Pmedicines_Consumables', component: () => import('@/views/generalControlModule/consumables/consumables.vue') }
+        { path: 'consumables', permission: 'Pages.ZK_Pmedicines_Consumables', meta: { title: 'ZK_Pmedicines_Consumables' }, name: 'ZK_Pmedicines_Consumables', component: () => import('@/views/generalControlModule/consumables/consumables.vue') },
+        { path: 'beauty', permission: 'Pages_ZK_Pmedicines_Beauty', meta: { title: 'ZK_Pmedicines_Beauty' }, name: 'ZK_Pmedicines_Beauty', component: () => import('@/views/generalControlModule/beauty/beauty.vue') },
+        { path: 'clean', permission: 'Pages_ZK_Pmedicines_Clean', meta: { title: 'ZK_Pmedicines_Clean' }, name: 'ZK_Pmedicines_Clean', component: () => import('@/views/generalControlModule/clean/clean.vue') }
     ]
 }
 ,{
-    path: '/zkjc',
-    name: 'zkjc',
+    path: '/abk',
+    name: 'abk',
     permission: '',
-    meta: { title: 'ZK_JC' },
+    meta: { title: 'ActivityManagement' },
     icon: '&#xe68a;',
     component: main,
     children: [
-        { path: 'manufacturer', permission: 'Pages.ZK_JC_Manufacturer', meta: { title: 'ZK_JC_Manufacturer' }, name: 'ZK_JC_Manufacturer', component: () => import('@/views/generalControlModule/basedata/manufacturer/manufacturer.vue') },
-        { path: 'pprovider', permission: 'Pages.ZK_JC_PProvider', meta: { title: 'ZK_JC_PProvider' }, name: 'ZK_JC_PProvider', component: () => import('@/views/generalControlModule/basedata/pprovider/pprovider.vue') },
-        { path: 'unit', permission: 'Pages.ZK_JC_Unit', meta: { title: 'ZK_JC_Unit' }, name: 'ZK_JC_Unit', component: () => import('@/views/generalControlModule/basedata/unit/unit.vue') },
+        { path: 'abk', permission: 'Pages.AiBoKe', meta: { title: 'AiBoKe' }, name: 'AiBoKe', component: () => import('@/views/setting/activity/aiboke/aiboke.vue') }
     ]
 }
 ]

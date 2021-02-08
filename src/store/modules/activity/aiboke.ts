@@ -5,7 +5,8 @@ import AiBoKe from '../../entities/activity/aiboke'
 import api from '@/lib/api'
 
 interface AiBoKeState extends ListState<AiBoKe>{ 
-    AiBoKeData:any
+    AiBoKeData:any,
+    aibokeInfo:AiBoKe
 }
 class AiBoKeModule extends ListModule<AiBoKeState,any,AiBoKe>{
     state={
@@ -22,10 +23,45 @@ class AiBoKeModule extends ListModule<AiBoKeState,any,AiBoKe>{
        * @param payload 
        */
         async GetAiBokeAitivity(context:ActionContext<AiBoKeState,any>,payload:any) {
-            console.log("请求的参数为",payload)
             let respose = await api.AiBoKe.GetAiBokeAitivity(payload); 
             context.state.list=(respose as any).data.result;
-        }
+        },
+        /**
+       * 获取爱波克列表数据
+       * @param context 
+       * @param payload 
+       */
+      async GetAiBoKePageList(context:ActionContext<AiBoKeState,any>,payload:any) {
+        let respose = await api.AiBoKe.GetAiBoKePageList(payload); 
+        context.state.list=(respose as any).data.result.result;
+        context.state.totalCount=(respose as any).data.result.totalCount;
+    },
+    /**
+       * 更新爱波克活动信息
+       * @param context 
+       * @param payload 
+       */
+    async UpdateAiBoKeInfo(context:ActionContext<AiBoKeState,any>,payload:any) {
+        await api.AiBoKe.UpdateAiBoKeInfo(payload); 
+    },
+    /**
+       * 获取爱波克详细信息
+       * @param context 
+       * @param payload 
+       */
+      async GetAiBoKeInfoById(context:ActionContext<AiBoKeState,any>,payload:any) {
+        let respose = await api.AiBoKe.GetAiBoKeInfoById(payload); 
+        var info= (respose as any).data.result;
+        return info;
+    },
+    /**
+       * 删除爱波克基本信息
+       * @param context 
+       * @param payload 
+       */
+      async DeleteAiBoKeActivity(context:ActionContext<AiBoKeState,any>,payload:any) {
+        await api.AiBoKe.DeleteAiBoKeActivity(payload); 
+    }
     };
     mutations={
         //设置当前页

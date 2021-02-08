@@ -45,10 +45,8 @@ get loading() {
     return this.$store.state.aiboke.list
   }
   created() {
-      console.log("当前对象为",this.$route.query)
       var paramObject=this.$route.query;
       var lowerObject=this.lowerConvert(paramObject);
-      console.log("转换为小写以后的对象未",lowerObject);
       this.getAiBoKeList(lowerObject.orgid)
 
   }
