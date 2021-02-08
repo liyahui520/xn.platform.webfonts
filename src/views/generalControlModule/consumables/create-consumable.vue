@@ -5,8 +5,6 @@
       :value="value"
       @on-ok="save"
       @on-visible-change="visibleChange"
-      draggable
-      width="70"
       :createDrugsData="createDrugsData"
       :mask-closable="false"
     >
@@ -560,3 +558,17 @@ export default class CreateDrugs extends AbpBase {
   }
 }
 </script>
+<style lang="less">
+.ivu-modal-wrap {
+  .ivu-modal{
+            top: 100;
+            width: auto !important;
+            
+            .ivu-modal-content {
+              width: 70% !important;
+        margin-left: 15% !important;
+    }
+        }
+
+}
+</style>
