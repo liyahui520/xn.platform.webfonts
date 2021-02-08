@@ -2,7 +2,7 @@
       <div>
     <Card dis-hover>
       <Row>
-          <div class="page-body">
+          <div class="page-body" style="width:100%">
             <Form
               ref="queryForm"
               :label-width="100"

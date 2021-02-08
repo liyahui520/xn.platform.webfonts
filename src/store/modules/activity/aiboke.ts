@@ -33,7 +33,9 @@ class AiBoKeModule extends ListModule<AiBoKeState,any,AiBoKe>{
        */
       async GetAiBoKePageList(context:ActionContext<AiBoKeState,any>,payload:any) {
         let respose = await api.AiBoKe.GetAiBoKePageList(payload); 
+        context.state.loading=true;
         context.state.list=(respose as any).data.result.result;
+        context.state.loading=false;
         context.state.totalCount=(respose as any).data.result.totalCount;
     },
     /**
