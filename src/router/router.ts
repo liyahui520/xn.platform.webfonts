@@ -118,7 +118,7 @@ export const appRouters: Array<Router> = [{
     path: '/abk',
     name: 'abk',
     permission: '',
-    meta: { title: 'AiBoKe' },
+    meta: { title: 'ActivityManagement' },
     icon: '&#xe68a;',
     component: main,
     children: [
