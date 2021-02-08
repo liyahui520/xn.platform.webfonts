@@ -364,7 +364,7 @@ export default class EditDrugs extends AbpBase {
     ;(this.$refs.editdrugsForm as any).validate(async (valid: boolean) => {
       if (valid) {
         await this.$store.dispatch({
-          type: 'drugs/create',
+          type: 'drugs/update',
           data: this.drugs,
         })
         ;(this.$refs.editdrugsForm as any).resetFields()
