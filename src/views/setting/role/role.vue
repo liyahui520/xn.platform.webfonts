@@ -150,7 +150,7 @@ export default class Roles extends AbpBase {
       key: 'Actions',
       width: 150,
       render: (h: any, params: any) => {
-        if (params.row.isStatic) return ''
+        // if (params.row.isStatic) return ''
         return h('div', [
           h(
             'Button',

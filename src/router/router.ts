@@ -72,7 +72,7 @@ export const appRouters: Array<Router> = [{
     name: 'setting',
     permission: '',
     meta: { title: 'ManageMenu' },
-    icon: '&#xe68a;',
+    icon: '&#xe735;',
     component: main,
     children: [
         { path: 'consumption', permission: 'Pages.Consumption', meta: { title: 'Consumption' }, name: 'consumption', component: () => import('@/views/setting/consumption/consumption.vue') }
@@ -84,7 +84,7 @@ export const appRouters: Array<Router> = [{
     name: 'sys',
     permission: '',
     meta: { title: 'SysSetting' },
-    icon: '&#xe68a;',
+    icon: '&#xe6d5;',
     component: main,
     children: [
         { path: 'orglist', permission: 'Pages.Orglist', meta: { title: 'Orglist' }, name: 'orglist', component: () => import('@/views/setting/orglist/index.vue') },
@@ -98,7 +98,7 @@ export const appRouters: Array<Router> = [{
     name: 'cmem',
     permission: '',
     meta: { title: 'Cmembers' },
-    icon: '&#xe68a;',
+    icon: '&#xe74a;',
     component: main,
     children: [
         { path: 'cmemberscard', permission: 'Pages.Users', meta: { title: 'Users' }, name: 'cmemberscard', component: () => import('@/views/cmemberscard/index.vue') }
@@ -108,7 +108,7 @@ export const appRouters: Array<Router> = [{
     name: 'zk',
     permission: '',
     meta: { title: 'ZK_Pmedicines' },
-    icon: '&#xe68a;',
+    icon: '&#xe76e;',
     component: main,
     children: [
         { path: 'drugs', permission: 'Pages.ZK_Pmedicines_Drugs', meta: { title: 'ZK_Pmedicines_Drugs' }, name: 'ZK_Pmedicines_Drugs', component: () => import('@/views/generalControlModule/drugs/drugs.vue') },
@@ -122,10 +122,10 @@ export const appRouters: Array<Router> = [{
     name: 'abk',
     permission: '',
     meta: { title: 'ActivityManagement' },
-    icon: '&#xe68a;',
+    icon: '&#xe60c;',
     component: main,
     children: [
-        { path: 'abk', permission: 'Pages.AiBoKe', meta: { title: 'AiBoKe' }, name: 'AiBoKe', component: () => import('@/views/setting/activity/aiboke/aiboke.vue') }
+        { path: 'abk', permission: 'Pages.AiBoKe',icon: '&#xe60c;', meta: { title: 'AiBoKe' }, name: 'AiBoKe', component: () => import('@/views/setting/activity/aiboke/aiboke.vue') }
     ]
 }
 ]
