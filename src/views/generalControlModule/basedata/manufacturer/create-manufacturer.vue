@@ -173,15 +173,15 @@ export default class AddManufacturer extends AbpBase {
         await this.$store.dispatch({
           type: 'manufacturer/AddManufacturerInfo',
           data: this.createData,
-        })
-        ;(this.$refs.manufacturerForm as any).resetFields()
+        });
+        (this.$refs.manufacturerForm as any).resetFields()
         this.$emit('save-success')
         this.$emit('input', false)
       }
     })
   }
   cancel() {
-    ;(this.$refs.manufacturerForm as any).resetFields()
+    (this.$refs.manufacturerForm as any).resetFields()
     this.$emit('input', false)
   }
 

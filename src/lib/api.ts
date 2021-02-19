@@ -37,6 +37,8 @@ import PProviderApi from '@/api/generalControlModule/pprovider';
 
 import AiBoKe from '@/api/activity/aiboke'
 
+import UnitApi from '@/api/generalControlModule/unit'
+
 export default {
     BaseApi,
     RoleApi,
@@ -51,5 +53,6 @@ export default {
     ZKBase,
     ManfacturerApi,
     PProviderApi,
-    AiBoKe
+    AiBoKe,
+    UnitApi
 }
