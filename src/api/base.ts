@@ -14,6 +14,10 @@ const BaseApi = {
    async Login (parmar: any) {
         return await Ajax.post("/api/TokenAuth/Authenticate",parmar);
     },
+    // 第三方登陆
+    async ThirdLogin (parmar: any) {
+        return await Ajax.post("/api/TokenAuth/XnAuthenticate",parmar);
+    },
 
     async IsTenantAvailable(parmar: any){
         return await Ajax.post('/api/services/app/Account/IsTenantAvailable',parmar);

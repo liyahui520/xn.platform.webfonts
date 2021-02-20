@@ -72,11 +72,23 @@
             L('LogIn')
           }}</Button>
         </div>
+        <Divider plain>第三方登陆</Divider>
+
+        <Tooltip
+          :content="'小暖医生登陆'"
+          placement="bottom"
+          style="width:50%;height:50%;"
+          ><a @click="showChangeThirdLogin = true"
+            ><img
+              style="width:100%;height:100%;"
+              src="../images/FskCtjBRVK_5EjSWlv4hgpSip478.png"/></a
+        ></Tooltip>
         <language-switch></language-switch>
       </div>
     </div>
     <Footer :copyright="L('CopyRight')"></Footer>
     <tenant-switch v-model="showChangeTenant"></tenant-switch>
+    <third-login v-model="showChangeThirdLogin"></third-login>
   </div>
 </template>
 <script lang="ts">
@@ -84,10 +96,12 @@ import { Component, Vue, Inject } from 'vue-property-decorator'
 import Footer from '../components/Footer.vue'
 import TenantSwitch from '../components/tenant-switch.vue'
 import LanguageSwitch from '../components/language-switch.vue'
+import ThirdLogin from './thirdLogin.vue'
 // import iView from 'iview';
 import AbpBase from '../lib/abpbase'
+
 @Component({
-  components: { Footer, TenantSwitch, LanguageSwitch },
+  components: { Footer, TenantSwitch, LanguageSwitch, ThirdLogin },
 })
 export default class Login extends AbpBase {
   loginModel = {
@@ -96,6 +110,7 @@ export default class Login extends AbpBase {
     rememberMe: false,
   }
   showChangeTenant: boolean = false
+  showChangeThirdLogin: boolean = false
   async login() {
     ;(this.$refs.loginform as any).validate(async (valid: boolean) => {
       if (valid) {

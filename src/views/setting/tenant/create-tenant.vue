@@ -5,8 +5,10 @@
          :value="value"
          @on-ok="save"
          @on-visible-change="visibleChange"
-        >
+        > 
             <Form ref="tenantForm"  label-position="top" :rules="tenantRule" :model="tenant">
+                <Tabs value="detail">
+                    <TabPane :label="L('TenantDetail')" name="detail">
                 <FormItem :label="L('TenancyName')" prop="tenancyName">
                     <Input v-model="tenant.tenancyName" :maxlength="32" :minlength="2"></Input>
                 </FormItem>
@@ -14,7 +16,7 @@
                     <Input v-model="tenant.name" :maxlength="32" :minlength="2"></Input>
                 </FormItem>
                 <FormItem :label="L('DatabaseConnectionString')" prop="databaseConnectionString">
-                    <Input v-model="tenant.databaseConnectionString" :maxlength="1024"></Input>
+                    <Input v-model="tenant.connectionString" :maxlength="1024"></Input>
                 </FormItem>
                 <FormItem :label="L('AdminEmailAddress')" prop="adminEmailAddress">
                     <Input v-model="tenant.adminEmailAddress" type="email" :maxlength="256"></Input>
@@ -23,6 +25,13 @@
                     <Checkbox v-model="tenant.isActive">{{L('IsActive')}}</Checkbox>
                 </FormItem>
                 <p><p>{{L("DefaultPasswordIs",undefined,'123qwe')}}</p></p>
+                </TabPane>
+                 <TabPane :label="L('TenantRole')"> 
+                     <Scroll style="height:400px;">
+                <Tree style="height:100%" :data="permissions" ref="tree" show-checkbox></Tree>
+                </Scroll>
+                    </TabPane>
+                </Tabs>
             </Form>
             <div slot="footer">
                 <Button @click="cancel">{{L('Cancel')}}</Button>
@@ -35,11 +44,14 @@
     import { Component, Vue,Inject, Prop,Watch } from 'vue-property-decorator';
     import Util from '../../../lib/util'
     import AbpBase from '../../../lib/abpbase'
-    import Tenant from '@/store/entities/tenant';
+    import Tenant from '@/store/entities/tenant'; 
     @Component
     export default class CreateTenant extends AbpBase{
         @Prop({type:Boolean,default:false}) value:boolean;
         tenant:Tenant=new Tenant();
+        get permissions(){
+            return this.$store.state.role.permissions
+        }
         save(){
             (this.$refs.tenantForm as any).validate(async (valid:boolean)=>{
                 if(valid){

@@ -22,6 +22,10 @@ const OrgListApi = {
     async UpdateOrgMerchnoById (params: any) {
         return await Ajax.post('/api/services/app/PClientManagementService/UpdatePClientManagement',params);
     },
+    //修改机构短信条数
+    async UpdateSMSCount (params: any) {
+        return await Ajax.post('/api/services/app/PClientManagementService/UpdatePclientSMSCount',params);
+    },
     //查询所有机构无分页
     async GetPcliment () {
         return await Ajax.post('/api/services/app/PClientManagementService/GetPcliment');

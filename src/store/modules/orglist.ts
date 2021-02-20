@@ -7,7 +7,7 @@ import MyPageResult from '@/store/entities/mypage-result';
 import api from '@/lib/api'
 interface OrgListState extends ListState<OrgList>{
     Detailloading: boolean;
-    dataLists:OrgList;
+    dataLists:OrgList; 
     detailList:Array<OrgList>;  
 }
 class OrgListModule extends ListModule<OrgListState,any,OrgList>{
@@ -37,6 +37,9 @@ class OrgListModule extends ListModule<OrgListState,any,OrgList>{
             console.log("data",page.result)
             context.state.list=page.result;
             console.log("newdata",context.state.list)
+        },
+        async editSms(context:ActionContext<OrgListState,any>,payload:any) {
+            await api.OrgList.UpdateSMSCount(payload.data)
         }
         
     };
