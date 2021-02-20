@@ -2,7 +2,7 @@
       <div>
     <Card dis-hover>
       <Row>
-          <div class="page-body">
+          <div class="page-body" style="width:100%">
             <Form
               ref="queryForm"
               :label-width="100"
@@ -14,7 +14,7 @@
                   <FormItem :label="L('Keyword') + ':'" style="width:100%">
                     <Input
                       v-model="pagerequest.paramsName"
-                      :placeholder="L('AiBoKe_JP')+' / ' + L('AiBoKe_EMSType') +' / ' + L('AiBoKe_EMSCode')"
+                      :placeholder="L('AiBoKe_OrgName') +' / ' + L('AiBoKe_JP')+' / ' + L('AiBoKe_EMSType') +' / ' + L('AiBoKe_EMSCode')"
                       clearable 
                     ></Input>
                   </FormItem>
@@ -57,7 +57,7 @@
           </div>
       </Row>
     </Card>
-    <editaiboke  transfer :draggable="true" :mask="true"  v-model="editModalShow" @save-success="getpage" :aibokeId="aibokeId"></editaiboke>
+    <editaiboke  v-model="editModalShow" @save-success="getpage" :aibokeId="aibokeId"></editaiboke>
   </div>
 </template>
 <script lang="ts">

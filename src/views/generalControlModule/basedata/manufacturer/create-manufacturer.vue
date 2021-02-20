@@ -4,9 +4,6 @@
       :title="L('AddManufacturer')"
       :value="value"
       @on-ok="save"
-      draggable
-      :width="70"
-      :mask-closable="false"
     >
       <Form
         ref="manufacturerForm"
@@ -176,15 +173,15 @@ export default class AddManufacturer extends AbpBase {
         await this.$store.dispatch({
           type: 'manufacturer/AddManufacturerInfo',
           data: this.createData,
-        })
-        ;(this.$refs.manufacturerForm as any).resetFields()
+        });
+        (this.$refs.manufacturerForm as any).resetFields()
         this.$emit('save-success')
         this.$emit('input', false)
       }
     })
   }
   cancel() {
-    ;(this.$refs.manufacturerForm as any).resetFields()
+    (this.$refs.manufacturerForm as any).resetFields()
     this.$emit('input', false)
   }
 
@@ -224,3 +221,20 @@ export default class AddManufacturer extends AbpBase {
   }
 }
 </script>
+
+<style lang="less">
+.ivu-modal-wrap {
+  .ivu-modal{
+            top: 100;
+            width: auto !important;
+            
+            .ivu-modal-content {
+              width: 70% !important;
+        margin-left: 15% !important;
+    }
+        }
+
+}
+
+
+</style>

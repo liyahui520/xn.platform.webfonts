@@ -24,7 +24,9 @@ class ManufacturerModule extends ListModule<ManufacturerState,any,Manufacturer>{
        */
         async GetAllByOrgId(context:ActionContext<ManufacturerState,any>,payload:any) {
             let respose = await api.ManfacturerApi.GetAllByOrgId(payload); 
+            context.state.loading=true;
             context.state.list=(respose as any).data.result.result;
+            context.state.loading=false;
             context.state.totalCount=(respose as any).data.result.totalCount;
         },
         /**

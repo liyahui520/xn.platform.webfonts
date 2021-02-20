@@ -1,44 +1,44 @@
 <template>
       <div>
     <Modal
-      :title="L('UpdateManufacturer')"
+      :title="L('UpdatePProvider')"
       :value="value"
       @on-ok="save"
       @on-visible-change="visibleChange"
       :width="70"
       :mask-closable="false"
-      :manufacturerId="manufacturerId"
+      :pproviderId="pproviderId"
     >
       <Form
-        ref="manufacturerForm"
-        :rules="manufacturerRule"
-        :model="manufacturerEditInfo"
+        ref="pproviderForm"
+        :rules="pproviderRule"
+        :model="pproviderEditInfo"
         :label-width="110"
       >
         <Divider orientation="left" size="small">生产商信息</Divider>
         <Row>
           <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('Manufacturer_EnterpriseName')" prop="companyName">
+            <FormItem :label="L('PProvider_EnterpriseName')" prop="companyName">
               <Input
-                v-model="manufacturerEditInfo.companyName"
+                v-model="pproviderEditInfo.companyName"
                 :maxlength="32"
                 show-word-limit
               ></Input>
             </FormItem>
           </Col>
           <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('Manufacturer_EnterpriseNumber')" prop="licenseNo">
+            <FormItem :label="L('PProvider_EnterpriseNumber')" prop="licenseNo">
               <Input
-                v-model="manufacturerEditInfo.licenseNo"
+                v-model="pproviderEditInfo.licenseNo"
                 :maxlength="32"
                 show-word-limit
               ></Input>
             </FormItem>
           </Col>
           <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('Manufacturer_PersonInCharge')" prop="leader">
+            <FormItem :label="L('PProvider_PersonInCharge')" prop="leader">
               <Input
-                v-model="manufacturerEditInfo.leader"
+                v-model="pproviderEditInfo.leader"
                 :maxlength="32"
                 show-word-limit
               ></Input>
@@ -48,27 +48,27 @@
         </Row>
         <Row>
           <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('Manufacturer_Contacts')" prop="contacter">
+            <FormItem :label="L('PProvider_Contacts')" prop="contacter">
               <Input
-                v-model="manufacturerEditInfo.contacter"
+                v-model="pproviderEditInfo.contacter"
                 :maxlength="32"
                 show-word-limit
               ></Input>
             </FormItem>
           </Col>
           <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('Manufacturer_ContactPhone')" prop="telephone">
+            <FormItem :label="L('PProvider_ContactPhone')" prop="telephone">
               <Input
-                v-model="manufacturerEditInfo.telephone"
+                v-model="pproviderEditInfo.telephone"
                 :maxlength="32"
                 show-word-limit
               ></Input>
             </FormItem>
           </Col>
                     <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('Manufacturer_FaxNumber')" prop="faxNumber">
+            <FormItem :label="L('PProvider_FaxNumber')" prop="faxNumber">
               <Input
-                v-model="manufacturerEditInfo.faxNumber"
+                v-model="pproviderEditInfo.faxNumber"
                 :maxlength="32"
                 show-word-limit
               ></Input>
@@ -79,18 +79,18 @@
         </Row>
         <Row>
             <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('Manufacturer_ContactsOne')" prop="contacter1">
+            <FormItem :label="L('PProvider_ContactsOne')" prop="contacter1">
               <Input
-                v-model="manufacturerEditInfo.contacter1"
+                v-model="pproviderEditInfo.contacter1"
                 :maxlength="32"
                 show-word-limit
               ></Input>
             </FormItem>
           </Col>
                       <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('Manufacturer_ContactsPhoneOne')" prop="telephone1">
+            <FormItem :label="L('PProvider_ContactsPhoneOne')" prop="telephone1">
               <Input
-                v-model="manufacturerEditInfo.telephone1"
+                v-model="pproviderEditInfo.telephone1"
                 :maxlength="32"
                 show-word-limit
               ></Input>
@@ -98,9 +98,9 @@
           </Col>
 
           <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('Manufacturer_ContactAddress')" prop="address">
+            <FormItem :label="L('PProvider_ContactAddress')" prop="address">
               <Input
-                v-model="manufacturerEditInfo.address"
+                v-model="pproviderEditInfo.address"
                 :maxlength="32"
                 show-word-limit
               ></Input>
@@ -110,27 +110,27 @@
         </Row>
         <Row>
                       <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('Manufacturer_PostalCode')" prop="postalCode">
+            <FormItem :label="L('PProvider_PostalCode')" prop="postalCode">
               <Input
-                v-model="manufacturerEditInfo.postalCode"
+                v-model="pproviderEditInfo.postalCode"
                 :maxlength="32"
                 show-word-limit
               ></Input>
             </FormItem>
           </Col>
           <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('Manufacturer_EnterpriseLegalPerson')" prop="enterpriser">
+            <FormItem :label="L('PProvider_EnterpriseLegalPerson')" prop="enterpriser">
               <Input
-                v-model="manufacturerEditInfo.enterpriser"
+                v-model="pproviderEditInfo.enterpriser"
                 :maxlength="32"
                 show-word-limit
               ></Input>
             </FormItem>
           </Col>
           <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('Manufacturer_BusinessLicenseNo')" prop="legalerNo">
+            <FormItem :label="L('PProvider_BusinessLicenseNo')" prop="legalerNo">
               <Input
-                v-model="manufacturerEditInfo.legalerNo"
+                v-model="pproviderEditInfo.legalerNo"
                 :maxlength="32"
                 show-word-limit
               ></Input>
@@ -139,9 +139,9 @@
         </Row>
         <Row> 
           <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-            <FormItem :label="L('Manufacturer_BusinessScope')" prop="scopeBusiness">
+            <FormItem :label="L('PProvider_BusinessScope')" prop="scopeBusiness">
               <Input
-                v-model="manufacturerEditInfo.scopeBusiness"
+                v-model="pproviderEditInfo.scopeBusiness"
                 :maxlength="32"
                 show-word-limit
               ></Input>
@@ -162,22 +162,22 @@
 import { Component, Vue, Inject, Prop, Watch } from 'vue-property-decorator'
 import Util from '../../../../lib/util'
 import AbpBase from '../../../../lib/abpbase'
-import Manufacturer from '@/store/entities/generalControlModule/manufacturer'
+import PProvider from '@/store/entities/generalControlModule/pprovider'
 
 @Component
-export default class UpdateManufacturer extends AbpBase {
+export default class UpdatePProvider extends AbpBase {
 //   @Prop({ type: Boolean, default: false }) value: boolean
   @Prop({ type: Boolean, default: false }) value: boolean
-  @Prop({ type: Number, default: 0 }) manufacturerId: Number
-  manufacturerEditInfo: Manufacturer=new Manufacturer()
+  @Prop({ type: Number, default: 0 }) pproviderId: Number
+  pproviderEditInfo: PProvider=new PProvider()
   save() {
-    (this.$refs.manufacturerForm as any).validate(async (valid: boolean) => {
+    (this.$refs.pproviderForm as any).validate(async (valid: boolean) => {
       if (valid) {
         await this.$store.dispatch({
-          type: 'manufacturer/UpdateManufacturerInfo',
-          data: this.manufacturerEditInfo,
+          type: 'pprovider/UpdatePProviderInfo',
+          data: this.pproviderEditInfo,
         })
-        ;(this.$refs.manufacturerForm as any).resetFields()
+        ;(this.$refs.pproviderForm as any).resetFields()
         this.$emit('save-success')
         this.$emit('input', false)
       }
@@ -187,47 +187,47 @@ export default class UpdateManufacturer extends AbpBase {
     if (!value) {
       this.$emit('input', value)
     } else {
-     this.getManufacturerInfo(this.manufacturerId)
+     this.getPProviderInfo(this.pproviderId)
     }
   }
-    async getManufacturerInfo(id){
+    async getPProviderInfo(id){
     this.$store.dispatch({
-      type: 'manufacturer/GetManufacturerInfoById',
+      type: 'pprovider/GetPProviderInfoById',
       data: id
     }).then((response)=>{
-        this.manufacturerEditInfo = response;
+        this.pproviderEditInfo = response;
     })
   }
   cancel() {
-    ;(this.$refs.manufacturerForm as any).resetFields()
+    ;(this.$refs.pproviderForm as any).resetFields()
     this.$emit('input', false)
   }
-  manufacturerRule = {
+  pproviderRule = {
     companyName: [
       {
         required: true,
-        message: this.L('Manufacturer_EnterpriseNameRequiredField', undefined, this.L('Manufacturer_EnterpriseName')),
+        message: this.L('PProvider_EnterpriseNameRequiredField', undefined, this.L('PProvider_EnterpriseName')),
         trigger: 'blur',
       },
     ],
     licenseNo: [
       {
         required: true,
-        message: this.L('Manufacturer_EnterpriseNumberRequiredField', undefined, this.L('Manufacturer_EnterpriseNumber')),
+        message: this.L('PProvider_EnterpriseNumberRequiredField', undefined, this.L('PProvider_EnterpriseNumber')),
         trigger: 'blur',
       },
     ],
     leader: [
       {
         required: true,
-        message: this.L('Manufacturer_PersonInChargeRequiredField', undefined, this.L('Manufacturer_PersonInCharge')),
+        message: this.L('PProvider_PersonInChargeRequiredField', undefined, this.L('PProvider_PersonInCharge')),
         trigger: 'change',
       },
     ],
     telephone: [
       {
         required: true,
-        message: this.L('Manufacturer_ContactPhoneRequiredField', undefined, this.L('Manufacturer_ContactPhone')),
+        message: this.L('PProvider_ContactPhoneRequiredField', undefined, this.L('PProvider_ContactPhone')),
         trigger: 'change',
       },
     ],

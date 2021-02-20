@@ -118,6 +118,19 @@ export const appRouters: Array<Router> = [{
     ]
 }
 ,{
+    path: '/zkjc',
+    name: 'zkjc',
+    permission: '',
+    meta: { title: 'ZK_JC' },
+    icon: '&#xe68a;',
+    component: main,
+    children: [
+        { path: 'manufacturer', permission: 'Pages.ZK_JC_Manufacturer', meta: { title: 'ZK_JC_Manufacturer' }, name: 'ZK_JC_Manufacturer', component: () => import('@/views/generalControlModule/basedata/manufacturer/manufacturer.vue') },
+        { path: 'pprovider', permission: 'Pages.ZK_JC_PProvider', meta: { title: 'ZK_JC_PProvider' }, name: 'ZK_JC_PProvider', component: () => import('@/views/generalControlModule/basedata/pprovider/pprovider.vue') },
+        { path: 'unit', permission: 'Pages.ZK_JC_Unit', meta: { title: 'ZK_JC_Unit' }, name: 'ZK_JC_Unit', component: () => import('@/views/generalControlModule/basedata/unit/unit.vue') },
+   ]
+}
+,{
     path: '/abk',
     name: 'abk',
     permission: '',

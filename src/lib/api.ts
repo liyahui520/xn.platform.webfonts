@@ -33,7 +33,11 @@ import ZKBase from '@/api/generalControlModule/zkBase'
 
 import ManfacturerApi from '@/api/generalControlModule/manufacturer'
 
+import PProviderApi from '@/api/generalControlModule/pprovider';
+
 import AiBoKe from '@/api/activity/aiboke'
+
+import UnitApi from '@/api/generalControlModule/unit'
 
 export default {
     BaseApi,
@@ -48,5 +52,7 @@ export default {
     DrugsApi,
     ZKBase,
     ManfacturerApi,
-    AiBoKe
+    PProviderApi,
+    AiBoKe,
+    UnitApi
 }
