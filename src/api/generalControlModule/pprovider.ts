@@ -30,6 +30,10 @@ const PProviderApi = {
     //删除供应商对应信息
     async DeletePProviderInfo(params:any){
         return await Ajax.get('/api/services/app/LssuePProvider/DeletePProviderInfo?pproviderId='+params.data);
+    },
+    //下发供应商对应信息
+    async LessuePProvider(params:any){
+        return await Ajax.post('/api/services/app/LssuePProvider/LessuePProvider',params.data);
     }
 }
 

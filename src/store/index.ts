@@ -18,7 +18,7 @@ import manufacturer from './modules/generalControlModule/manufacturer'
 import pprovider from './modules/generalControlModule/pprovider'
 import aiboke from './modules/activity/aiboke'
 import unit from './modules/generalControlModule/unit'
-
+import lessueOrg from './modules/generalControlModule/lessueorg';
 const store = new Vuex.Store({
     state: {
         //
@@ -46,7 +46,8 @@ const store = new Vuex.Store({
         manufacturer,
         pprovider,
         aiboke,
-        unit
+        unit,
+        lessueOrg
     }
 });
 

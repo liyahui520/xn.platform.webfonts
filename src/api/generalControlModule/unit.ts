@@ -29,6 +29,10 @@ const UnitApi = {
     //删除目录对应信息
     async DeleteCategoryInfo(params:any){
         return await Ajax.post('/api/services/app/LssueCategoryService/DeleteCategoryInfo',params.data);
+    },
+    //下发单位
+    async LessueUnit(params:any){
+        return await Ajax.post('/api/services/app/LssueCategoryService/LessueUnit',params.data);
     }
 }
 

@@ -13,7 +13,7 @@
                 <Col span="8">
                   <FormItem :label="L('Keyword') + ':'" style="width:100%">
                     <Input
-                      v-model="pagerequest.unitName"
+                      v-model="paramsName"
                       :placeholder="L('Unit_Name')"
                     ></Input>
                   </FormItem>
@@ -39,7 +39,7 @@
                     >{{ L('Add') }}</Button
                   >
                   <Button
-                    @click="create"
+                    @click="createLessueOrg"
                     icon="md-arrow-down"
                     class="toolbar-btn"
                     type="warning"
@@ -58,7 +58,8 @@
                 :data="list"
                 draggable
                 stripe
-                @on-selection-change="TableChange"
+                ref="unitTable"
+
               >
               </Table>
               <Page
@@ -74,6 +75,7 @@
             </div>
           </div>
       </Row>
+      <!-- 新增单位 -->
         <Modal
         id="addModalRef"
         ref="addModalRef"
@@ -108,7 +110,7 @@
           </div>
         </Modal>
 
-
+<!-- 编辑单位 -->
         <Modal
         id="UpdateModalRef"
         ref="UpdateModalRef"
@@ -142,6 +144,39 @@
               <Button @click="saveUpdate" type="primary">{{ L('OK') }}</Button>
           </div>
         </Modal>
+
+<!-- 选择下发机构 -->
+        <Modal
+        :title="L('ZK_Pmedicines_Consumables_Lssue')"
+        :value="selectOrgModalShow"
+        @on-ok="saveLessueOrg"
+        @on-visible-change="visibleSelectLessueOrgChange"
+        :mask-closable="false"
+        >
+          <Form
+              :label-width="110"
+              ref="unitLessueForm"
+          >
+              <Divider orientation="left" size="small">项目信息</Divider>
+              <Row>
+                <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 18, offset: 1 }">
+                    <FormItem :label="L('OrgName')">
+                    <Select
+                      multiple
+                      v-model="orgIds"
+                      filterable
+                  >
+                      <Option v-for="(option, index) in orgList" :value="option.orgId" :key="index">{{option.orgName}}</Option>
+                  </Select>
+                    </FormItem>
+                </Col>
+              </Row>
+          </Form>
+          <div slot="footer">
+              <Button @click="cancelLessueOrg">{{ L('Cancel') }}</Button>
+              <Button @click="saveLessueOrg" type="primary">{{ L('OK') }}</Button>
+          </div>
+        </Modal>
     </Card>
   </div>
 </template>
@@ -152,6 +187,7 @@ import AbpBase from '@/lib/abpbase'
 import PageRequest from '@/store/entities/page-request'
 import UnitEntity from '@/store/entities/generalControlModule/unit'
 import convertpinyin from '@/lib/common/convertpinyi'
+import lessueOrgModule from '@/store/modules/generalControlModule/lessueorg'
 
 class PageUnitRequest extends PageRequest {
   id:0
@@ -164,6 +200,9 @@ class PageUnitRequest extends PageRequest {
 @Component({
 })
 export default class Unit extends AbpBase {
+  orgIds:any =[];
+  unitIds:any=[];
+  paramsName:string='';
   editClick(id) {
     this.editModalShow = true
     this.createModalShow=false;
@@ -227,6 +266,7 @@ export default class Unit extends AbpBase {
     } else {
       (this.$refs.unitAddForm as any).resetFields();
     }
+    this.createModalShow=value;
   }
   visibleUpdateChange(value: boolean) {
     if (!value) {
@@ -234,6 +274,7 @@ export default class Unit extends AbpBase {
     } else {
       (this.$refs.unitUpdateForm as any).resetFields();
     }
+    this.editModalShow=value;
   }
   cancelInsert(){
     (this.$refs.unitAddForm as any).resetFields()
@@ -252,6 +293,7 @@ export default class Unit extends AbpBase {
   pagerequest: PageUnitRequest = new PageUnitRequest()
   createModalShow: boolean = false
   editModalShow: boolean = false
+  
   permissions = {
     query: abp.auth.isGranted('Pages.ZK_JC_Unit_Query'),
     add: abp.auth.isGranted('Pages.ZK_JC_Unit_Add'),
@@ -279,9 +321,10 @@ export default class Unit extends AbpBase {
     this.getpage()
   }
 
-  TableChange() {}
-
   async getpage() {
+    this.pagerequest.pageSize = this.pageSize
+    this.pagerequest.pageIndex = this.currentPage
+    this.pagerequest.unitName=this.paramsName
     if (this.pagerequest.orgId == undefined) {
       this.pagerequest.orgId = 7990
       this.pagerequest.parentId = 4355
@@ -291,6 +334,61 @@ export default class Unit extends AbpBase {
       data: this.pagerequest,
     })
   }
+  //下发弹出框是否显示
+  selectOrgModalShow:boolean=false
+  //创建下发
+  createLessueOrg(){
+    var selectUnitList=(this.$refs.unitTable as any).getSelection()
+    if(selectUnitList==undefined || selectUnitList==null || selectUnitList.length<=0){
+      this.$Message.warning({
+                content: '请选择下发的单位数据',
+                duration: 3
+      });
+      return;
+    }
+    this.selectOrgModalShow=true;
+    this.unitIds=[];
+    selectUnitList.forEach(element => {
+      this.unitIds.push(element.id);
+    });    
+  }
+  //下发相关内容
+  async getLessue(){
+    await this.$store.dispatch({
+      type: 'lessueOrg/GetLessusOrgList'
+    })
+  }
+  //获取下发的机构列表
+  get orgList(){
+    return this.$store.state.lessueOrg.list
+  }
+  //点击选择机构以后的确定按钮
+  async saveLessueOrg(){
+    this.$store.dispatch({
+      type: 'unit/LessueUnit',
+      data: {orgIds:this.orgIds,unitIds:this.unitIds}
+    }).then((response)=>{
+      if(response.data.success){
+        this.$Message.success("下发成功！")
+        this.selectOrgModalShow=false;
+      }
+    })
+    
+  }
+  //取消
+  async cancelLessueOrg(){
+    this.selectOrgModalShow=false;
+  }
+  async visibleSelectLessueOrgChange(value: boolean){
+    if (!value) {
+      this.$emit('input', value)
+    } else {
+      (this.$refs.unitLessueForm as any).resetFields();
+    }
+    this.selectOrgModalShow=value;
+  }
+
+
   get list() {
     return this.$store.state.unit.list
   }
@@ -414,7 +512,9 @@ export default class Unit extends AbpBase {
   async created() {
     this.pagerequest.pageSize = this.pageSize
     this.pagerequest.pageIndex = this.currentPage
-    this.getpage()
+    this.getpage();
+    this.getLessue();
+    console.log("当前状态中存的值为",this.$store.state)
   }
 }
 </script>
@@ -423,7 +523,6 @@ export default class Unit extends AbpBase {
   .ivu-modal{
     top: 100;
     width: auto !important;
-    
     .ivu-modal-content {
       width: 40% !important;
       margin-left: 30% !important;

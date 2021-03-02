@@ -20,7 +20,8 @@ const DrugsApi = {
     },
     //修改机构对应富有的支付码
     async GetDG (params: any) {
-        return await Ajax.get('/api/services/app/LssueCategoryService/GetDG',params);
+        console.log("请求过来的参数为",params)
+        return await Ajax.get('/api/services/app/LssueCategoryService/GetDG?categoryId='+params);
     },
     //查询所有机构无分页
     async GetPmedicinesPages (params:any) {
@@ -30,12 +31,23 @@ const DrugsApi = {
     async Create (params:any) {
         return await Ajax.post('/api/services/app/LssuePmedicinesService/LssueAdd',params);
     },
+        //新增产品
+    async Update (params:any) {
+            return await Ajax.post('/api/services/app/LssuePmedicinesService/LssueUpdate',params);
+        },
     /**
      * 获取投药单位
      * @param params 
      */
     async GetDosingWay(params:any) {
         return await Ajax.post('/api/services/app/LssueCategoryService/GetPsyslistDowingByParentId',params);
+    },
+    /**
+     * 下发产品
+     * @param params 
+     */
+    async LessuePmedicines(params:any) {
+        return await Ajax.post('/api/services/app/LssuePmedicinesService/LessuePmedicines',params);
     }
 
 }

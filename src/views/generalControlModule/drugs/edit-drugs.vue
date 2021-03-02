@@ -493,6 +493,7 @@ export default class EditDrugs extends AbpBase {
     await this.GetPProviderById()
 
     await this.GetSysCategoryByParentId()
+    console.log("当前对象为",this.drugs)
   }
   drugsRule = {
     drugsName: [

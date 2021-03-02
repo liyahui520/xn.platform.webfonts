@@ -208,21 +208,21 @@ export default class AddPProvider extends AbpBase {
       {
         required: true,
         message: this.L('PProvider_PersonInChargeRequiredField', undefined, this.L('PProvider_PersonInCharge')),
-        trigger: 'change',
+        trigger: 'blur',
       },
     ],
     telephone: [
       {
         required: true,
         message: this.L('PProvider_ContactPhoneRequiredField', undefined, this.L('PProvider_ContactPhone')),
-        trigger: 'change',
+        trigger: 'blur',
       },
     ],
   }
 }
 </script>
 
-<style lang="less">
+<style lang="less" scope>
 .ivu-modal-wrap {
   .ivu-modal{
             top: 100;

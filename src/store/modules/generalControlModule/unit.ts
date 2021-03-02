@@ -63,7 +63,15 @@ class UnitModule extends ListModule<UnitState,any,Unit>{
        */
       async DeleteUnitInfo(context:ActionContext<UnitState,any>,payload:any) {
         await api.UnitApi.DeleteCategoryInfo(payload); 
-    }
+    },
+          /**
+       * 下发单位
+       * @param context 
+       * @param payload 
+       */
+      async LessueUnit(context:ActionContext<UnitState,any>,payload:any) {
+        return await api.UnitApi.LessueUnit(payload); 
+    },
     };
     mutations={
         //设置当前页

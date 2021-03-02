@@ -95,7 +95,8 @@ class DrugsModule extends ListModule<DrugsState,any,Drugs>{
     }
     actions={
         async GetDG(context:ActionContext<DrugsState,any>,payload:any) {
-            let respose = await api.DrugsApi.GetDG(payload); 
+            console.log("获取目录请求的参数为",payload)
+            let respose = await api.DrugsApi.GetDG(payload.data); 
             context.state.treeData = (respose as any).data.result;
         },
         /**
@@ -128,7 +129,7 @@ class DrugsModule extends ListModule<DrugsState,any,Drugs>{
             await api.DrugsApi.Create(payload.data);
         },
         async update(context:ActionContext<DrugsState,any>,payload:any){
-            await api.TenantApi.Update(payload.data);
+            await api.DrugsApi.Update(payload.data);
         },
         async delete(context:ActionContext<DrugsState,any>,payload:any){
             await api.TenantApi.Delete(payload.data.id);
@@ -136,6 +137,10 @@ class DrugsModule extends ListModule<DrugsState,any,Drugs>{
         async get(context:ActionContext<DrugsState,any>,payload:any){
             let reponse=await api.TenantApi.Get(payload.id);
             return reponse.data.result as Drugs;
+        },
+        async LessuePmedicines(context:ActionContext<DrugsState,any>,payload:any){
+            let reponse=await api.DrugsApi.LessuePmedicines(payload.data);
+            return reponse;
         }
     };
     mutations={

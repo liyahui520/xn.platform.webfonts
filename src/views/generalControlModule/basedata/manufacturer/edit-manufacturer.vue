@@ -221,14 +221,14 @@ export default class UpdateManufacturer extends AbpBase {
       {
         required: true,
         message: this.L('Manufacturer_PersonInChargeRequiredField', undefined, this.L('Manufacturer_PersonInCharge')),
-        trigger: 'change',
+        trigger: 'blur',
       },
     ],
     telephone: [
       {
         required: true,
         message: this.L('Manufacturer_ContactPhoneRequiredField', undefined, this.L('Manufacturer_ContactPhone')),
-        trigger: 'change',
+        trigger: 'blur',
       },
     ],
   }

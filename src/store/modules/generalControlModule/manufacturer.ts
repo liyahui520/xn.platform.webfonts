@@ -62,6 +62,14 @@ class ManufacturerModule extends ListModule<ManufacturerState,any,Manufacturer>{
        */
       async DeleteManufacturerInfo(context:ActionContext<ManufacturerState,any>,payload:any) {
         await api.ManfacturerApi.DeleteManufacturerInfo(payload); 
+    },
+    /**
+     * 下发供应商基本信息
+     * @param context 
+     * @param payload 
+     */
+    async LessueManufacturer(context:ActionContext<ManufacturerState,any>,payload:any) {
+        return await api.ManfacturerApi.LessueManufacturer(payload); 
     }
     };
     mutations={

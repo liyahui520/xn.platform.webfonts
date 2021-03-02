@@ -30,6 +30,10 @@ const ManufacturerApi = {
     //删除生产商对应信息
     async DeleteManufacturerInfo(params:any){
         return await Ajax.get('/api/services/app/LessueManufacturerService/DeleteManufacturerInfo?manufacturerId='+params.data);
+    },
+    //下发生产商对应信息
+    async LessueManufacturer(params:any){
+        return await Ajax.post('/api/services/app/LessueManufacturerService/LessueManufacturer',params.data);
     }
 }
 

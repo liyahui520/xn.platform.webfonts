@@ -208,21 +208,21 @@ export default class AddManufacturer extends AbpBase {
       {
         required: true,
         message: this.L('Manufacturer_PersonInChargeRequiredField', undefined, this.L('Manufacturer_PersonInCharge')),
-        trigger: 'change',
+        trigger: 'blur',
       },
     ],
     telephone: [
       {
         required: true,
         message: this.L('Manufacturer_ContactPhoneRequiredField', undefined, this.L('Manufacturer_ContactPhone')),
-        trigger: 'change',
+        trigger: 'blur',
       },
     ],
   }
 }
 </script>
 
-<style lang="less">
+<style lang="less" scope>
 .ivu-modal-wrap {
   .ivu-modal{
             top: 100;

@@ -62,6 +62,14 @@ class PProviderModule extends ListModule<PProviderState,any,PProvider>{
        */
       async DeletePProviderInfo(context:ActionContext<PProviderState,any>,payload:any) {
         await api.PProviderApi.DeletePProviderInfo(payload); 
+    },
+    /**
+       * 下发供应商基本信息
+       * @param context 
+       * @param payload 
+       */
+      async LessuePProvider(context:ActionContext<PProviderState,any>,payload:any) {
+        return await api.PProviderApi.LessuePProvider(payload); 
     }
     };
     mutations={
