@@ -10,7 +10,7 @@
   "dependencies": {
     "@aspnet/signalr": "^1.0.0",
     "abp-web-resources": "^3.8.2",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "famfamfam-flags": "^1.0.0",
     "font-awesome": "^4.7.0",
     "js-beautify": "^1.10.2",
