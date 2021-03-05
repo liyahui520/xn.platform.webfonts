@@ -6,13 +6,17 @@ import api from '@/lib/api'
 
 interface AiBoKeState extends ListState<AiBoKe>{ 
     AiBoKeData:any,
-    aibokeInfo:AiBoKe
+    aibokeInfo:AiBoKe,
+    score: 0,
+    cardList: any
 }
 class AiBoKeModule extends ListModule<AiBoKeState,any,AiBoKe>{
-    state={
+    state= {
         totalCount:0,
         currentPage:1,
         pageSize:10,
+        score: 0,
+        cardList: new Array(),
         list: new Array(),
         loading:false
     }
@@ -25,6 +29,33 @@ class AiBoKeModule extends ListModule<AiBoKeState,any,AiBoKe>{
         async GetAiBokeAitivity(context:ActionContext<AiBoKeState,any>,payload:any) {
             let respose = await api.AiBoKe.GetAiBokeAitivity(payload); 
             context.state.list=(respose as any).data.result;
+        },
+        /**
+         * 获取爱波克活动列表
+         * @param context 
+         * @param payload 
+         */
+        async GetProduct(context:ActionContext<AiBoKeState,any>,payload:any) {
+            let respose = await api.AiBoKe.GetProduct(payload);
+            context.state.score = (respose as any).data.result.score;
+            (respose as any).data.result.products.forEach((v, k) => {
+                v['num'] = 0
+                
+            });
+            context.state.cardList=(respose as any).data.result.products;
+            
+        },
+        /**
+         * 获取爱波克活动列表
+         * @param context 
+         * @param payload 
+         */
+        async PayActity(context:ActionContext<AiBoKeState,any>,payload:any) {
+           
+            let respose = await api.AiBoKe.PayActity(payload); 
+            var info= (respose as any).data.result;
+            return info;
+            
         },
         /**
        * 获取爱波克列表数据

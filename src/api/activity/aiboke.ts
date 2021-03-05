@@ -29,6 +29,14 @@ const AiBoKeApi = {
     //删除爱波克活动信息
     async DeleteAiBoKeActivity(params:any){
         return await Ajax.get('/api/services/app/AiBoKeService/DeleteAiBoKeActivity?activityId='+params.data);
+    },
+    // 获取列表 
+    async GetProduct(params:any){
+        return await Ajax.post('/api/services/app/AiBoKeService/GetProduct',params.data)
+    },
+    // 积分兑换结算 
+    async PayActity(params:any){
+        return await Ajax.post('/api/services/app/AiBoKeService/PayActity',params.data)
     }
 }
 
