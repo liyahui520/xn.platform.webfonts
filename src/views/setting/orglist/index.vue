@@ -21,7 +21,6 @@
               <Button
                 icon="ios-search"
                 type="primary"
-                size="large"
                 @click="find"
                 class="toolbar-btn"
                 >{{ L('Find') }}</Button
@@ -35,7 +34,10 @@
             :columns="columns"
             :no-data-text="L('NoDatas')"
             border
+            draggable
+            stripe
             :data="list"
+            @on-selection-change="TableChange"
           >
           </Table>
           <Page
@@ -122,38 +124,45 @@ export default class OrgList extends AbpBase {
   get currentPage() {
     return this.$store.state.orglist.currentPage
   }
+  TableChange() {}
   columns = [
     {
       title: this.L('OrgId'),
       key: 'id',
       width: 60,
       fixed: 'left',
+      tooltip: true,
     },
     {
       title: this.L('OrgName'),
       key: 'orgName',
       width: 150,
       fixed: 'left',
+      tooltip: true,
     },
     {
       title: this.L('CellPhone'),
       key: 'telephone',
-      width: 100,
+      width: 120,
+      tooltip: true,
     },
     {
       title: this.L('CustomerName'),
       key: 'contactName',
       width: 100,
+      tooltip: true,
     },
     {
       title: this.L('UserNumber'),
       key: 'userNumber',
       width: 90,
+      tooltip: true,
     },
     {
       title: this.L('Address'),
       key: 'address',
       width: 320,
+      tooltip: true,
     },
     {
       title: this.L('ActivetDate'),
@@ -165,6 +174,7 @@ export default class OrgList extends AbpBase {
         )
       },
       width: 150,
+      tooltip: true,
     },
     // {
     //     title:this.L('Pcli.serialNumber'),
@@ -174,6 +184,7 @@ export default class OrgList extends AbpBase {
       title: this.L('SmsCount'),
       key: 'smsCount',
       width: 80,
+      tooltip: true,
     },
     {
       title: this.L('MainOrg'),
@@ -183,6 +194,7 @@ export default class OrgList extends AbpBase {
         else return h('span', '分店')
       },
       width: 80,
+      tooltip: true,
     },
     {
       title: this.L('IsMerChno'),
@@ -203,46 +215,55 @@ export default class OrgList extends AbpBase {
         else return h('span', '未配置')
       },
       width: 120,
+      tooltip: true,
     },
     {
       title: this.L('AddressProvince'),
       key: 'addressProvince',
       width: 80,
+      tooltip: true,
     },
     {
       title: this.L('AddressCity'),
       key: 'addressCity',
       width: 80,
+      tooltip: true,
     },
     {
       title: this.L('AddressTown'),
       key: 'addressTown',
       width: 80,
+      tooltip: true,
     },
     {
       title: this.L('AddressStreet'),
       key: 'addressStreet',
       width: 150,
+      tooltip: true,
     },
     {
       title: this.L('NewVersion'),
       key: 'newVersion',
       width: 120,
+      tooltip: true,
     },
     {
       title: this.L('OrgState'),
       key: 'orgState',
       width: 80,
+      tooltip: true,
     },
     {
       title: this.L('IsBigCustomer'),
       key: 'isBigCustomer',
       width: 120,
+      tooltip: true,
     },
     {
       title: this.L('BigCustomerName'),
       key: 'bigCustomerName',
       width: 120,
+      tooltip: true,
     },
     {
       title: this.L('Actions'),
@@ -251,31 +272,35 @@ export default class OrgList extends AbpBase {
       fixed: 'right',
       render: (h: any, params: any) => {
         return h('div', [
-          //   h(
-          //     'Button',
-          //     {
-          //       props: {
-          //         type: 'primary',
-          //         size: 'small',
-          //       },
-          //       style: {
-          //         marginRight: '5px',
-          //       },
-          //       on: {
-          //         click: () => {
-          //           this.$store.commit('orglist/detail', params.row)
-          //           this.update()
-          //         },
-          //       },
-          //     },
-          //     this.L('UpdateSHDetails')
-          //   ),
           h(
             'Button',
             {
               props: {
-                type: 'primary',
+                type: 'info',
                 size: 'small',
+                ghost: '',
+              },
+              style: {
+                marginRight: '5px',
+              },
+              on: {
+                click: () => {
+                  this.$store.commit('orglist/detail', params.row)
+                  this.update()
+                },
+              },
+            },
+            '富友'
+            // this.L('UpdateSHDetails')
+          ),
+
+          h(
+            'Button',
+            {
+              props: {
+                type: 'warning',
+                size: 'small',
+                ghost: '',
               },
               style: {
                 marginRight: '5px',
@@ -287,7 +312,8 @@ export default class OrgList extends AbpBase {
                 },
               },
             },
-            this.L('EditSMS')
+            '短信'
+            // this.L('EditSMS')
           ),
         ])
       },
