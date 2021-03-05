@@ -298,7 +298,7 @@
           <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 22, offset: 1 }">
             <FormItem :label="L('ReturnRemark')" prop="ReturnRemark">
               <Input
-                v-model="createData.remark"
+                v-model="createData.notice"
                 type="textarea"
                 :rows="4"
                 :maxlength="100"
@@ -330,7 +330,7 @@ export default class CreateDrugs extends AbpBase {
   save() {
     ;(this.$refs.drugsForm as any).validate(async (valid: boolean) => {
       if (valid) {
-        this.createData.drugType = 1046
+        this.createData.drugType = 1047
         await this.$store.dispatch({
           type: 'drugs/create',
           data: this.createData,
@@ -505,7 +505,7 @@ export default class CreateDrugs extends AbpBase {
         required: true,
         type: 'number',
         message: this.L('FieldIsRequired', undefined, this.L('brand')),
-        trigger: 'change',
+        trigger: 'blur',
       },
     ],
     providerId: [
@@ -513,7 +513,7 @@ export default class CreateDrugs extends AbpBase {
         required: true,
         type: 'number',
         message: this.L('FieldIsRequired', undefined, this.L('provider')),
-        trigger: 'change',
+        trigger: 'blur',
       },
     ],
     // ingredient: [

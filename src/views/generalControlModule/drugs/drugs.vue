@@ -279,7 +279,6 @@ export default class Drugs extends AbpBase {
       this.pagerequest.parentId = 1006
       this.pagerequest.DrugsName = ''
     }
-    console.log('药品参数', this.pagerequest)
     await this.$store.dispatch({
       type: 'drugs/getAll',
       data: this.pagerequest,
@@ -287,10 +286,9 @@ export default class Drugs extends AbpBase {
   }
 
   async getDG() {
-    console.log("当前需要传输的参数为",this.pagerequest)
     await this.$store.dispatch({
       type: 'drugs/GetDG',
-      data:this.pagerequest
+      data:this.pagerequest.parentId
     })
   }
   get pageSize() {
@@ -588,6 +586,7 @@ export default class Drugs extends AbpBase {
     this.pagerequest.pageSize = this.pageSize
     this.pagerequest.pageIndex = this.currentPage
     this.getpage()
+    console.log("需要请求的参数为",this.pagerequest)
     this.getDG()
     this.getLessue()
   }

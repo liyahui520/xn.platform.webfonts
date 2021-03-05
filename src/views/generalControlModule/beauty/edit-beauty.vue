@@ -23,7 +23,7 @@
                 v-model="drugs.categoryName"
                 :maxlength="32"
                 show-word-limit
-                readonly
+                disabled
               ></Input>
             </FormItem>
           </Col>
@@ -146,7 +146,7 @@
           <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 22, offset: 1 }">
             <FormItem :label="L('ReturnRemark')" prop="ReturnRemark">
               <Input
-                v-model="drugs.remark"
+                v-model="drugs.notice"
                 type="textarea"
                 :rows="4"
                 :maxlength="100"
@@ -202,7 +202,7 @@ export default class EditDrugs extends AbpBase {
     (this.$refs.editdrugsForm as any).validate(async (valid: boolean) => {
       if (valid) {
         await this.$store.dispatch({
-          type: "drugs/create",
+          type: "drugs/update",
           data: this.drugs,
         });
         (this.$refs.editdrugsForm as any).resetFields();
