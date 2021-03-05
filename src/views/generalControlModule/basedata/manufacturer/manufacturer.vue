@@ -39,7 +39,7 @@
                     >{{ L('Add') }}</Button
                   >
                   <Button
-                    @click="create"
+                    @click="createLessueOrg"
                     icon="md-arrow-down"
                     class="toolbar-btn"
                     type="warning"
@@ -55,6 +55,7 @@
                 :columns="columns"
                 :no-data-text="L('NoDatas')"
                 border
+                ref="manufacturerTable"
                 :data="list"
                 draggable
                 stripe
@@ -74,7 +75,38 @@
             </div>
           </div>
       </Row>
-
+<!-- 选择下发机构 -->
+        <Modal
+        :title="L('ZK_Pmedicines_Consumables_Lssue')"
+        :value="selectOrgModalShow"
+        @on-ok="saveLessueOrg"
+        @on-visible-change="visibleSelectLessueOrgChange"
+        :mask-closable="false"
+        >
+          <Form
+              :label-width="110"
+              ref="unitLessueForm"
+          >
+              <Divider orientation="left" size="small">项目信息</Divider>
+              <Row>
+                <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 18, offset: 1 }">
+                    <FormItem :label="L('OrgName')">
+                    <Select
+                      multiple
+                      v-model="orgIds"
+                      filterable
+                  >
+                      <Option v-for="(option, index) in orgList" :value="option.orgId" :key="index">{{option.orgName}}</Option>
+                  </Select>
+                    </FormItem>
+                </Col>
+              </Row>
+          </Form>
+          <div slot="footer">
+              <Button @click="cancelLessueOrg">{{ L('Cancel') }}</Button>
+              <Button @click="saveLessueOrg" type="primary">{{ L('OK') }}</Button>
+          </div>
+        </Modal>
     </Card>
       <createmanufacturer v-model="createModalShow" @save-success="getpage" :data="createManufacturer"></createmanufacturer>
       <editmanufacturer v-model="editModalShow" @save-success="getpage" :manufacturerId="manufacturerId"></editmanufacturer>
@@ -102,6 +134,61 @@ class PageManufacturerRequest extends PageRequest {
    },
 })
 export default class Manufacturer extends AbpBase {
+  orgIds:any =[];
+  unitIds:any=[];
+  //下发弹出框是否显示
+  selectOrgModalShow:boolean=false
+  //创建下发
+  createLessueOrg(){
+    var selectUnitList=(this.$refs.manufacturerTable as any).getSelection()
+    if(selectUnitList==undefined || selectUnitList==null || selectUnitList.length<=0){
+      this.$Message.warning({
+                content: '请选择下发的生产商数据',
+                duration: 3
+      });
+      return;
+    }
+    this.selectOrgModalShow=true;
+    this.unitIds=[];
+    selectUnitList.forEach(element => {
+      this.unitIds.push(element.id);
+    });    
+  }
+  //下发相关内容
+  async getLessue(){
+    await this.$store.dispatch({
+      type: 'lessueOrg/GetLessusOrgList'
+    })
+  }
+  //获取下发的机构列表
+  get orgList(){
+    return this.$store.state.lessueOrg.list
+  }
+  //点击选择机构以后的确定按钮
+  async saveLessueOrg(){
+    this.$store.dispatch({
+      type: 'manufacturer/LessueManufacturer',
+      data: {orgIds:this.orgIds,manufacturerIds:this.unitIds}
+    }).then((response)=>{
+      if(response.data.success){
+        this.$Message.success("下发成功！")
+        this.selectOrgModalShow=false;
+      }
+    })
+    
+  }
+  //取消
+  async cancelLessueOrg(){
+    this.selectOrgModalShow=false;
+  }
+  async visibleSelectLessueOrgChange(value: boolean){
+    if (!value) {
+      this.$emit('input', value)
+    } else {
+      (this.$refs.unitLessueForm as any).resetFields();
+    }
+    this.selectOrgModalShow=value;
+  }
   editClick(id) {
     this.editModalShow = true
     this.manufacturerId=id;
@@ -145,6 +232,8 @@ export default class Manufacturer extends AbpBase {
   TableChange() {}
 
   async getpage() {
+    this.pagerequest.pageSize = this.pageSize
+    this.pagerequest.pageIndex = this.currentPage
     if (this.pagerequest.orgId == undefined) {
       this.pagerequest.orgId = 7990
       this.pagerequest.paramsName = ''
@@ -327,6 +416,7 @@ export default class Manufacturer extends AbpBase {
     this.pagerequest.pageSize = this.pageSize
     this.pagerequest.pageIndex = this.currentPage
     this.getpage()
+    this.getLessue();
   }
 }
 </script>

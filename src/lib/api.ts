@@ -39,6 +39,8 @@ import AiBoKe from '@/api/activity/aiboke'
 
 import UnitApi from '@/api/generalControlModule/unit'
 
+import LessueApi  from '@/api/generalControlModule/lessueorg'
+
 export default {
     BaseApi,
     RoleApi,
@@ -54,5 +56,6 @@ export default {
     ManfacturerApi,
     PProviderApi,
     AiBoKe,
-    UnitApi
+    UnitApi,
+    LessueApi
 }
