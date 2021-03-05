@@ -40,6 +40,9 @@ class OrgListModule extends ListModule<OrgListState,any,OrgList>{
         },
         async editSms(context:ActionContext<OrgListState,any>,payload:any) {
             await api.OrgList.UpdateSMSCount(payload.data)
+        },
+        async editFY(context:ActionContext<OrgListState,any>,payload:any) {
+            await api.OrgList.UpdateOrgMerchnoById(payload.data)
         }
         
     };
