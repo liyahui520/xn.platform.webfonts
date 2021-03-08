@@ -29,6 +29,7 @@ class AiBoKeModule extends ListModule<AiBoKeState,any,AiBoKe>{
         async GetAiBokeAitivity(context:ActionContext<AiBoKeState,any>,payload:any) {
             let respose = await api.AiBoKe.GetAiBokeAitivity(payload); 
             context.state.list=(respose as any).data.result;
+            return (respose as any).data.result;
         },
         /**
          * 获取爱波克活动列表
@@ -40,7 +41,6 @@ class AiBoKeModule extends ListModule<AiBoKeState,any,AiBoKe>{
             context.state.score = (respose as any).data.result.score;
             (respose as any).data.result.products.forEach((v, k) => {
                 v['num'] = 0
-                
             });
             context.state.cardList=(respose as any).data.result.products;
             
@@ -51,11 +51,15 @@ class AiBoKeModule extends ListModule<AiBoKeState,any,AiBoKe>{
          * @param payload 
          */
         async PayActity(context:ActionContext<AiBoKeState,any>,payload:any) {
-           
-            let respose = await api.AiBoKe.PayActity(payload); 
-            var info= (respose as any).data.result;
-            return info;
-            
+            await api.AiBoKe.PayActity(payload); 
+            let respose = await api.AiBoKe.GetAiBokeAitivity(payload); 
+            context.state.list=(respose as any).data.result;
+            let respose1 = await api.AiBoKe.GetProduct(payload);
+            context.state.score = (respose1 as any).data.result.score;
+            (respose1 as any).data.result.products.forEach((v, k) => {
+                v['num'] = 0
+            });
+            context.state.cardList=(respose1 as any).data.result.products;
         },
         /**
        * 获取爱波克列表数据

@@ -16,14 +16,16 @@
         v-model="modal"
         title="积分"
         @on-ok="sureIntegral"
-        @on-cancel="cancelIntegral">
+        @on-cancel="cancelIntegral"
+        @on-visible-change="visibleChange"
+        >
         <div class="card-list">
           <Card class="card-item" v-for="(item, index) in cardList" :key="index">
             <div>
                 <img :src="item.imgUrl" />
                 <p>{{item.name}}</p>
                 <p>产品积分 {{item.score}}</p>
-                <p>使用数量 <Input type="number" @on-blur="getUsePoints" v-model="item.num" style="width: 60px" /></p>
+                <p>使用数量 <Input type="number" min="0" :active-change="false" @on-blur="getUsePoints" v-model="item.num" style="width: 60px" /></p>
             </div>
            </Card>
         </div>
@@ -55,13 +57,19 @@ export default class AiBoKe extends AbpBase {
     size: 'small',
   }
   modal: boolean = false
-  totalUsePoints: Number = 0
+  totalUsePoints: number = 0
   checkIntegral() {
     this.modal = true
+    this.totalUsePoints=0;
+  }
+  visibleChange(value: boolean) {
+    if (!value) {
+      this.$emit('input', value)
+    } else {
+      
+    }
   }
   sureIntegral() {
-    this.modal = false
-    console.log(this.cardList)
     let detalis = []
      this.cardList.forEach((v, k) => {
        if (v.num > 0) {
@@ -71,13 +79,17 @@ export default class AiBoKe extends AbpBase {
          })
        }
      })
-    console.log(detalis)
     let obj = {
       detalis: detalis,
       acatAmount: this.totalUsePoints,
       amount: this.totalUsePoints,
       orgId: this.lowerConvert(this.$route.query).orgid
     }
+    if(obj.acatAmount>this.score){
+      this.$Message.warning("积分不足！")
+      return;
+    }
+    // this.modal = false
     this.PayActity(obj)
 
   }
@@ -88,6 +100,10 @@ export default class AiBoKe extends AbpBase {
     this.totalUsePoints = 0
     this.cardList.forEach((v, k) => {
       v.integral = v.integral - parseInt(v.useIntegral)
+      if(v.num<0)
+      {
+        v.num=0;
+      }
       this.totalUsePoints = this.totalUsePoints + parseInt(v.num) * v.score
     })
   }
@@ -97,18 +113,14 @@ export default class AiBoKe extends AbpBase {
       data: {orgId:id},
     })
   }
-  async PayActity(data){
+  PayActity(data){
     this.$store.dispatch({
       type: 'aiboke/PayActity',
       data: data,
-    }).then((response)=>{
-        
-        console.log(response)
-        
     })
   }
-  async getAiBoKeList(orgId){
-      await this.$store.dispatch({
+  getAiBoKeList(orgId){
+    this.$store.dispatch({
       type: 'aiboke/GetAiBokeAitivity',
       data: {orgId:orgId},
     })
@@ -122,7 +134,8 @@ export default class AiBoKe extends AbpBase {
   get loading() {
     return this.$store.state.aiboke.loading
   }
-    get list() {
+  //list=this.$store.state.aiboke.list;
+  get list() {
     return this.$store.state.aiboke.list
   }
   created() {
@@ -217,6 +230,9 @@ export default class AiBoKe extends AbpBase {
 }
 }
 .modal_content {
+  .html, body{
+  overflow: auto !important;
+}
   .card-list {
     display: flex;
     flex-wrap: wrap;
