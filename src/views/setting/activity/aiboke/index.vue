@@ -9,7 +9,7 @@
     <div class="backgroundImage">
       <!-- <img src="../../../../images/aibokebackground.jpg" width="100%" > -->
       <Table class="tableClass" :loading="loading" :columns="columns" :no-data-text="L('NoDatas')" border :data="list" stripe ></Table>
-      <Button style="margin-top: 30px" type="success" @click="checkIntegral">查看积分记录</Button>
+      <Button style="margin-top: 30px" type="success" @click="checkIntegral">兑换礼品</Button>
       <img src="../../../../images/aibokebottom.png" width="80%" style="margin:10%;">
       <Modal
         class="modal_content"
