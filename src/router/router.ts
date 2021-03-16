@@ -33,14 +33,15 @@ export const loginRouter: Router = {
         title: 'LogIn'
     },
     component: () => import('@/views/login.vue')
-}; 
+};
 export const homeRouter: Router = {
     path: '/home',
     name: 'home',
     meta: {
         title: 'home'
     },
-    component: () => import('@/views/index.vue')};
+    component: () => import('@/views/index.vue')
+};
 export const paymentRouter: Router = {
     path: '/fuyoupay',
     name: 'fuyoupay',
@@ -93,7 +94,7 @@ export const appRouters: Array<Router> = [{
         { path: 'tenant', permission: 'Pages.Tenants', meta: { title: 'Tenants' }, name: 'tenant', component: () => import('@/views/setting/tenant/tenant.vue') }
         // { path: 'hangfre', permission: 'Pages.Tenants', meta: { title: 'hangfre' }, name: 'hangfre', component: () => import('@/views/hangfire/hangfire.vue') }
     ]
-},{
+}, {
     path: '/cmem',
     name: 'cmem',
     permission: '',
@@ -103,7 +104,7 @@ export const appRouters: Array<Router> = [{
     children: [
         { path: 'cmemberscard', permission: 'Pages.Users', meta: { title: 'Users' }, name: 'cmemberscard', component: () => import('@/views/cmemberscard/index.vue') }
     ]
-},{
+}, {
     path: '/zk',
     name: 'zk',
     permission: '',
@@ -117,7 +118,7 @@ export const appRouters: Array<Router> = [{
         { path: 'clean', permission: 'Pages_ZK_Pmedicines_Clean', meta: { title: 'ZK_Pmedicines_Clean' }, name: 'ZK_Pmedicines_Clean', component: () => import('@/views/generalControlModule/clean/clean.vue') }
     ]
 }
-,{
+    , {
     path: '/zkjc',
     name: 'zkjc',
     permission: '',
@@ -128,9 +129,9 @@ export const appRouters: Array<Router> = [{
         { path: 'manufacturer', permission: 'Pages.ZK_JC_Manufacturer', meta: { title: 'ZK_JC_Manufacturer' }, name: 'ZK_JC_Manufacturer', component: () => import('@/views/generalControlModule/basedata/manufacturer/manufacturer.vue') },
         { path: 'pprovider', permission: 'Pages.ZK_JC_PProvider', meta: { title: 'ZK_JC_PProvider' }, name: 'ZK_JC_PProvider', component: () => import('@/views/generalControlModule/basedata/pprovider/pprovider.vue') },
         { path: 'unit', permission: 'Pages.ZK_JC_Unit', meta: { title: 'ZK_JC_Unit' }, name: 'ZK_JC_Unit', component: () => import('@/views/generalControlModule/basedata/unit/unit.vue') },
-   ]
+    ]
 }
-,{
+    , {
     path: '/abk',
     name: 'abk',
     permission: '',
@@ -138,7 +139,19 @@ export const appRouters: Array<Router> = [{
     icon: '&#xe60c;',
     component: main,
     children: [
-        { path: 'abk', permission: 'Pages.AiBoKe',icon: '&#xe60c;', meta: { title: 'AiBoKe' }, name: 'AiBoKe', component: () => import('@/views/setting/activity/aiboke/aiboke.vue') }
+        { path: 'abk', permission: 'Pages.AiBoKe', icon: '&#xe60c;', meta: { title: 'AiBoKe' }, name: 'AiBoKe', component: () => import('@/views/setting/activity/aiboke/aiboke.vue') }
+    ]
+}, {
+    path: '/xndata',
+    name: 'xndata',
+    permission: '',
+    meta: { title: 'XNData' },
+    icon: '&#xe76e;',
+    component: main,
+    children: [
+        { path: 'basicdata', permission: 'Pages.Data.BrushBasicData', meta: { title: 'XNData_BrushBasic' }, name: 'XNData_BrushBasic', component: () => import('@/views/xndata/basicdata/index.vue') },
+        { path: 'pmedicines', permission: 'Pages.Data.SynchronousData', meta: { title: 'XNData_Synchronous' }, name: 'XNData_Synchronous', component: () => import('@/views/xndata/pmedicines/index.vue') },
+        { path: 'wenshu', permission: 'Pages.Data.SynchronousWenshu', meta: { title: 'XNData_WenShu' }, name: 'XNData_WenShu', component: () => import('@/views/xndata/wenshu/index.vue') }
     ]
 }
 ]
@@ -146,8 +159,8 @@ export const routers = [
     loginRouter,
     locking,
     ...appRouters,
-    otherRouters, 
+    otherRouters,
     homeRouter,
-    paymentRouter ,
+    paymentRouter,
     aibokeRouter
 ];
